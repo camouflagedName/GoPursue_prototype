@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  education: MyString
+  pay: MyString
+  environment: MyString
+  description: MyText
+
+two:
+  education: MyString
+  pay: MyString
+  environment: MyString
+  description: MyText
