@@ -1,7 +1,5 @@
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
 
 export default class careerCard extends React.Component {
     constructor(props) {
@@ -29,37 +27,28 @@ export default class careerCard extends React.Component {
 
     changeCareer() {
         let id = Math.floor(Math.random() * 10 + 1);
-        
         const url = `/api/v1/careers/show/${id}`;
 
-        fetch(url).then(response => {
+        fetch(url)
+        .then(response => {
             if (response.ok) {       
                 return response.json();
             }
             throw new Error("Bad network response.");
-            })
-            .then(response => {
-                this.setState({ 
-                    careers: {
-                        title: response.title,
-                        education: response.education,
-                        pay: response.pay,
-                        environment: response.environment,
-                        description: response.description,
-                        image: response.image
+        })
+        .then(response => {
+            this.setState({ 
+                careers: {
+                    title: response.title,
+                    education: response.education,
+                    pay: response.pay,
+                    environment: response.environment,
+                    description: response.description,
+                    image: response.image
                 }   
             })
-
-            }
-                
-
-            );
+        });
     }
-
-    componentDidMount() {
-
-    }
-
 
     render() {
         let iconName = this.state.isToggleOff ? "bi-bookmark" : "bi-bookmark-heart-fill";
