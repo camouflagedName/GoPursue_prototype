@@ -1,5 +1,6 @@
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { API_ROOT } from '../packs/apiRoot';
 
 export default class careerCard extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class careerCard extends React.Component {
 
     changeCareer() {
         let id = Math.floor(Math.random() * 10 + 1);
-        const url = `/api/v1/careers/show/${id}`;
+        const url = `${API_ROOT}/api/v1/careers/show/${id}`;
 
         fetch(url)
         .then(response => {
