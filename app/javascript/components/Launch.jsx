@@ -18,7 +18,7 @@ export default () => (
 
                 </div>
                 <hr/>
-                <Link to="/careerCard">
+                <Link to="/home">
                     <button type='button' className='btn btn-lg btn-success'>Let's get started!</button>
                 </Link>
             </div>

@@ -1,10 +1,7 @@
 class Api::V1::CareersController < ApplicationController
   def index
-    careerInfo = Career.all.order
+    career = Career.all.order(created_at: :desc)
     render json: career
-  end
-
-  def create
   end
 
   def show
@@ -13,9 +10,6 @@ class Api::V1::CareersController < ApplicationController
     else
       render json: career.errors    
     end
-  end
-
-  def destroy
   end
 
   def career

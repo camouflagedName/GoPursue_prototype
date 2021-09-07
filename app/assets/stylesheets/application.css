@@ -17,3 +17,8 @@
 .bi {
     font-size: 2rem;
 }
+
+#careerCardImg {
+    object-fit: cover;
+}
+
