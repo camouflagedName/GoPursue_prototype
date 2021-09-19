@@ -7,6 +7,7 @@ class CreateCareers < ActiveRecord::Migration[6.1]
       t.text :environment, null: false
       t.text :description, null: false
       t.text :image, null: false
+      t.text :bookmark, null: false
 
       t.timestamps
     end

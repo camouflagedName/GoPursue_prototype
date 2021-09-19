@@ -1,16 +1,15 @@
 import React from 'react';
 import { API_ROOT } from '../../packs/apiRoot';
 import Footer from '../Footer';
+import { Link } from 'react-router-dom';
 
 export default class Launch extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            isToggleOff: true,
             careers: []
         };
     }
-
 
     componentDidMount() {
         const url = `${API_ROOT}/api/v1/careers/index`;
@@ -23,39 +22,51 @@ export default class Launch extends React.Component {
             throw new Error("Bad network response.");
         })
         .then(response => {
-
-            this.setState({ 
-                careers: response
-            })
-
-            
+            this.setState({ careers: response })
         });
         
     }
 
     render() {
-        let careerData = this.state.careers;
-        console.log(this.state.careers[1]);
-
+        const {careers} = this.state;
+        const eachCareer = careers.map((career) =>(
+            (() => {
+                if(career.bookmark==="true"){
+                    return <Link className='text-decoration-none text-dark'
+                        to={{
+                            pathname: "/careerCard",
+                            state: {
+                                id: career.id,
+                                title: career.title,
+                                education: career.education,
+                                pay: career.pay,
+                                environment: career.environment,
+                                description: career.description,
+                                image: career.image,
+                                bookmark: career.bookmark
+                            }
+                        }}>
+                        <div className='offset-3 mb-4'>
+                            <div className="card w-75 text-center">
+                                <img src={require(`../../../assets/images/${career.image}`)} className="card-img-top" alt={`Picture of ${career.image}`}/>
+                                <div className='card-body'>
+                                    <p className='card-title fs-4'>{career.title}</p>
+                                </div>
+                            </div>  
+                        </div>
+                    </Link>
+                }})()            
+        ));
         return (
             <>
                 <div className="container">
                     <div className="row">
-                        <h1 className="text-center">For You  |  Bookmarks</h1>
+                        <h3 className="text-center">Your Bookmarks</h3>
                     </div>
                     <div className="row">
-
+                        {eachCareer}
                     </div>
-                    <div className="card border-0">
-                        <div className="mt-auto">
-                        </div>
-                        <div className="card-header border-0 bg-transparent">
-                            <h5 className="card-title">{this.state.careers.title}</h5>
-                        </div>
-                    </div>
-
                         <Footer />
-
                 </div>
             </>    
         );

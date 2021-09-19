@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get 'careers/index'
+      get 'careers/index', to: 'careers#index'
       post 'careers/create'
       get 'careers/show/:id', to: 'careers#show'
       delete 'careers/destroy/:id', to: 'careers#destroy'
+      put 'careers/update/:id', to: 'careers#update'
     end
   end
   root 'homepage#index'

@@ -12,7 +12,24 @@ class Api::V1::CareersController < ApplicationController
     end
   end
 
+  def update
+    if career
+      puts bookmark_param
+      career.update!(bookmark_param)
+      render json: career
+    else
+      render json: career.errors
+    end
+  end
+
+      
+
   def career
     @career ||= Career.find(params[:id])
+  end
+
+  private
+  def bookmark_param
+    params.permit(:id, :bookmark)
   end
 end
