@@ -38,10 +38,13 @@ export default class Launch extends React.Component {
                             state: {
                                 id: career.id,
                                 title: career.title,
+                                name: career.name,
+                                favorite: career.favorite,
+                                skills: career.skills,
+                                advice: career.advice,
                                 education: career.education,
                                 pay: career.pay,
                                 environment: career.environment,
-                                description: career.description,
                                 image: career.image,
                                 bookmark: career.bookmark
                             }

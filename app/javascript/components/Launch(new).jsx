@@ -12,15 +12,26 @@ export default () => (
                         </svg>
                     </div>
                     <div className="col-10">
-                        <h1 className='display-4 mb-0'>GoPursue!</h1>
+                        <h1 className='display-4 mb-0'>goPursue</h1>
                         <p className='lead mb-0'>reimagine career exploration</p>
                     </div>
 
                 </div>
                 <hr/>
-                <Link to="/home">
-                    <button type='button' className='btn btn-lg btn-success'>Let's get started!</button>
-                </Link>
+                <div className="container">
+                    <div className='row mb-4'>
+                        <Link to="/home">
+                            <button type='button' className='btn btn-lg btn-success'>Returning User</button>
+                        </Link> 
+                    </div>
+                    <div className='row mt-4'>
+                        <Link to="/newUser">
+                            <button type='button' className='btn btn-lg btn-success'>New User</button>
+                        </Link>
+                    </div>
+                </div>
+            
+
             </div>
         </div>
     </div>

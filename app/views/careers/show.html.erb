@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @career.title %>
+</p>
+
+<p>
+  <strong>Favorite:</strong>
+  <%= @career.favorite %>
+</p>
+
+<p>
+  <strong>Skills:</strong>
+  <%= @career.skills %>
+</p>
+
+<p>
+  <strong>Advice:</strong>
+  <%= @career.advice %>
+</p>
+
+<p>
+  <strong>Education:</strong>
+  <%= @career.education %>
+</p>
+
+<p>
+  <strong>Pay:</strong>
+  <%= @career.pay %>
+</p>
+
+<p>
+  <strong>Environment:</strong>
+  <%= @career.environment %>
+</p>
+
+<p>
+  <strong>Bookmark:</strong>
+  <%= @career.bookmark %>
+</p>
+
+<p>
+  <strong>Hashtag:</strong>
+  <%= @career.hashtag %>
+</p>
+
+<%= link_to 'Edit', edit_career_path(@career) %> |
+<%= link_to 'Back', careers_path %>

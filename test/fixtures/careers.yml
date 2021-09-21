@@ -1,13 +1,27 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  education: MyString
-  pay: MyString
-  environment: MyString
-  description: MyText
+  title: MyText
+  name: MyText
+  favorite: MyText
+  skills: MyText
+  advice: MyText
+  education: MyText
+  pay: MyText
+  environment: MyText
+  bookmark: MyText
+  hashtag: MyText
+  image: MyText
 
 two:
-  education: MyString
-  pay: MyString
-  environment: MyString
-  description: MyText
+  title: MyText
+  name: MyText
+  favorite: MyText
+  skills: MyText
+  advice: MyText
+  education: MyText
+  pay: MyText
+  environment: MyText
+  bookmark: MyText
+  hashtag: MyText
+  image: MyText

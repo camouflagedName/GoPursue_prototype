@@ -10,10 +10,13 @@ export default class careerCard extends React.Component {
         this.state = { 
             id: props.location.state ? props.location.state.id : '',
             title: props.location.state ? props.location.state.title : 'Lab Technician',
+            name: props.location.state ? props.location.state.name : 'Eileen',
+            favorite: props.location.state ? props.location.state.favorite : 'I get to eat all the ice cream I want.',
+            skills: props.location.state ? props.location.state.skills : 'Techy stuff',
+            advice: props.location.state ? props.location.state.advice : 'YOLO',
             education: props.location.state ? props.location.state.education : 'Bachelors Degree',
             pay: props.location.state ? props.location.state.pay : '61K - 90K',
             environment: props.location.state ? props.location.state.environment : 'lab/office',
-            description: props.location.state ? props.location.state.description : 'I work with a few close teammates everyday',
             image: props.location.state? props.location.state.image : 'labTech.jpg',
             bookmark: props.location.state ? props.location.state.bookmark : 'false'   //false means the bookmark icon has not been selected
         };
@@ -64,10 +67,13 @@ export default class careerCard extends React.Component {
             this.setState({ 
                 id: response.id,
                 title: response.title,
+                name: response.name,
+                favorite: response.favorite,
+                skills: response.skills,
+                advice: response.advice,
                 education: response.education,
                 pay: response.pay,
                 environment: response.environment,
-                description: response.description,
                 image: response.image,
                 bookmark: response.bookmark
             })
@@ -103,14 +109,16 @@ export default class careerCard extends React.Component {
                         </p>
                     </div>
                     <div className="card-body">
+                        <p className="fw-bold mb-0">Skills:</p>
+                        <p className="mt-0">{this.state.skills}</p>
+                        <p className="fw-bold mb-0">Advice:</p>
+                        <p className="mt-0">{this.state.advice}</p>
                         <p className="fw-bold mb-0">Education:</p>
                         <p className="mt-0">{this.state.education}</p>
                         <p className="fw-bold mb-0">Average Pay:</p>
                         <p>{this.state.pay}</p>
                         <p className="fw-bold mb-0">Work environment:</p>
                         <p>{this.state.environment}</p>
-                        <p className="fw-bold mb-0">Quick Fact:</p>
-                        <p>{this.state.description}</p>
                         <div className="d-flex col-6 mx-auto justify-content-center">
                             <button onClick={this.changeCareer} className="btn btn-primary btn-lg">Surprise Me!</button>
                         </div>
