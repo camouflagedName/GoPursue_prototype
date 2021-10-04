@@ -9,9 +9,9 @@ class CreateCareers < ActiveRecord::Migration[6.1]
       t.text :education
       t.text :pay
       t.text :environment
-      t.text :bookmark
-      t.text :hashtag
+      t.text :hashtag, array: true, default: []
       t.text :image
+      t.boolean :bookmark
 
       t.timestamps
     end

@@ -1,46 +1,132 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { API_ROOT } from '../../packs/apiRoot';
+import Name from './Name';
+import Age from './Age';
+import Password from './Password';
 
 export default class NewUser extends React.Component {  
     constructor(props) {
         super(props);
         this.state = {
-            header: 'My preferred name is',
+            header: 'name',
             input: '',
             name: '',
-            age: ''
+            age: '',
+            password: '',
+            password_confirmation: '',
+            id: '',
+            link: ''
         };
         this.changeHeader = this.changeHeader.bind(this);
+        //this.changeHeaderBack = this.changeHeaderBack.bind(this);
         this.inputChange = this.inputChange.bind(this);
+        this.setName = this.setName.bind(this);
+        this.setAge = this.setAge.bind(this);
+        this.createPassword = this.createPassword.bind(this);
     }
 
     changeHeader(){
         switch (this.state.header) {
-            case 'My preferred name is':
-                this.setState({ header: 'My age is', input: '' });
+            case 'name':
+                return(<Name header={this.changeHeader} input={this.inputChange} value={this.state.input} setState={this.setName} createPassword={this.createPassword} />);
+            case 'age':
+                return(<Age header={this.changeHeader} input={this.inputChange} value={this.state.input} setState={this.setAge} />);
+            case 'interests':
+                
                 break;
-            case 'My age is':
-                this.setState({ header: 'I am interested in', input: ''});
-                break;
-            case 'I am interested in':
-                this.setState({ input: ''});
-                alert('Age: ' + this.state.age + ' | Name: ' + this.state.name);
+            case 'password':
+                return(<Password value={this.state.password} addUser={this.addUser.bind(this)} />);
         }
     }
 
-    inputChange(event){
-        let input = event.target.value;
+    createPassword(){
+        let nounArray = ['aardvark', 'flamingo', 'wolverine', 'squid', 'turtle', 'unicorn', 'kumquat', 'beagle', 'platypus', 'alpaca', 'opossum', 'beehives', 'noodles', 'waffle', 'tapioca', 'pineapple', 'bacon', 'bagel', 'potato', 'pickle', 'rutabaga', 'watermelon', 'cheesecake', 'banana', 'pork', 'muffin', 'papaya', 'custard', 'spatula', 'aglet', 'shishcabob', 'jukebox', 'leotard', 'deltoid'],
+            adjArray = ['sizzling', 'hiccuping', 'spelunking', 'booming', 'waddling', 'bumbling', 'grappling', 'surfing', 'coddling', 'dazzling', 'adoring', 'pickling', 'flossing', 'babbling', 'tickling', 'maniacal', 'copious', 'tart', 'bodacious', 'frilly', 'psychedelic', 'husky', 'quirky', 'funky', 'ritzy', 'explosive'];
+        let nounNum = Math.floor(Math.random() * nounArray.length);
+        let adjNum = Math.floor(Math.random() * adjArray.length);
+        let noun = nounArray[nounNum];
+        let adj = adjArray[adjNum];
+        const password = adj + ' ' + noun;
+        this.setState( { password: password })
+    }
+
+    setName(newHeader, newName){
+        this.setState( {header: newHeader, input: '', name: newName});
+    }
+
+    setAge(newHeader, newAge){
+        this.setState( {header: newHeader, input: '', age: newAge});
+    }
+
+    addUser(){
+        const url = `${API_ROOT}/api/v1/users/create`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify( {
+                user: {
+                    name: this.state.name,
+                    age: this.state.age,
+                    password: this.state.password,
+                    password_confirmation: this.state.password
+                }
+            })
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            throw new Error("Bad network response.");
+        })
+        .then(response => {
+            localStorage.setItem('userID', response.id);
+            localStorage.setItem('user', response.name);
+            this.props.history.push({
+                pathname: "/search",
+                state: {
+                    name: response.name,
+                    id: response.id,
+                    password: response.password
+                }
+            })
+        })
+        .catch(error => console.log(error.message));
+    }
+
+  /*  changeHeaderBack(){
         switch (this.state.header) {
             case 'My preferred name is':
-                this.setState({ name: input, input: input });
+                this.setState({ input: '' });
                 break;
             case 'My age is':
-                this.setState({ age: input, input: input });
+                this.setState({ 
+                    header: 'My preferred name is', 
+                    input: '',
+                });
                 break;
             case 'I am interested in':
+                this.setState({ header:  'My age is', input: ''});
+        }
+    }*/
+
+    inputChange(event){
+        let input = event;
+        switch (this.state.header) {
+            case 'name':
+                this.setState({ name: input, input: input });
+                break;
+            case 'age':
+                this.setState({ age: input, input: input });
+                break;
+            case 'interests':
+                this.setState({ age: input, input: input });
+                break;
         }
     }
-
 
     render()  {
         return(
@@ -49,16 +135,9 @@ export default class NewUser extends React.Component {
                     <div className='container secondary-color'>
                         <div className="d-flex row">
                             <div className="col-12">
-                                <h1 className='display-4 mb-4'>{this.state.header}</h1>
-                                <form className='needs-validation' novalidate>
-                                    <input className='mb-4 form-control' type="text" id="newUser" value={this.state.input} onChange={this.inputChange} required></input>
-                                    <div className='invalid-feedback'>
-                                        Input required.
-                                    </div>
-                                </form>
+                                {this.changeHeader(this.state.header)}
                             </div>
-                        </div>
-                            <button type='button' className='btn btn-lg btn-success' onClick={this.changeHeader}>Next</button>
+                        </div>   
                     </div>
                 </div>
             </div>

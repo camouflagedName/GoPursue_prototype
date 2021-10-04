@@ -1,8 +1,13 @@
 class Career < ApplicationRecord
-    validates :title, :name, :favorite, :skills, :advice, :education, :pay, :environment, :image, presence: true
-    validates :title, uniqueness: true
-    validates :image, allow_blank: true, format: {
-        with: %r{\.(gif|jpg|jpeg|png)\z}i,
-        message: 'Must be a GIF, JPG, or PNG image.'
-    }
+    validates :title, presence: true
+    validates :name, presence: true
+    validates :favorite, presence: true
+    validates :skills, presence: true
+    validates :advice, presence: true
+    validates :education, presence: true
+    validates :pay, presence: true
+    validates :environment, presence: true
+    validates :hashtag, presence: true
+    validates :image, presence: true
+
 end

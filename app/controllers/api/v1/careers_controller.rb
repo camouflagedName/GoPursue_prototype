@@ -14,7 +14,6 @@ class Api::V1::CareersController < ApplicationController
 
   def update
     if career
-      puts bookmark_param
       career.update!(bookmark_param)
       render json: career
     else
@@ -22,6 +21,24 @@ class Api::V1::CareersController < ApplicationController
     end
   end
 
+  def find
+    if params[:term]
+      hashtag = Career.where("hashtag && Array[?]", params[:term])
+      if hashtag.empty?
+        response = "No careers match that keyword. Try again."    
+        puts response
+        render json: response
+      else
+        puts json: hashtag
+        render json: hashtag 
+      end
+    else
+      render json: {
+        status: 401,
+        error: ['There was a search error.'],
+      }
+    end
+  end
       
 
   def career
@@ -31,5 +48,9 @@ class Api::V1::CareersController < ApplicationController
   private
   def bookmark_param
     params.permit(:id, :bookmark)
+  end
+
+  def hashtag_param
+    params.permit(:hashtag)
   end
 end

@@ -15,12 +15,11 @@ export default () => (
                         <h1 className='display-4 mb-0'>goPursue</h1>
                         <p className='lead mb-0'>reimagine career exploration</p>
                     </div>
-
                 </div>
                 <hr/>
                 <div className="container">
                     <div className='row mb-4'>
-                        <Link to="/home">
+                        <Link to="/returnUser">
                             <button type='button' className='btn btn-lg btn-success'>Returning User</button>
                         </Link> 
                     </div>
