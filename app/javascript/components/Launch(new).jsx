@@ -29,8 +29,6 @@ export default () => (
                         </Link>
                     </div>
                 </div>
-            
-
             </div>
         </div>
     </div>

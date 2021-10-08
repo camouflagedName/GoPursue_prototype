@@ -25,7 +25,7 @@ class Api::V1::CareersController < ApplicationController
     if params[:term]
       hashtag = Career.where("hashtag && Array[?]", params[:term])
       if hashtag.empty?
-        response = "No careers match that keyword. Try again."    
+        response = ["No careers match that keyword. Try again."]    
         puts response
         render json: response
       else

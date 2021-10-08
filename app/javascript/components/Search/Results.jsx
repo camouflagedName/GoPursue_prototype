@@ -23,7 +23,7 @@ export class Results extends React.Component {
         {    
             let bookmarkState = this.props.user.includes(career.id.toString()) ? true : false;
             return (
-                <div key={index} className="col-6">
+                <div key={index} className="col-6 offset-3">
                     <Link 
                         key={index}
                         className='text-decoration-none text-dark'

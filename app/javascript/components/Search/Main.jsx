@@ -42,7 +42,7 @@ export default class Main extends React.Component {
                                 <button onClick={this.changeToBookmark} className={`btn btn-link text-decoration-none link-dark ${this.state.bookmarkClass}`}><h3 className="text-center">Bookmarks</h3></button>   
                             </div>               
                         </div>
-                        { this.state.title === 'bookmark' ? <Bookmarks /> : <Search search={this.state.careerMatch} /> } 
+                        { this.state.title === 'bookmark' ? <Bookmarks /> : <Search search={this.state.careerMatch} history={this.props.history}/> } 
                         <Footer />
                     </div>
                 </div>

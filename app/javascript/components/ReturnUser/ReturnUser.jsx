@@ -10,15 +10,28 @@ export default class ReturnUser extends React.Component {
             username: '',
             password: '',
             users: [], 
-            isLoggedIn: 'false'
+            isLoggedIn: 'false',
+            inputType: "password",
+            usernameError: '',
+            passwordError: ''
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleName = this.handleName.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
+        this.showPassword = this.showPassword.bind(this);
+        this.handleEnterKey = this.handleEnterKey.bind(this);
     }
 
-    handleSubmit() {
+    handleEnterKey(event) {
+        if(event.keyCode == 13) {
+            this.handleSubmit();
+        }
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
         const url = `${API_ROOT}/api/v1/sessions/login`;
         if(this.state.username && this.state.password) {
             fetch(url, {
@@ -36,18 +49,25 @@ export default class ReturnUser extends React.Component {
                 if(response.ok) {
                     return response.json();
                 }
-                this.setState({ errorMessage: response.error });
+                this.setState({ errorMessage: "Backend error: could not connect to controller. Please report this to system administrator." });
             })
             .then(user => {
                 if(user.logged_in){
                     this.setState( {isLoggedIn: 'true'});
-                    console.log(user);
                     localStorage.setItem('userID', user.user.id);
                     localStorage.setItem('user', user.user.name);
                     localStorage.setItem('userBookmarks', user.user.bookmark);
                     this.props.history.push({ pathname: '/careercard' })
                 }
+                this.setState({ errorMessage: user.error[0]})
             });
+        }
+        if(this.state.username == '') {
+            this.setState({ usernameError: "Please enter a username."})
+        }
+
+        if(this.state.password == '') {
+            this.setState({ passwordError: "Please enter a password."})
         }
     }
 
@@ -57,6 +77,11 @@ export default class ReturnUser extends React.Component {
 
     handlePassword(event) {
         this.setState( {password: event.target.value} );
+    }
+
+    showPassword() {
+        let inputType = this.state.inputType === "password" ? "text" : "password";
+        this.setState({ inputType: inputType });
     }
 
     render() {
@@ -78,33 +103,33 @@ export default class ReturnUser extends React.Component {
                         <hr/>
                         <div className="container">
                             <div className='row mb-4'>
-                                <label className='form-label'>Name</label>
-                                <input className='mb-4 form-control' type="text" value={this.props.value} onChange={this.handleName} required></input>
-                                <div className='invalid-feedback'>
-                                    Input required.
-                                </div>
-                                <label className='form-label'>Password</label>
-                                <input className='mb-2 form-control' type="password" value={this.props.value} onChange={this.handlePassword} required></input>
-                                <div className='invalid-feedback'>
-                                    Input required.
-                                </div>
-                                <form>
-                                    <input type="checkbox" id='passwordCheckbox'/>
-                                    <label htmlFor='passwordCheckbox'> Show Password</label>
+                                <form onSubmit={this.handleSubmit}>
+                                    <label className='form-label'>Name</label>
+                                    <input className='mb-4 form-control' type="text" value={this.props.value} onChange={this.handleName} onKeyUp={this.handleEnterKey} required></input>
+                                    <div className='invalid-feedback'>
+                                        {this.state.usernameError}
+                                    </div>
+                                    <label className='form-label'>Password</label>
+                                    <input className='mb-2 form-control' type={this.state.inputType} value={this.props.value} onChange={this.handlePassword} onKeyUp={this.handleEnterKey} required></input>
+                                    <div className='invalid-feedback'>
+                                        {this.state.passwordError}
+                                    </div>
+                                    <div>
+                                        <p className='mt-0 text-danger'>{this.state.errorMessage}</p>
+                                    </div>
+                                    <input type="checkbox" id='passwordCheckbox' className="me-1" onChange={this.showPassword}/>
+                                    <label htmlFor='passwordCheckbox'>Show Password</label>
+                                    <div className="container">
+                                        <div className='row mt-5'>
+                                            <input type='submit' className='btn btn-lg btn-success' value="Enter"/>
+                                        </div>
+                                        <div className='row mt-4'>
+                                            <Link to="/">
+                                                <button type='button' className='btn btn-lg btn-success'>Cancel</button>
+                                            </Link>
+                                        </div>
+                                    </div>  
                                 </form>
-                                <div>
-                                    <p className='mt-0 text-danger'>{this.state.errorMessage}</p>
-                                </div>
-                                <div className="container">
-                                    <div className='row mt-5'>
-                                        <button type='submit' className='btn btn-lg btn-success' onClick={this.handleSubmit}>Enter</button>
-                                    </div>
-                                    <div className='row mt-4'>
-                                        <Link to="/">
-                                            <button type='button' className='btn btn-lg btn-success'>Cancel</button>
-                                        </Link>
-                                    </div>
-                                </div>     
                             </div>
                         </div>
                     </div>

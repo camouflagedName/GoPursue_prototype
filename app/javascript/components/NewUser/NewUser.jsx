@@ -58,7 +58,8 @@ export default class NewUser extends React.Component {
         this.setState( {header: newHeader, input: '', age: newAge});
     }
 
-    addUser(){
+    addUser(event){
+        event.preventDefault();
         const url = `${API_ROOT}/api/v1/users/create`;
         
         fetch(url, {
