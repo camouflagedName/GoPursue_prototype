@@ -20,7 +20,7 @@ module UncoverEdu
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://www.gopursuecareer.com'
+        origins '*'
         resource '*', 
           :headers => :any, 
           :methods => [:get, :post, :delete, :put, :options]
