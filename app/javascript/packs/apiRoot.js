@@ -1,4 +1,4 @@
 const devURL = '';
-const prodURL = 'https://uncover-edu.herokuapp.com';
+const prodURL = 'http://gopursuecareer.com';
 
 export const API_ROOT = process.env.NODE_ENV === 'development' ? devURL : prodURL;
