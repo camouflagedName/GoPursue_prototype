@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
 import { Results } from './Results';
 import { SurpriseMeButton } from './SurpriseMeButton';
+import { timers } from 'jquery';
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -13,13 +14,15 @@ export default class Search extends React.Component {
             bookmarks: [],
             careerMatch: this.props.search ? this.props.search : [],
             searchError: '',
-            searchTerm: ''
+            searchTerm: this.props.term ? this.props.term : ''
         };
         this.search = this.search.bind(this);
     }
 
     search(term) {
-
+        if(this.props.search) {
+            term = this.props.search;
+        }
         
         if(term != "") {
             this.setState({ searchTerm: term });

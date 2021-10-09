@@ -159,7 +159,6 @@ export default class CareerCard extends React.Component {
         }
 
         if(this.state.id) {
-            console.log(this.state.pay);
             let iconName = this.state.bookmark === false ? "bi-bookmark" : "bi-bookmark-heart-fill",
                 toolTip = this.state.bookmark === false ? "Bookmark removed!" : "Bookmark added!",
                 careerData = this.state,

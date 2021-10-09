@@ -35,7 +35,8 @@ export class Hashtags extends React.Component {
             this.props.route.push({
                 pathname: "/search",
                 state: {
-                    career: response
+                    career: response,
+                    term: term
                 }
             })
 

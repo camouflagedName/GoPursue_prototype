@@ -12,7 +12,6 @@ export class Pay extends React.Component {
     }
 
     insertPay(pay) {
-        console.log(pay);
         switch(pay) {
             case "$1K - 30K":
                 return <><i className="bi bi-currency-dollar pay"></i><i className="bi bi-currency-dollar pay text-muted"></i><i className="bi bi-currency-dollar pay text-muted"></i><i className="bi bi-currency-dollar pay text-muted"></i><i className="bi bi-currency-dollar pay text-muted"></i><i className="bi bi-currency-dollar pay text-muted"></i></>;
