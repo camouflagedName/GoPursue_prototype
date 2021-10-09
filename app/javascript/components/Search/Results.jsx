@@ -47,7 +47,7 @@ export class Results extends React.Component {
                         }}>
                         <div key={index} className='mb-4 mt-5'>
                             <div className="card text-center">
-                                <img className="card-img-top" src={require(`../../../assets/images/professionals/${career.image}`)} alt={`Picture of ${career.image}`}/>
+                                <img className="card-img-top" src={require(`../../../assets/images/professionals/${career.image}`)} alt={`Picture for career ${career.title}`}/>
                                 <div className='card-body'>
                                     <p className='card-title'>{career.title}</p>
                                 </div>

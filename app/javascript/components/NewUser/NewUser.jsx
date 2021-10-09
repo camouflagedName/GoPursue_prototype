@@ -87,7 +87,7 @@ export default class NewUser extends React.Component {
             localStorage.setItem('userID', response.id);
             localStorage.setItem('user', response.name);
             this.props.history.push({
-                pathname: "/search",
+                pathname: "/careercard",
                 state: {
                     name: response.name,
                     id: response.id,

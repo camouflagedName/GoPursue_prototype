@@ -20,7 +20,7 @@ export default class Search extends React.Component {
     }
 
     search(term) {
-        if(this.props.search) {
+        if(this.props.search != '') {
             term = this.props.search;
         }
         

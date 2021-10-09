@@ -158,15 +158,17 @@ export default class CareerCard extends React.Component {
             return <></>
         }
 
-        if(this.state.id) {
+        if(this.state.id != '') {
             let iconName = this.state.bookmark === false ? "bi-bookmark" : "bi-bookmark-heart-fill",
                 toolTip = this.state.bookmark === false ? "Bookmark removed!" : "Bookmark added!",
                 careerData = this.state,
-                regex = /,(?![^(]*\))/;
+                regex = /,(?![^(]*\))/,
+                count = 0;
             const skillsNeeded = this.state.skills.split(regex);   
 
             const skillList = skillsNeeded.map((skill) => {
-                return (<li>{skill}</li>)
+                count ++;
+                return (<li key={count}>{skill}</li>)
             });
     
             return (

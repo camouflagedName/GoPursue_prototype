@@ -13,7 +13,8 @@ export default class ReturnUser extends React.Component {
             isLoggedIn: 'false',
             inputType: "password",
             usernameError: '',
-            passwordError: ''
+            passwordError: '',
+            isMounted: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,13 +26,13 @@ export default class ReturnUser extends React.Component {
 
     handleEnterKey(event) {
         if(event.keyCode == 13) {
-            this.handleSubmit();
+            this.handleSubmit(event);
         }
     }
 
     handleSubmit(event) {
+        this.setState({ isMounted: true });
         event.preventDefault();
-
         const url = `${API_ROOT}/api/v1/sessions/login`;
         if(this.state.username && this.state.password) {
             fetch(url, {
@@ -52,14 +53,18 @@ export default class ReturnUser extends React.Component {
                 this.setState({ errorMessage: "Backend error: could not connect to controller. Please report this to system administrator." });
             })
             .then(user => {
-                if(user.logged_in){
-                    this.setState( {isLoggedIn: 'true'});
-                    localStorage.setItem('userID', user.user.id);
-                    localStorage.setItem('user', user.user.name);
-                    localStorage.setItem('userBookmarks', user.user.bookmark);
-                    this.props.history.push({ pathname: '/careercard' })
+                if(this.state.isMounted) {
+                    if(user.logged_in){
+                        this.setState( {isLoggedIn: 'true'});
+                        localStorage.setItem('userID', user.user.id);
+                        localStorage.setItem('user', user.user.name);
+                        localStorage.setItem('userBookmarks', user.user.bookmark);
+                        this.props.history.push({ pathname: '/careercard' })
+                    }
+                    else {
+                        this.setState({ errorMessage: user.error[0]})
+                    }
                 }
-                this.setState({ errorMessage: user.error[0]})
             });
         }
         if(this.state.username == '') {
@@ -82,6 +87,10 @@ export default class ReturnUser extends React.Component {
     showPassword() {
         let inputType = this.state.inputType === "password" ? "text" : "password";
         this.setState({ inputType: inputType });
+    }
+
+    componentWillUnmount() {
+        this.setState({ isMounted: false });
     }
 
     render() {
