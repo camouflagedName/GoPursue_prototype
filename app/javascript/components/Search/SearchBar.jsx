@@ -8,14 +8,14 @@ export class SearchBar extends React.Component {
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleEnterKey = this.handleEnterKey.bind(this);
-
     }
+    
     handleInput(event) {
-        this.setState({ search: event.target.value })
+        this.setState({ search: event.target.value });
     }
 
     handleSubmit() {
-        this.props.search(this.state.search)
+        this.props.search(this.state.search);
     }
 
     handleEnterKey(event) {

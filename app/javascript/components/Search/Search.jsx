@@ -12,13 +12,18 @@ export default class Search extends React.Component {
             userID: localStorage.getItem('userID'),
             bookmarks: [],
             careerMatch: this.props.search ? this.props.search : [],
-            searchError: ''
+            searchError: '',
+            searchTerm: ''
         };
         this.search = this.search.bind(this);
     }
 
     search(term) {
+
+        
         if(term != "") {
+            this.setState({ searchTerm: term });
+
             const url = `${API_ROOT}/api/v1/careers/find`;
             fetch(url, {
                 method: 'POST',
@@ -37,20 +42,18 @@ export default class Search extends React.Component {
                 throw new Error("Career Database: Bad network response.");
             })
             .then(json => { 
-                if(json[0] ==="No careers match that keyword. Try again."){
-                    this.setState({ searchError: 'No results found.', careerMatch: []});
+                if(json[0] ==="Error."){
+                    this.setState({ searchError: `No results found for ${term}. Try another word.`, careerMatch: []});
                     return;
                 }
                 else {
                     this.setState({ careerMatch: json, searchError: '' });
                 }
-
             });
         }
         else {
             this.setState({ searchError: "Enter a keyword before proceeding."});
         }
-
     }
 
    componentDidMount() {
@@ -74,11 +77,11 @@ export default class Search extends React.Component {
                     <SearchBar search={this.search}/>
                     <p className="mt-0 offset-1 text-primary">{this.state.searchError}</p>
                 </div>
-                <div className="row mt-3 offset-4 col-4">
+                <div className="row mt-3 offset-3 col-6">
                     <SurpriseMeButton search={this.search} history={this.props.history}/>
                 </div>
                 <div className="card-body">
-                    {this.state.careerMatch.length >0 ? <Results results={this.state.careerMatch} user={this.state.bookmarks}/> : <div className="card-body"><h4 className="mt-5 mb-5">Careers will appear here.</h4></div>}
+                    {this.state.careerMatch.length > 0 ? <Results results={this.state.careerMatch} user={this.state.bookmarks} term={this.state.searchTerm}/> : <div className="card-body"><h4 className="mt-5 mb-5">Careers will appear here.</h4></div>}
                 </div>
             </>    
         );

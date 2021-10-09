@@ -67,7 +67,7 @@ export default class Bookmarks extends React.Component {
                             }}>
                             <div key={index} className='offset-3 mb-4'>
                                 <div className="card w-75 text-center">
-                                    <img src={require(`../../../assets/images/${career.image}`)} className="card-img-top" alt={`Picture of ${career.image}`}/>
+                                    <img src={require(`../../../assets/images/professionals/${career.image}`)} className="card-img-top" alt={`Picture of ${career.image}`}/>
                                     <div className='card-body'>
                                         <p className='card-title fs-4'>{career.title}</p>
                                     </div>

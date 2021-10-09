@@ -47,7 +47,7 @@ export class Results extends React.Component {
                         }}>
                         <div key={index} className='mb-4 mt-5'>
                             <div className="card text-center">
-                                <img className="card-img-top" src={require(`../../../assets/images/${career.image}`)} alt={`Picture of ${career.image}`}/>
+                                <img className="card-img-top" src={require(`../../../assets/images/professionals/${career.image}`)} alt={`Picture of ${career.image}`}/>
                                 <div className='card-body'>
                                     <p className='card-title'>{career.title}</p>
                                 </div>
@@ -65,9 +65,11 @@ export class Results extends React.Component {
             </div>
         );
         return (
-            <>
+            <div className="mt-5">
+                <h4 className="text-center">Displaying careers that match <span className="text-primary">{this.props.term}</span>:</h4>
+                <hr/>
                 {this.props.results ? results : noResults}
-            </>
+            </div>
         )
     }
 }

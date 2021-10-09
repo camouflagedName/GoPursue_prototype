@@ -96,7 +96,7 @@ export class SurpriseMeButton extends React.Component {
 
     render() {
         return (
-            <button onClick={this.changeCareer} className="btn btn-primary btn-md me-1">
+            <button onClick={this.changeCareer} className="btn btn-primary btn-lg me-1">
                 Surprise Me!
             </button>
         )

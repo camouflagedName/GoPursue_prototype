@@ -22,15 +22,17 @@ class Api::V1::CareersController < ApplicationController
   end
 
   def find
+    param_term = params[:term].to_str
     if params[:term]
       hashtag = Career.where("hashtag && Array[?]", params[:term])
-      if hashtag.empty?
-        response = ["No careers match that keyword. Try again."]    
-        puts response
+      partial = Career.where("hashtag::text LIKE ?", "%#{param_term}%")
+      if partial.empty?
+        response = ["Error."]    
+        puts "No words were found to match #{param_term}"
         render json: response
       else
-        puts json: hashtag
-        render json: hashtag 
+        puts "Words that match: #{partial.to_json}"
+        render json: partial 
       end
     else
       render json: {
