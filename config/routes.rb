@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         get 'careers/admin/index', to: 'careers#index'
+        get 'careers/index', to: 'careers#index'
         post 'careers/admin/create', to: 'careers#create'
         get 'careers/show/:id', to: 'careers#show'
         delete 'careers/admin/destroy/:id', to: 'careers#destroy'
