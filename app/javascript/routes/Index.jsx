@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Launch from '../components/Launch(new)';
+import Launch from '../components/Launch';
 import Main from '../components/Search/Main';
 import CareerCard from '../components/careerCard/CareerCard';
 import Profile from '../components/Profile/Profile';

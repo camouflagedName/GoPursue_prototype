@@ -5,6 +5,7 @@ import Footer from '../Footer';
 import { Hashtags } from './Hashtag';
 import { ShuffleButton } from './Shuffle';
 import { Pay } from './Pay';
+import { PeopleNumber } from './NumPeople';
 
 export default class CareerCard extends React.Component {
     constructor(props) {
@@ -87,45 +88,53 @@ export default class CareerCard extends React.Component {
 
     changeCareer() {
         let id = Math.floor((Math.random() * 22) + 1);
+        if(id === this.state.id) {
+            console.log(`id: ${id} | previous id: ${this.state.id}`);
+            this.changeCareer();
+        }
+        else {
+            const url = `${API_ROOT}/api/v1/careers/show/${id}`;
+            const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
 
-        const url = `${API_ROOT}/api/v1/careers/show/${id}`;
-        const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
-
-        fetch(url)
-        .then(response => {
-            if (response.ok) {       
-                return response.json();
-            }
-            throw new Error("Bad network response.");
-        })
-        .then(response => {
-            this.setState({ 
-                id: response.id,
-                title: response.title,
-                name: response.name,
-                favorite: response.favorite,
-                skills: response.skills,
-                advice: response.advice,
-                education: response.education,
-                pay: response.pay,
-                environment: response.environment,
-                image: response.image,
-                hashtags: response.hashtag,
-                previous: this.state
+            fetch(url)
+            .then(response => {
+                if (response.ok) {       
+                    return response.json();
+                }
+                throw new Error("Bad network response.");
             })
-        });
+            .then(response => {
+                this.setState({ 
+                    id: response.id,
+                    title: response.title,
+                    name: response.name,
+                    favorite: response.favorite,
+                    skills: response.skills,
+                    advice: response.advice,
+                    education: response.education,
+                    pay: response.pay,
+                    environment: response.environment,
+                    image: response.image,
+                    hashtags: response.hashtag,
+                    previous: this.state
+                })
+            })
+            .catch(error => console.log(error.message));
 
-        fetch(userURL)
-        .then(response => {
-            if (response.ok) {       
-                return response.json();
-            }
-            throw new Error("Bad network response.");
-        })
-        .then(response => {
-            this.setState({ bookmarkArray: response.bookmarks });
-            this.setState( { bookmark: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
-        });
+            fetch(userURL)
+            .then(response => {
+                if (response.ok) {       
+                    return response.json();
+                }
+                throw new Error("Bad network response.");
+            })
+            .then(response => {
+                this.setState({ bookmarkArray: response.bookmarks });
+                this.setState( { bookmark: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
+            })
+            .catch(error => error.message);
+        }
+
     }
 
     previousCareer() {   
@@ -206,9 +215,11 @@ export default class CareerCard extends React.Component {
                                 <p className="fw-bold mb-0">My Education:</p>
                                 <p className="mt-0">{this.state.education}</p>
                                 <p className="fw-bold mb-0">Average Pay:</p>
-                                <Pay pay={this.state.pay}/>
+                                <p>{this.state.pay}</p>
                                 <p className="fw-bold mb-0 mt-3">Work environment:</p>
                                 <p>{this.state.environment}</p>  
+                                {/*<p className="fw-bold mb-0 mt-3">Number of people I work with:</p>
+                                <Pay pay={this.state.pay}/> */}
                                 <div className="d-flex col-10 mx-auto justify-content-center">
                                 <ShuffleButton current={this.state} setState={this.updateState} change={this.changeCareer}/>
                                     {/* <button onClick={this.previousCareer} className="btn btn-primary btn-lg me-4">

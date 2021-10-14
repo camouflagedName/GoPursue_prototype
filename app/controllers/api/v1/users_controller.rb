@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    user = User.all
+    user = User.all.order(created_at: :asc)
     render json: user 
   end
 
@@ -53,9 +53,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1 or /users/1.json
-  def destroy
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
