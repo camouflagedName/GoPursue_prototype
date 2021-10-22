@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   get 'admin' => 'admin#index'
   get 'admin/*path' => 'admin#index'
   get 'careerinfo' => 'admin#index'
-  #get '/*path' => 'homepage#index'
+  get 'careercard' => 'homepage#index'
+  get 'search' => 'homepage#index'
+  get 'newuser' => 'homepage#index'
+  #get '*path' => 'homepage#index'
+
   resources :sessions
   namespace :api do
     namespace :v1 do
@@ -19,7 +23,8 @@ Rails.application.routes.draw do
         post 'users/create'
         put 'users/update/:id', to: 'users#update'
         get 'users/show/:id', to: 'users#show'
-        get 'admin/users/index', to: 'users#index'
+        get 'users/index', to: 'users#index'
+        put 'users/login_count/:id', to: 'users#login_count'
       end
     end
     resources :careers
@@ -27,12 +32,15 @@ Rails.application.routes.draw do
       namespace :v1 do
         get 'careers/admin/index', to: 'careers#index'
         get 'careers/index', to: 'careers#index'
-        post 'careers/admin/create', to: 'careers#create'
+        post 'careers/create', to: 'careers#create'
+        post 'careers/createImage', to: 'careers#create_image'
+        post 'careers/findImage', to: 'careers#find_image'
         get 'careers/show/:id', to: 'careers#show'
-        delete 'careers/admin/destroy/:id', to: 'careers#destroy'
+        delete 'careers/destroy/:id', to: 'careers#destroy'
         put 'careers/update/:id', to: 'careers#update'
         put 'careers/admin/update/:id', to: 'careers#update'
         post 'careers/find', to: 'careers#find'
+        get 'careers/random_career', to: 'careers#random_career'
       end
     end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

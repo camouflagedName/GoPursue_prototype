@@ -10,4 +10,5 @@ class Career < ApplicationRecord
     validates :hashtag, presence: true
     validates :image, presence: true
 
+
 end

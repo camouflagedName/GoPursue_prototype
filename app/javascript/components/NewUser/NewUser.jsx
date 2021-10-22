@@ -74,6 +74,7 @@ export default class NewUser extends React.Component {
                     age: this.state.age,
                     password: this.state.password,
                     password_confirmation: this.state.password
+                    /*loginNum: 1*/
                 }
             })
         })
@@ -90,7 +91,7 @@ export default class NewUser extends React.Component {
                 pathname: "/careercard",
                 state: {
                     name: response.name,
-                    id: response.id,
+                    userID: response.id,
                     password: response.password
                 }
             })

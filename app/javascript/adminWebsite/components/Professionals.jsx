@@ -29,7 +29,7 @@ export class Professionals extends React.Component {
   }
 
   getAllData() {
-    const url = `${API_ROOT}/api/v1/careers/admin/index`;
+    const url = `${API_ROOT}/api/v1/careers/index`;
 
     fetch(url)
     .then(response => {
@@ -59,6 +59,20 @@ export class Professionals extends React.Component {
     this.setState({ addProfessional: true })
   }
 
+  removeProfessional() {
+    const url = `${API_ROOT}/api/v1/careers/destroy/${this.state.professionals.id}`;
+
+    fetch(url)
+    .then(response => {
+      if(response.ok) {
+        return response.json();
+      }
+      throw new Error("Bad network response.");
+    })
+    .then(json => { this.setState({ professionals: json }) })
+    .catch(error => console.log(error.message));
+  }
+
   render() {
     return (
       <div className="container-fluid vh-100">
@@ -67,10 +81,10 @@ export class Professionals extends React.Component {
 
           <div className="container d-flex col-10 g-1 flex-column">
           <NavBar text="careers" />
-          <div className="row d-flex justify-content-start mb-1 ms-1">
-            <button className="btn btn-danger btn-sm col-1 me-1" onClick><i className="bi bi-person-x"></i>Remove</button>
-            <button className="btn btn-primary btn-sm col-1" onClick={this.addProfessional} ><i className="bi bi-person-plus-fill"></i>Add</button>
-          </div>
+          {/*<div className="row d-flex justify-content-start mb-1 ms-1">
+            <button className="btn btn-link col-1 me-1"><i className="bi bi-person-x"></i>Remove</button>
+            <button className="btn btn-link col-1" onClick={this.addProfessional} ><i className="bi bi-person-plus-fill"></i>Add</button>
+    </div>*/}
             {this.state.addProfessional ? <AddProfessional/> : <></>}
           
           <table className="table table-striped table-hover table-bordered">

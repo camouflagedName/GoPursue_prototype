@@ -53,6 +53,14 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def login_count
+    if set_user
+      set_user.update!(login_params)
+      render json: set_user
+    else
+      render json: set_user.errors
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -72,5 +80,10 @@ class Api::V1::UsersController < ApplicationController
     private
     def bookmark_param
       params.require(:user).permit(:id, bookmarks: [])
+    end
+
+    private
+    def login_params
+      params.require(:user).permit(:id, :num_logins, :last_login)
     end
 end

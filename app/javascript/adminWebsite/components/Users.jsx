@@ -12,7 +12,7 @@ export class Users extends React.Component {
   }
 
   componentDidMount() {
-    const url = `${API_ROOT}/api/v1/admin/users/index`;
+    const url = `${API_ROOT}/api/v1/users/index`;
 
     fetch(url)
     .then(response => {
@@ -32,9 +32,9 @@ export class Users extends React.Component {
         <td>{user.name}</td>
         <td>{Math.floor(user.age)}</td>
         <td>{user.bookmarks.join(", ")}</td>
+        <td>{user.num_logins}</td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td>{user.last_login}</td>
       </tr>
     ))
     return (

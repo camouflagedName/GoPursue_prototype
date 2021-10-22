@@ -1,6 +1,7 @@
 import React from 'react';
 import { API_ROOT } from '../../packs/apiRoot';
 import { Link } from 'react-router-dom';
+import { CareerCardImage } from '../careerCard/CareerCardImage';
 
 export default class Bookmarks extends React.Component {
     constructor(props) {
@@ -67,7 +68,7 @@ export default class Bookmarks extends React.Component {
                             }}>
                             <div key={index} className='offset-3 mb-4'>
                                 <div className="card w-75 text-center">
-                                    <img src={require(`../../../assets/images/professionals/${career.image}`)} className="card-img-top" alt={`Picture of ${career.image}`}/>
+                                    <CareerCardImage image={career.image} alt={career.title}/>
                                     <div className='card-body'>
                                         <p className='card-title fs-4'>{career.title}</p>
                                     </div>

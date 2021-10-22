@@ -6,6 +6,7 @@ import { Hashtags } from './Hashtag';
 import { ShuffleButton } from './Shuffle';
 import { Pay } from './Pay';
 import { PeopleNumber } from './NumPeople';
+import { CareerCardImage } from './CareerCardImage';
 
 export default class CareerCard extends React.Component {
     constructor(props) {
@@ -89,11 +90,10 @@ export default class CareerCard extends React.Component {
     changeCareer() {
         let id = Math.floor((Math.random() * 22) + 1);
         if(id === this.state.id) {
-            console.log(`id: ${id} | previous id: ${this.state.id}`);
             this.changeCareer();
-        }
+        } 
         else {
-            const url = `${API_ROOT}/api/v1/careers/show/${id}`;
+            const url = `${API_ROOT}/api/v1/careers/random_career`;
             const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
 
             fetch(url)
@@ -167,14 +167,13 @@ export default class CareerCard extends React.Component {
             return <></>
         }
 
-        if(this.state.id != '') {
+        if(this.state.id) {
             let iconName = this.state.bookmark === false ? "bi-bookmark" : "bi-bookmark-heart-fill",
                 toolTip = this.state.bookmark === false ? "Bookmark removed!" : "Bookmark added!",
                 careerData = this.state,
                 regex = /,(?![^(]*\))/,
                 count = 0;
             const skillsNeeded = this.state.skills.split(regex);   
-
             const skillList = skillsNeeded.map((skill) => {
                 count ++;
                 return (<li key={count}>{skill}</li>)
@@ -185,7 +184,7 @@ export default class CareerCard extends React.Component {
                     <div className="row vh-100">
                         <div className="card border-0">
                             <div className="mt-auto text-container">
-                                <img className="card-img-top" id='careerCardImg' src={require(`../../../assets/images/professionals/${careerData.image}`)} alt="labTech"/>
+                                <CareerCardImage image={careerData.image} alt={careerData.title}/>
                                 <div className='bottom-left'>
                                     <div className='bg-primary bg-gradient bg-opacity-75'>
                                         <h2>{this.state.title}</h2>
@@ -239,9 +238,8 @@ export default class CareerCard extends React.Component {
                 </>    
             );
         }
-            this.changeCareer();
-
-            return (
+        this.changeCareer();
+        return (
                 <>
                 </>
             )

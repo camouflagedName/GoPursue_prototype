@@ -4,6 +4,11 @@ class Api::V1::CareersController < ApplicationController
     render json: career
   end
 
+  def random_career
+    @career = Career.all
+    render json: @career.sample
+  end
+
   def show
     if career
       render json: career
@@ -13,14 +18,30 @@ class Api::V1::CareersController < ApplicationController
   end
 
     # POST /users or /users.json
-    def create
-      career = Career.create!(career_data_param)
-      if user
-        render json: user
-      else
-        render json: user.errors
-      end
+  def create
+    career = Career.create!(new_career_data_param)
+
+  end
+
+  def create_image
+    @career_picture = CareerPicture.create(career_picture_params)
+    render json: { url: url_for(@career_picture.featured_image) }
+  end
+
+  def get_images
+    @career_pictures = CareerPicture.all
+    render json: @career_pictures
+  end
+
+  def find_image
+    @career_picture = CareerPicture.all
+    if @career_picture
+      render json: @career_picture
+    else
+      render json: @career_picture.errors
     end
+  end
+
 
   def update
     if career
@@ -63,11 +84,23 @@ class Api::V1::CareersController < ApplicationController
 
   private
   def career_data_param
-    params.require(:career).permit(:id, :name, :title, :skills, :advice, :education, :pay, :environment, :hashtags)
+    params.require(:career).permit(:id, :name, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image)
+  end 
+
+  def new_career_data_param
+    params.require(:career).permit(:id, :name, :favorite, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image)
+  end 
+
+  def career_picture_params
+    params.permit(:name, :title, :featured_image)
   end
 
   def hashtag_param
     params.permit(:hashtag)
+  end
+
+  def find_picture
+    @picture = CareerPicture.find(params[:name])
   end
 end
 

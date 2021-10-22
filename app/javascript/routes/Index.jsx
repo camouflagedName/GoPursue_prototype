@@ -7,6 +7,7 @@ import Profile from '../components/Profile/Profile';
 import NewUser from '../components/NewUser/NewUser';
 import ReturnUser from '../components/ReturnUser/ReturnUser';
 
+
 export default (
     <Router>
         <Switch>
@@ -14,8 +15,8 @@ export default (
             <Route path='/careercard' exact component={CareerCard} />
             <Route path='/profile' exact component={Profile} />
             <Route path='/' exact component={Launch} />
-            <Route path='/newUser' exact component={NewUser} />
-            <Route path='/returnUser' exact component={ReturnUser} />
+            <Route path='/newuser' exact component={NewUser} />
+            <Route path='/returnuser' exact component={ReturnUser} />
         </Switch>
     </Router>
 );

@@ -14,6 +14,7 @@ export default class ReturnUser extends React.Component {
             inputType: "password",
             usernameError: '',
             passwordError: '',
+            time: null,
             isMounted: false
         }
 
@@ -31,9 +32,11 @@ export default class ReturnUser extends React.Component {
     }
 
     handleSubmit(event) {
+        let mounted = true;
         this.setState({ isMounted: true });
         event.preventDefault();
         const url = `${API_ROOT}/api/v1/sessions/login`;
+
         if(this.state.username && this.state.password) {
             fetch(url, {
                 method: 'POST',
@@ -43,7 +46,7 @@ export default class ReturnUser extends React.Component {
                 },
                 body: JSON.stringify({
                     name: this.state.username,
-                    password: this.state.password
+                    password: this.state.password,             
                 })
             })
             .then(response => {
@@ -53,13 +56,39 @@ export default class ReturnUser extends React.Component {
                 this.setState({ errorMessage: "Backend error: could not connect to controller. Please report this to system administrator." });
             })
             .then(user => {
-                if(this.state.isMounted) {
+                console.log(mounted)
+                if(this.state.isMounted && mounted) {
+                    
                     if(user.logged_in){
-                        this.setState( {isLoggedIn: 'true'});
-                        localStorage.setItem('userID', user.user.id);
-                        localStorage.setItem('user', user.user.name);
-                        localStorage.setItem('userBookmarks', user.user.bookmark);
-                        this.props.history.push({ pathname: '/careercard' })
+                        const urlCount = `${API_ROOT}/api/v1/users/login_count/${user.user.id}`;
+                        let date = new Date();
+                        fetch(urlCount, {
+                            method: 'PUT',
+                            headers: {
+                                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                                "Content-Type": 'application/json'
+                            },
+                            body: JSON.stringify({
+                                user: {
+                                    num_logins: user.user.num_logins + 1,
+                                    last_login: date.toString()
+                                }
+                            })
+                        })
+                        .then(response => {
+                            if(response.ok) {
+                                return response.json();
+                            }
+                        })
+                        .then(() => {
+                            this.setState( {isLoggedIn: 'true'});
+                            localStorage.setItem('userID', user.user.id);
+                            localStorage.setItem('user', user.user.name);
+                            localStorage.setItem('userBookmarks', user.user.bookmark);
+                            this.props.history.push({ pathname: '/careercard' })
+                            return () => { mounted = false };
+                        })
+                        
                     }
                     else {
                         this.setState({ errorMessage: user.error[0]})
@@ -145,6 +174,5 @@ export default class ReturnUser extends React.Component {
                 </div>
             </div>
         );
-
     }
 }

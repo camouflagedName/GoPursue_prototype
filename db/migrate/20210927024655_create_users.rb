@@ -7,6 +7,9 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.text :interests, array: true, default: []
       t.string :password_digest
       t.text :bookmarks, array: true, default: []
+      t.integer :num_logins
+      t.string :avg_time
+      t.string :last_login
 
       t.timestamps
     end
