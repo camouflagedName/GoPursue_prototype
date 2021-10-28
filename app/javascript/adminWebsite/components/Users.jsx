@@ -32,6 +32,7 @@ export class Users extends React.Component {
         <td>{user.name}</td>
         <td>{Math.floor(user.age)}</td>
         <td>{user.bookmarks.join(", ")}</td>
+        <td></td>
         <td>{user.num_logins}</td>
         <td></td>
         <td>{user.last_login}</td>
@@ -52,6 +53,7 @@ export class Users extends React.Component {
                 <th>Name</th>
                 <th>Age</th>
                 <th>Bookmarks</th>
+                <th>Created On</th>
                 <th>No. of Logins</th>
                 <th>Avg Time</th>
                 <th>Last Login</th>

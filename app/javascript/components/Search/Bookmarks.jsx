@@ -66,11 +66,17 @@ export default class Bookmarks extends React.Component {
                                     bookmarkArray: this.state.careers
                                 }
                             }}>
-                            <div key={index} className='offset-3 mb-4'>
-                                <div className="card w-75 text-center">
-                                    <CareerCardImage image={career.image} alt={career.title}/>
-                                    <div className='card-body'>
-                                        <p className='card-title fs-4'>{career.title}</p>
+                            <div key={index} className='offset-1 mb-4'>
+                                <div className="card text-center">
+                                    <div className="row g-0">
+                                        <div className="col-4 d-flex align-items-center">
+                                            <CareerCardImage image={career.image} alt={career.title}/>              
+                                        </div>
+                                        <div className="col-8">
+                                            <div className='card-body'>
+                                                <p className='card-title'>{career.title}</p>
+                                            </div>           
+                                        </div>
                                     </div>
                                 </div>  
                             </div>

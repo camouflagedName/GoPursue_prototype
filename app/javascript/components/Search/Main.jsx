@@ -32,7 +32,7 @@ export default class Main extends React.Component {
             <>
                 <div className="row vh-100">
                     <div className="card border-0">
-                        <div className="row mt-2">
+                        <div className="row my-2">
                             <div className='col-5 m-0 p-0 text-end'>
                                 <button onClick={this.changeToSearch} className={`btn btn-link text-decoration-none link-dark ${this.state.searchClass}`} ><h3 className="text-center">Search</h3></button>
                             </div>

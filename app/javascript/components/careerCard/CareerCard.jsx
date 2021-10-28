@@ -7,6 +7,7 @@ import { ShuffleButton } from './Shuffle';
 import { Pay } from './Pay';
 import { PeopleNumber } from './NumPeople';
 import { CareerCardImage } from './CareerCardImage';
+import Header from '../Header';
 
 export default class CareerCard extends React.Component {
     constructor(props) {
@@ -36,7 +37,7 @@ export default class CareerCard extends React.Component {
         this.previousCareer = this.previousCareer.bind(this);
     }
 
-    changeIcon() {
+    changeIcon(event) {
         const url = `${API_ROOT}/api/v1/users/update/${this.state.userID}`;
         let careerIdString = this.state.id.toString();
         let iconChange = this.state.bookmarkArray.includes(careerIdString) ? false : true;
@@ -183,7 +184,8 @@ export default class CareerCard extends React.Component {
                 <>
                     <div className="row vh-100">
                         <div className="card border-0">
-                            <div className="mt-auto text-container">
+                            <Header/>
+                            <div className="mt-auto text-container col-10 offset-1">
                                 <CareerCardImage image={careerData.image} alt={careerData.title}/>
                                 <div className='bottom-left'>
                                     <div className='bg-primary bg-gradient bg-opacity-75'>

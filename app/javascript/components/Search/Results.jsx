@@ -24,7 +24,7 @@ export class Results extends React.Component {
         {    
             let bookmarkState = this.props.user.includes(career.id.toString()) ? true : false;
             return (
-                <div key={index} className="col-6 offset-3">
+                <div key={index} className="col-10 offset-1">
                     <Link 
                         key={index}
                         className='text-decoration-none text-dark'
@@ -46,11 +46,17 @@ export class Results extends React.Component {
                                 bookmarkArray: this.props.user
                             }
                         }}>
-                        <div key={index} className='mb-4 mt-5'>
+                        <div key={index} className='offset-1 mb-4'>
                             <div className="card text-center">
-                                <CareerCardImage image={career.image} alt={career.title}/>
-                                <div className='card-body'>
-                                    <p className='card-title'>{career.title}</p>
+                                <div className="row g-0">
+                                    <div className="col-4 d-flex align-items-center">
+                                        <CareerCardImage image={career.image} alt={career.title}/>              
+                                    </div>
+                                    <div className="col-8">
+                                        <div className='card-body'>
+                                            <p className='card-title'>{career.title}</p>
+                                        </div>           
+                                    </div>
                                 </div>
                             </div>  
                         </div>

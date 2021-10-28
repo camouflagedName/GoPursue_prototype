@@ -31,10 +31,10 @@ export class Sidebar extends React.Component {
                                 <span>Professionals</span>
                             </button>
                             <div className="collapse" id="content">
-                                <Link to="/admin/professionals" className="text-muted">Show All</Link>
+                                <Link to="/admin/professionals" className="text-muted text-decoration-none">Show All</Link>
                             </div> 
                             <div className="collapse" id="content">
-                                <Link to="/admin/add" className="text-muted">Add New</Link>
+                                <Link to="/admin/add" className="text-muted text-decoration-none">Add New</Link>
                             </div> 
                         </li>
                         <li className="nav-item">
@@ -70,10 +70,10 @@ export class Sidebar extends React.Component {
                                 </span>
                             </button>
                             <div className="collapse" id="content">
-                                <Link to="/admin/professionals" className="text-muted">Show All</Link>
+                                <Link to="/admin/professionals" className="text-muted text-decoration-none">Show All</Link>
                             </div> 
                             <div className="collapse" id="content">
-                                <Link to="/admin/add" className="text-muted">Add New</Link>
+                                <Link to="/admin/add" className="text-muted text-decoration-none">Add New</Link>
                             </div> 
                         </li>
                         <li className="nav-item">

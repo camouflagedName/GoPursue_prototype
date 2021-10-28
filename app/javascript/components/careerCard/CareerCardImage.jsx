@@ -24,7 +24,7 @@ export class CareerCardImage extends React.Component {
     render() {
         return (
             <>
-                <img className="card-img-top" id='careerCardImg' src={this.state.imgURL} alt={`Picture for career ${this.props.alt}`}/>
+                <img className="img-fluid rounded" id='careerCardImg' src={this.state.imgURL} alt={`Picture for career ${this.props.alt}`}/>
             </>
         )
     }
