@@ -4,13 +4,19 @@ import { Link } from 'react-router-dom';
 export default class AdminLogin extends React.Component {
     constructor(props) {
         super(props);
-
+        this.setState = { adminName: ''}
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNameSelect = this.handleNameSelect.bind(this);
     }
 
-    handleSubmit(event) {
-        localStorage.setItem('admin', event.target.value);
+    handleSubmit() {
+
         this.props.history.push({ pathname: '/admin/dashboard'})
+    }
+
+    handleNameSelect(event) {
+        localStorage.setItem('admin', event.target.value);
+        this.setState( {adminName: event.target.value});
     }
 
     render() {
@@ -33,10 +39,10 @@ export default class AdminLogin extends React.Component {
                             <div className='row mb-4'>
                                 <form onSubmit={this.handleSubmit}>
                                     <label for="adminName" className="form-label">Admin Name</label>
-                                    <select className="form-select" id="adminName">
+                                    <select className="form-select" id="adminName" onChange={this.handleNameSelect}>
                                         <option selected>Choose...</option>
-                                        <option value="Kathryn Breisch">Kathryn Breisch</option>
-                                        <option value="Michael Hazeltine">Michael Hazeltine</option>
+                                        <option value="Kathryn">Kathryn Breisch</option>
+                                        <option value="Michael">Michael Hazeltine</option>
                                     </select>
                                     <button type='submit' className='btn btn-lg btn-success mt-3' data-bs-toggle="collapse">Log in</button>
                                 </form>

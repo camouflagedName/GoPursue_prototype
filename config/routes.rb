@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   get 'careerinfo' => 'admin#index'
   get 'careercard' => 'homepage#index'
   get 'search' => 'homepage#index'
+  get 'returnUser' => 'homepage#index'
+  get 'newUser' => 'homepage#index'
+  get 'returnuser' => 'homepage#index'
   get 'newuser' => 'homepage#index'
+  get 'profile' => 'homepage#index'
   #get '*path' => 'homepage#index'
 
   resources :sessions

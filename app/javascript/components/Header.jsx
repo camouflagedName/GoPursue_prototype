@@ -8,7 +8,7 @@ export default class Header extends React.Component {
     }
 
     changeDarkMode(element){
-        console.log(element)
+        //console.log(element)
 
     }
 

@@ -1,4 +1,6 @@
 class Api::V1::CareersController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     career = Career.all.order(created_at: :asc)
     render json: career
@@ -58,7 +60,7 @@ class Api::V1::CareersController < ApplicationController
   end
 
   def find
-    param_term = params[:term].to_str
+    param_term = params[:term].to_str.downcase
     if params[:term]
       hashtag = Career.where("hashtag && Array[?]", params[:term])
       partial = Career.where("hashtag::text LIKE ?", "%#{param_term}%")

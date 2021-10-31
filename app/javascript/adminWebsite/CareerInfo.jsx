@@ -39,7 +39,7 @@ export class CareerInfo extends React.Component {
                                 <hr/>
                             </div>
                         </div>
-                        <div className="fluid-container col-8 offset-2">
+                        <div className="fluid-container">
                             <h3 className="mt-5">The Basics</h3>
                             <div className="card mb-2 formBG">
                                 <div className="card-body d-flex justify-content-center">
@@ -57,7 +57,7 @@ export class CareerInfo extends React.Component {
                             </div>
                         </div>
 
-                        <div className="fluid-container col-8 offset-2">
+                        <div className="fluid-container">
                             <h3 className="mt-5">Work Environment (3 questions)</h3>
                             <div className="card mb-2 formBG">
                                 <div className="card-body d-flex justify-content-center">
@@ -65,17 +65,49 @@ export class CareerInfo extends React.Component {
                                         <label className="card-title form-label" for="title">Describe your work environment/location pre-COVID (e.g., office, lab, hospital, studio, school, build site, outdoors, etc)</label>
                                         <input className="form-control" type="text" id="title" aria-label="job title input"/>
                                         <label className="form-label">Which best describes your typical interactions with others pre-COVID?</label>
-                                        <textarea className="form-control" type="text" placeholder="3 sentences or less" aria-label="description input"/>
-                                        <label className="form-label">What is your favorite part of your job?</label>
-                                        <textarea className="form-control" type="text" placeholder="3 sentences or less" aria-label="favorite input"/>
-                                        <label className="form-label">What advice would you give to a high schooler who is interested in a career similar to yours?</label>
-                                        <textarea className="form-control" type="text" placeholder="3 sentences or less" aria-label="advice input"/>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="interactions1" />
+                                            <label className="form-check-label" for="interactions1">a few close teammates every day</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="interactions2" />
+                                            <label className="form-check-label" for="interactions2">several teammates and new people every day</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="interactions3" />
+                                            <label className="form-check-label" for="interactions3">50+ people every day</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="interactions4" />
+                                            <label className="form-check-label" for="interactions4">Other</label>
+                                        </div>
+                                        <label className="form-label">Which describes your on-the-job physical activity pre-COVID?</label>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="physical1" />
+                                            <label className="form-check-label" for="physical1">Low physical activity; sitting most of the day</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="physical2" />
+                                            <label className="form-check-label" for="physical2">Moderate physical activity; combination of sitting and standing</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="physical3" />
+                                            <label className="form-check-label" for="physical3">High physical activity; standing/moving most of the day</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="physical4" />
+                                            <label className="form-check-label" for="physical4">Extreme physical activity; constant exertion required (think warehouse worker, athlete, professional dancer)</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="physical5" />
+                                            <label className="form-check-label" for="physical5">Other</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="fluid-container col-8 offset-2">
+                        <div className="fluid-container">
                             <h3 className="mt-5">Qualifications and Money (3 questions)</h3>
                             <div className="card mb-2 formBG">
                                 <div className="card-body d-flex justify-content-center">
@@ -86,7 +118,7 @@ export class CareerInfo extends React.Component {
                                             <label className="form-check-label" for="check1">$1k-30k</label>
                                         </div>
                                         <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="check3" />
+                                            <input className="form-check-input" type="checkbox" id="check2" />
                                             <label className="form-check-label" for="check3">$31k-60k</label>
                                         </div>
                                         <div className="form-check">
@@ -100,6 +132,36 @@ export class CareerInfo extends React.Component {
                                         <div className="form-check">
                                             <input className="form-check-input" type="checkbox" id="check5" />
                                             <label className="form-check-label" for="check5">$121k-200k</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="check6" />
+                                            <label className="form-check-label" for="check6">$200k +</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="check7" />
+                                            <label className="form-check-label" for="check7">Other</label>
+                                        </div>
+
+                                        <p className="card-title" for="title">What were your majors in undergraduate and graduate school, if applicable?</p>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="major1" />
+                                            <label className="form-check-label" for="major1">Associate's Degree</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="check2" />
+                                            <label className="form-check-label" for="check3">Bachelor's Degree</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="check3" />
+                                            <label className="form-check-label" for="check3">Master's Degree</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="check4" />
+                                            <label className="form-check-label" for="check4">Doctoral Degree</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="check5" />
+                                            <label className="form-check-label" for="check5">Professional Degree</label>
                                         </div>
                                         <div className="form-check">
                                             <input className="form-check-input" type="checkbox" id="check6" />

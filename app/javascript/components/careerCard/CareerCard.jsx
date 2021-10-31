@@ -89,52 +89,64 @@ export default class CareerCard extends React.Component {
     }
 
     changeCareer() {
-        let id = Math.floor((Math.random() * 22) + 1);
+        /*let id = Math.floor((Math.random() * 22) + 1);
         if(id === this.state.id) {
             this.changeCareer();
-        } 
-        else {
-            const url = `${API_ROOT}/api/v1/careers/random_career`;
-            const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
+        } */
+        const url = `${API_ROOT}/api/v1/careers/random_career`;
+        const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
 
-            fetch(url)
-            .then(response => {
-                if (response.ok) {       
-                    return response.json();
-                }
-                throw new Error("Bad network response.");
-            })
-            .then(response => {
-                this.setState({ 
-                    id: response.id,
-                    title: response.title,
-                    name: response.name,
-                    favorite: response.favorite,
-                    skills: response.skills,
-                    advice: response.advice,
-                    education: response.education,
-                    pay: response.pay,
-                    environment: response.environment,
-                    image: response.image,
-                    hashtags: response.hashtag,
-                    previous: this.state
-                })
-            })
-            .catch(error => console.log(error.message));
+        fetch(url)
+        .then(response => {
+            if (response.ok) {       
+                return response.json();
+            }
+            throw new Error("Bad network response.");
+        })
+        .then(response => {
+            if(this.state.id === response.id) {
+                this.changeCareer();
+                return;
+            }
+            this.setState({ 
+                id: response.id,
+                title: response.title,
+                name: response.name,
+                favorite: response.favorite,
+                skills: response.skills,
+                advice: response.advice,
+                education: response.education,
+                pay: response.pay,
+                environment: response.environment,
+                image: response.image,
+                hashtags: response.hashtag,
+                previous: this.state
+            });
+            //window.scrollTo(0,0);
+        })
+        .catch(error => console.log(error.message));
 
-            fetch(userURL)
-            .then(response => {
-                if (response.ok) {       
-                    return response.json();
-                }
-                throw new Error("Bad network response.");
-            })
-            .then(response => {
-                this.setState({ bookmarkArray: response.bookmarks });
-                this.setState( { bookmark: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
-            })
-            .catch(error => error.message);
-        }
+        fetch(userURL)
+        .then(response => {
+            if (response.ok) {       
+                return response.json();
+            }
+            throw new Error("Bad network response.");
+        })
+        .then(response => {
+            this.setState({ bookmarkArray: response.bookmarks });
+            this.setState({ bookmark: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
+            
+        })
+        .then(() => {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'instant'
+            }); 
+        })
+        .catch(error => error.message);
+
 
     }
 
