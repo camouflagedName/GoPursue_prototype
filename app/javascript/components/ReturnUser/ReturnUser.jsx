@@ -15,7 +15,7 @@ export default class ReturnUser extends React.Component {
             usernameError: '',
             passwordError: '',
             time: null,
-            isMounted: false
+            isMounted: false,
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +33,7 @@ export default class ReturnUser extends React.Component {
 
     handleSubmit(event) {
         let mounted = true;
-        this.setState({ isMounted: true });
+        this.setState((state) => ({ isMounted: true }));
         event.preventDefault();
         const url = `${API_ROOT}/api/v1/sessions/login`;
 
@@ -56,12 +56,17 @@ export default class ReturnUser extends React.Component {
                 this.setState({ errorMessage: "Backend error: could not connect to controller. Please report this to system administrator." });
             })
             .then(user => {
-                console.log(mounted)
                 if(this.state.isMounted && mounted) {
-                    
                     if(user.logged_in){
                         const urlCount = `${API_ROOT}/api/v1/users/login_count/${user.user.id}`;
                         let date = new Date();
+                        let month = date.getMonth() + 1;
+                        let hour = date.getHours();
+                        let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
+
+                        this.setState({ time: date.getSeconds() })
+
+
                         fetch(urlCount, {
                             method: 'PUT',
                             headers: {
@@ -71,7 +76,7 @@ export default class ReturnUser extends React.Component {
                             body: JSON.stringify({
                                 user: {
                                     num_logins: user.user.num_logins + 1,
-                                    last_login: date.toString()
+                                    last_login: currentDate
                                 }
                             })
                         })
@@ -85,10 +90,10 @@ export default class ReturnUser extends React.Component {
                             localStorage.setItem('userID', user.user.id);
                             localStorage.setItem('user', user.user.name);
                             localStorage.setItem('userBookmarks', user.user.bookmark);
-                            this.props.history.push({ pathname: '/careercard' })
+                            localStorage.setItem('startTime', date);
+                            this.props.history.push({ pathname: '/careercard', state: { time: date }})
                             return () => { mounted = false };
                         })
-                        
                     }
                     else {
                         this.setState({ errorMessage: user.error[0]})
@@ -96,6 +101,7 @@ export default class ReturnUser extends React.Component {
                 }
             });
         }
+
         if(this.state.username == '') {
             this.setState({ usernameError: "Please enter a username."})
         }
@@ -119,7 +125,8 @@ export default class ReturnUser extends React.Component {
     }
 
     componentWillUnmount() {
-        this.setState({ isMounted: false });
+        this.setState((state) => ({ isMounted: false }));
+        console.log(this.state.isMounted)
     }
 
     render() {

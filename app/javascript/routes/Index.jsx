@@ -6,6 +6,7 @@ import CareerCard from '../components/careerCard/CareerCard';
 import Profile from '../components/Profile/Profile';
 import NewUser from '../components/NewUser/NewUser';
 import ReturnUser from '../components/ReturnUser/ReturnUser';
+import GuestUser from '../components/GuestUser';
 
 
 export default (
@@ -17,6 +18,7 @@ export default (
             <Route path='/' exact component={Launch} />
             <Route path='/newuser' exact component={NewUser} />
             <Route path='/returnuser' exact component={ReturnUser} />
+            <Route path='/guest' exact component={GuestUser} />
         </Switch>
     </Router>
 );

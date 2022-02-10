@@ -59,6 +59,7 @@ class Api::V1::CareersController < ApplicationController
     career&.destroy
   end
 
+  #search hashtag array with user values
   def find
     param_term = params[:term].to_str.downcase
     if params[:term]

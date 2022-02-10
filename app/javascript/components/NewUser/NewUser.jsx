@@ -15,7 +15,8 @@ export default class NewUser extends React.Component {
             password: '',
             password_confirmation: '',
             id: '',
-            link: ''
+            link: '',
+            time: null
         };
         this.changeHeader = this.changeHeader.bind(this);
         //this.changeHeaderBack = this.changeHeaderBack.bind(this);
@@ -32,7 +33,6 @@ export default class NewUser extends React.Component {
             case 'age':
                 return(<Age header={this.changeHeader} input={this.inputChange} value={this.state.input} setState={this.setAge} />);
             case 'interests':
-                
                 break;
             case 'password':
                 return(<Password value={this.state.password} addUser={this.addUser.bind(this)} />);
@@ -61,7 +61,10 @@ export default class NewUser extends React.Component {
     addUser(event){
         event.preventDefault();
         const url = `${API_ROOT}/api/v1/users/create`;
-        
+        let date = new Date();
+        let month = date.getMonth() + 1;
+        let hour = date.getHours();
+        let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
         fetch(url, {
             method: 'POST',
             headers: {
@@ -73,8 +76,9 @@ export default class NewUser extends React.Component {
                     name: this.state.name,
                     age: this.state.age,
                     password: this.state.password,
-                    password_confirmation: this.state.password
-                    /*loginNum: 1*/
+                    password_confirmation: this.state.password,
+                    created_on: currentDate,
+                    num_logins: 1
                 }
             })
         })
@@ -87,12 +91,14 @@ export default class NewUser extends React.Component {
         .then(response => {
             localStorage.setItem('userID', response.id);
             localStorage.setItem('user', response.name);
+            localStorage.setItem('startTime', date);
             this.props.history.push({
                 pathname: "/careercard",
                 state: {
                     name: response.name,
                     userID: response.id,
-                    password: response.password
+                    password: response.password,
+                    time: date
                 }
             })
         })
@@ -144,6 +150,5 @@ export default class NewUser extends React.Component {
                 </div>
             </div>
         );
-
     }
 }

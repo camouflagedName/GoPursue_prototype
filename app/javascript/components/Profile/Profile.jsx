@@ -8,22 +8,27 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            id: props.location.state ? props.location.state.id : localStorage.getItem('userID'),
+            userID: props.location.state ? props.location.state.id : localStorage.getItem('userID'),
             picture: '',
-            name: props.location.state ? props.location.state.name : localStorage.getItem('user')
+            name: props.location.state ? props.location.state.name : localStorage.getItem('user'),
+            time: localStorage.getItem('startTime')
         };
         this.logout = this.logout.bind(this);
     }
     componentDidMount() {
-        const url = `${API_ROOT}/api/v1/users/show/${this.state.id}`;
+        const url = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
     }
 
     logout() {
         localStorage.clear();
-
+        return <TotalTime time={this.state.time} user={this.state.userID}/>
     }
 
     render() {
+        if(!this.state.userID) {
+            window.location.replace("/");
+            return <></>
+        }
         return (
             <div className="row vh-100">
                 <div className="card border-0">
@@ -35,7 +40,7 @@ export default class Profile extends React.Component {
                     <div className="card-body mt-5">
                         <div className="col-10 mx-auto mb-4 d-grid gap-2 justify-content-center">
                             <Link to="/">
-                                <button className="btn btn-light btn-lg btn-outline-dark" onClick={this.logout} >Log Out</button>
+                                <button className="btn btn-light btn-lg btn-outline-dark" onClick={this.logout}>Log Out</button>
                             </Link>
                         </div>
                         {/*

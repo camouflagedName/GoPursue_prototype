@@ -48,24 +48,24 @@ export default class Bookmarks extends React.Component {
                 for(let i = 0; i < this.state.careers.length; i++){
                     if(career.id.toString() === this.state.careers[i].toString()){
                         return <Link key={index} className='text-decoration-none text-dark'
-                            to={{
-                                pathname: "/careercard",
-                                state: {
-                                    id: career.id,
-                                    title: career.title,
-                                    name: career.name,
-                                    favorite: career.favorite,
-                                    skills: career.skills,
-                                    advice: career.advice,
-                                    education: career.education,
-                                    pay: career.pay,
-                                    environment: career.environment,
-                                    image: career.image,
-                                    bookmark: true,
-                                    hashtags: career.hashtag,
-                                    bookmarkArray: this.state.careers
-                                }
-                            }}>
+                                    to={{
+                                        pathname: "/careercard",
+                                        state: {
+                                            id: career.id,
+                                            title: career.title,
+                                            name: career.name,
+                                            favorite: career.favorite,
+                                            skills: career.skills,
+                                            advice: career.advice,
+                                            education: career.education,
+                                            pay: career.pay,
+                                            environment: career.environment,
+                                            image: career.image,
+                                            bookmark: true,
+                                            hashtags: career.hashtag,
+                                            bookmarkArray: this.state.careers
+                                        }
+                                    }}>
                             <div key={index} className='offset-1 mb-4'>
                                 <div className="card text-center">
                                     <div className="row g-0">

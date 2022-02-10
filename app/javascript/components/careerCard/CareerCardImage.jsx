@@ -16,7 +16,7 @@ export class CareerCardImage extends React.Component {
 
     componentDidUpdate(prevProps) {
         let regex = /http/;
-        if(this.props.image !== prevProps.image) {
+        if (this.props.image !== prevProps.image) {
             this.setState({ imgURL: regex.test(this.props.image) ? this.props.image : require(`../../../assets/images/professionals/${this.props.image}`) });
         }
     }
@@ -24,7 +24,7 @@ export class CareerCardImage extends React.Component {
     render() {
         return (
             <>
-                <img className="img-fluid rounded" id='careerCardImg' src={this.state.imgURL} alt={`Picture for career ${this.props.alt}`}/>
+                <img className="img-fluid rounded" id='careerCardImg' src={this.state.imgURL} alt={`Picture for career ${this.props.alt}`} />
             </>
         )
     }
