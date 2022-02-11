@@ -9,7 +9,7 @@ export default class ReturnUser extends React.Component {
             errorMessage: '',
             username: '',
             password: '',
-            users: [], 
+            users: [],
             isLoggedIn: 'false',
             inputType: "password",
             usernameError: '',
@@ -26,7 +26,7 @@ export default class ReturnUser extends React.Component {
     }
 
     handleEnterKey(event) {
-        if(event.keyCode == 13) {
+        if (event.keyCode == 13) {
             this.handleSubmit(event);
         }
     }
@@ -37,7 +37,7 @@ export default class ReturnUser extends React.Component {
         event.preventDefault();
         const url = `${API_ROOT}/api/v1/sessions/login`;
 
-        if(this.state.username && this.state.password) {
+        if (this.state.username && this.state.password) {
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -46,77 +46,77 @@ export default class ReturnUser extends React.Component {
                 },
                 body: JSON.stringify({
                     name: this.state.username,
-                    password: this.state.password,             
+                    password: this.state.password,
                 })
             })
-            .then(response => {
-                if(response.ok) {
-                    return response.json();
-                }
-                this.setState({ errorMessage: "Backend error: could not connect to controller. Please report this to system administrator." });
-            })
-            .then(user => {
-                if(this.state.isMounted && mounted) {
-                    if(user.logged_in){
-                        const urlCount = `${API_ROOT}/api/v1/users/login_count/${user.user.id}`;
-                        let date = new Date();
-                        let month = date.getMonth() + 1;
-                        let hour = date.getHours();
-                        let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    this.setState({ errorMessage: "Backend error: could not connect to controller. Please report this to system administrator." });
+                })
+                .then(user => {
+                    if (this.state.isMounted && mounted) {
+                        if (user.logged_in) {
+                            const urlCount = `${API_ROOT}/api/v1/users/login_count/${user.user.id}`;
+                            let date = new Date();
+                            let month = date.getMonth() + 1;
+                            let hour = date.getHours();
+                            let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
 
-                        this.setState({ time: date.getSeconds() })
+                            this.setState({ time: date.getSeconds() })
 
 
-                        fetch(urlCount, {
-                            method: 'PUT',
-                            headers: {
-                                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-                                "Content-Type": 'application/json'
-                            },
-                            body: JSON.stringify({
-                                user: {
-                                    num_logins: user.user.num_logins + 1,
-                                    last_login: currentDate
-                                }
+                            fetch(urlCount, {
+                                method: 'PUT',
+                                headers: {
+                                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                                    "Content-Type": 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    user: {
+                                        num_logins: user.user.num_logins + 1,
+                                        last_login: currentDate
+                                    }
+                                })
                             })
-                        })
-                        .then(response => {
-                            if(response.ok) {
-                                return response.json();
-                            }
-                        })
-                        .then(() => {
-                            this.setState( {isLoggedIn: 'true'});
-                            localStorage.setItem('userID', user.user.id);
-                            localStorage.setItem('user', user.user.name);
-                            localStorage.setItem('userBookmarks', user.user.bookmark);
-                            localStorage.setItem('startTime', date);
-                            this.props.history.push({ pathname: '/careercard', state: { time: date }})
-                            return () => { mounted = false };
-                        })
+                                .then(response => {
+                                    if (response.ok) {
+                                        return response.json();
+                                    }
+                                })
+                                .then(() => {
+                                    this.setState({ isLoggedIn: 'true' });
+                                    localStorage.setItem('userID', user.user.id);
+                                    localStorage.setItem('user', user.user.name);
+                                    localStorage.setItem('userBookmarks', user.user.bookmark);
+                                    localStorage.setItem('startTime', date);
+                                    this.props.history.push({ pathname: '/careercard', state: { time: date } })
+                                    return () => { mounted = false };
+                                })
+                        }
+                        else {
+                            this.setState({ errorMessage: user.error[0] })
+                        }
                     }
-                    else {
-                        this.setState({ errorMessage: user.error[0]})
-                    }
-                }
-            });
+                });
         }
 
-        if(this.state.username == '') {
-            this.setState({ usernameError: "Please enter a username."})
+        if (this.state.username == '') {
+            this.setState({ usernameError: "Please enter a username." })
         }
 
-        if(this.state.password == '') {
-            this.setState({ passwordError: "Please enter a password."})
+        if (this.state.password == '') {
+            this.setState({ passwordError: "Please enter a password." })
         }
     }
 
     handleName(event) {
-        this.setState( {username: event.target.value} );
+        this.setState({ username: event.target.value });
     }
 
     handlePassword(event) {
-        this.setState( {password: event.target.value} );
+        this.setState({ password: event.target.value });
     }
 
     showPassword() {
@@ -126,7 +126,6 @@ export default class ReturnUser extends React.Component {
 
     componentWillUnmount() {
         this.setState((state) => ({ isMounted: false }));
-        console.log(this.state.isMounted)
     }
 
     render() {
@@ -137,7 +136,7 @@ export default class ReturnUser extends React.Component {
                         <div className="d-flex row">
                             <div className="col-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-door-open-fill" viewBox="0 0 16 16">
-                                    <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+                                    <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
                                 </svg>
                             </div>
                             <div className="col-10">
@@ -145,7 +144,7 @@ export default class ReturnUser extends React.Component {
                                 <p className='lead mb-0'>reimagine career exploration</p>
                             </div>
                         </div>
-                        <hr/>
+                        <hr />
                         <div className="container">
                             <div className='row mb-4'>
                                 <form onSubmit={this.handleSubmit}>
@@ -162,18 +161,18 @@ export default class ReturnUser extends React.Component {
                                     <div>
                                         <p className='mt-0 text-danger'>{this.state.errorMessage}</p>
                                     </div>
-                                    <input type="checkbox" id='passwordCheckbox' className="me-1" onChange={this.showPassword}/>
+                                    <input type="checkbox" id='passwordCheckbox' className="me-1" onChange={this.showPassword} />
                                     <label htmlFor='passwordCheckbox'>Show Password</label>
                                     <div className="container">
                                         <div className='row mt-5'>
-                                            <input type='submit' className='btn btn-lg btn-success' value="Enter"/>
+                                            <input type='submit' className='btn btn-lg btn-success' value="Enter" />
                                         </div>
                                         <div className='row mt-4'>
                                             <Link to="/">
                                                 <button type='button' className='btn btn-lg btn-success'>Cancel</button>
                                             </Link>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </form>
                             </div>
                         </div>

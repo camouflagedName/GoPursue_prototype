@@ -132,7 +132,7 @@ export default class CareerCard extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.location.state) {
+        if (!this.state.id) {
             this.changeCareer();
         }
     }
