@@ -44,20 +44,46 @@ export default class Body extends React.Component {
                     </p>
                 </div>
                 <div className="card-body">
-                    <p className="fw-bold mb-0">Favorite part of my job:</p>
-                    <p className="mt-0">{careerCard.favorite}</p>
-                    <p className="fw-bold mb-0">Skills Needed:</p>
-                    <ul>
-                        {skillList}
-                    </ul>
-                    <p className="fw-bold mb-0">My Advice:</p>
-                    <p className="mt-0">{careerCard.advice}</p>
-                    <p className="fw-bold mb-0">My Education:</p>
-                    <p className="mt-0">{careerCard.education}</p>
-                    <p className="fw-bold mb-0">Average Pay:</p>
-                    <p>{careerCard.pay}</p>
-                    <p className="fw-bold mb-0 mt-3">Work environment:</p>
-                    <p>{careerCard.environment}</p>
+                    <div className="card mb-3 shadow rounded-3 border border-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Favorite part of my job:</h5>
+                            <p className="card-text">{careerCard.favorite}</p>
+                        </div>
+                    </div>
+                    <div className="card mb-3 shadow rounded-3 border border-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Skills Needed:</h5>
+                            <p className="card-text">
+                                <ul>
+                                    {skillList}
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="card mb-3 shadow rounded-3 border border-3">
+                        <div className="card-body">
+                            <h5 className="card-title">My Advice:</h5>
+                            <p className="card-text">{careerCard.advice}</p>
+                        </div>
+                    </div>
+                    <div className="card mb-3 shadow rounded-3 border border-3">
+                        <div className="card-body">
+                            <h5 className="card-title">My Education:</h5>
+                            <p className="card-text">{careerCard.education}</p>
+                        </div>
+                    </div>
+                    <div className="card mb-3 shadow rounded-3 border border-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Average Pay:</h5>
+                            <p className="card-text">{careerCard.pay}</p>
+                        </div>
+                    </div>
+                    <div className="card mb-3 shadow rounded-3 border border-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Work Environment:</h5>
+                            <p className="card-text">{careerCard.environment}</p>
+                        </div>
+                    </div>
                     {/*<p className="fw-bold mb-0 mt-3">Number of people I work with:</p>
                     <Pay pay={this.state.pay}/> */}
                 </div>
