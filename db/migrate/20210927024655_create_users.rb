@@ -10,6 +10,8 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.integer :num_logins
       t.string :avg_time
       t.string :last_login
+      t.string :viewed_cards, array: true, default: []
+      t.string :created_on
 
       t.timestamps
     end

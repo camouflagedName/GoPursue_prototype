@@ -12,6 +12,7 @@ class CreateCareers < ActiveRecord::Migration[6.1]
       t.text :hashtag, array: true, default: []
       t.text :image
       t.boolean :bookmark
+      t.string :cluster
 
       t.timestamps
     end

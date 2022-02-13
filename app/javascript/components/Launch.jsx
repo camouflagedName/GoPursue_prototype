@@ -19,13 +19,18 @@ export default () => (
                 <hr/>
                 <div className="container">
                     <div className='row mb-4'>
-                        <Link to="/returnUser">
-                            <button type='button' className='btn btn-lg btn-success'>Returning User</button>
+                        <Link to="/returnuser">
+                            <button type='button' className='btn btn-lg btn-success' disabled>Returning User</button>
                         </Link> 
                     </div>
+                    <div className='row mt-4 disabled'>
+                        <Link to="/newuser" >
+                            <button type='button' className='btn btn-lg btn-success' disabled>New User</button>
+                        </Link>
+                    </div>
                     <div className='row mt-4'>
-                        <Link to="/newUser">
-                            <button type='button' className='btn btn-lg btn-success'>New User</button>
+                        <Link to="/guest">
+                            <button type='button' className='btn btn-lg btn-success'>Guest</button>
                         </Link>
                     </div>
                 </div>

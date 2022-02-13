@@ -24,7 +24,7 @@ export default class Age extends React.Component {
             <>
                 <h1 className='display-4 mb-4'>I am </h1>
                 <form className='needs-validation' onSubmit={this.handleHeader}>
-                    <input className='mb-4 form-control' type="text" id="newUser" value={this.props.value} onChange={this.handleInput} required></input>
+                    <input className='mb-4 form-control' type="text" id="newUser_age" value={this.props.value} onChange={this.handleInput} required></input>
                     <div className='invalid-feedback'>
                         Input required.
                     </div>
@@ -53,9 +53,7 @@ export default class Age extends React.Component {
                         </div>
                     </div>     
                 </form>
-            </>
-                            
+            </>                    
         );
-
     }
 }

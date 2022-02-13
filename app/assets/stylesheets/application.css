@@ -37,7 +37,11 @@
     left: 16px
 }
 
-#newUser {
+#newUser_age {
+    border-style: none none solid none;
+}
+
+#newUser_name {
     border-style: none none solid none;
 }
 
