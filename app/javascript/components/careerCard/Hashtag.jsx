@@ -6,10 +6,6 @@ export class Hashtags extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            hash: this.props.hashtag
-        }
-
         this.search = this.search.bind(this);
     }
 
@@ -25,30 +21,30 @@ export class Hashtags extends React.Component {
                 term: term
             })
         })
-        .then(response => {
-            if (response.ok) {       
-                return response.json();
-            }
-            throw new Error("Career Database: Bad network response.");
-        })
-        .then(response => {
-            this.props.route.push({
-                pathname: "/search",
-                state: {
-                    career: response,
-                    term: term
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
                 }
+                throw new Error("Career Database: Bad network response.");
             })
+            .then(response => {
+                this.props.route.push({
+                    pathname: "/search",
+                    state: {
+                        career: response,
+                        term: term
+                    }
+                })
 
-        });
+            });
     }
 
     render() {
-        let insertHash = this.props.search.map((hash, index) => (<a key={index} className="text-decoration-none" onClick={() => this.search(hash)}>#{hash} </a>));
-       
+        let insertHashtag = this.props.search.map((hashtag, index) => (<a key={index} className="text-decoration-none" onClick={() => this.search(hashtag)}>#{hashtag} </a>));
+
         return (
             <>
-                {insertHash}
+                {insertHashtag}
             </>
         )
     }

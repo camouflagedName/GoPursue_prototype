@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get 'admin/*path' => 'admin#index'
   get 'careerinfo' => 'admin#index'
   get 'careercard' => 'homepage#index'
+  get 'careerCard' => 'homepage#index'
   get 'search' => 'homepage#index'
+  get 'Search' => 'homepage#index'
   get 'returnUser' => 'homepage#index'
   get 'newUser' => 'homepage#index'
   get 'returnuser' => 'homepage#index'
@@ -29,6 +31,8 @@ Rails.application.routes.draw do
         get 'users/show/:id', to: 'users#show'
         get 'users/index', to: 'users#index'
         put 'users/login_count/:id', to: 'users#login_count'
+        put 'users/data/:id', to: 'users#user_data_update'
+        put 'users/time/:id', to: 'users#user_time_update'
       end
     end
     resources :careers

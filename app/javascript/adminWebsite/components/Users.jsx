@@ -24,18 +24,21 @@ export class Users extends React.Component {
     .catch(error => console.log(error.message));
   }
 
-
+ 
   render() {
+    let date = new Date();
+
     let users = this.state.users.map(user => (
       <tr>
         <td>{user.id}</td>
         <td>{user.name}</td>
         <td>{Math.floor(user.age)}</td>
+        <td>{user.created_on ? user.created_on : ""}</td>
+        <td>{user.viewed_cards.join(", ")}</td>
         <td>{user.bookmarks.join(", ")}</td>
-        <td></td>
         <td>{user.num_logins}</td>
-        <td></td>
-        <td>{user.last_login}</td>
+        <td>{Math.round(user.avg_time*100)/100} minutes</td>
+        <td>{user.last_login ? user.last_login : user.created_on}</td>
       </tr>
     ))
     return (
@@ -52,8 +55,9 @@ export class Users extends React.Component {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Age</th>
-                <th>Bookmarks</th>
                 <th>Created On</th>
+                <th>Viewed</th>
+                <th>Favorites</th>
                 <th>No. of Logins</th>
                 <th>Avg Time</th>
                 <th>Last Login</th>

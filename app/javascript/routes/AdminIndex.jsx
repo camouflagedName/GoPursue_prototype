@@ -6,6 +6,7 @@ import { Users } from '../adminWebsite/components/Users';
 import { Professionals } from '../adminWebsite/components/Professionals';
 import { CareerInfo } from '../adminWebsite/CareerInfo';
 import { AddProfessional } from '../adminWebsite/components/AddProfessional';
+import { ErrorPage } from '../adminWebsite/components/ErrorPage';
 
 
 export default (
@@ -17,6 +18,7 @@ export default (
             <Route path='/admin/professionals' component={Professionals} />
             <Route path='/careerinfo' component={CareerInfo} />
             <Route path='/admin/add' component={AddProfessional} />
+            <Route path='/admin/error' component={ErrorPage} />
         </Switch>
     </Router>
 );

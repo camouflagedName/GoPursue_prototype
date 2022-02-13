@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token 
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
@@ -63,6 +63,37 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def user_data_update
+    @user = User.find(params[:id])
+    @current = params.require(:viewed_cards)[0]
+    if set_user
+      if @user.viewed_cards.include? @current
+        puts "current: #{@current} |  array: #{@user.viewed_cards}"
+      else
+        viewed = @user.viewed_cards.push(params.require(:viewed_cards)[0])
+        set_user.update!(viewed_cards: viewed)
+        puts json: set_user
+        render json: set_user
+      end
+    end
+  end
+
+  def user_time_update
+    @user = User.find(params[:id])
+    @total_time = params.require(:avg_time)
+    if @user.avg_time
+      @avg_time = (@user.avg_time * (@user.num_logins-1) + @total_time)/(@user.num_logins)
+    else
+      @avg_time = (@total_time)/(@user.num_logins)
+    end
+    if @user
+      @user.update!(avg_time: @avg_time)
+      render json: @user
+    else
+      render json: @user.errors
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -75,7 +106,7 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :age, :interests, :bookmark)
+      params.require(:user).permit(:name, :password, :password_confirmation, :age, :interests, :bookmark, :created_on, :num_logins)
     end
 
     private
@@ -87,4 +118,5 @@ class Api::V1::UsersController < ApplicationController
     def login_params
       params.require(:user).permit(:id, :num_logins, :last_login)
     end
+
 end
