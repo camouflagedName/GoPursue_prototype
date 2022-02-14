@@ -53,11 +53,9 @@ export default class Body extends React.Component {
                     <div className="card mb-3 shadow rounded-3 border border-3">
                         <div className="card-body">
                             <h5 className="card-title">Skills Needed:</h5>
-                            <p className="card-text">
-                                <ul>
-                                    {skillList}
-                                </ul>
-                            </p>
+                            <ul>
+                                {skillList}
+                            </ul>
                         </div>
                     </div>
                     <div className="card mb-3 shadow rounded-3 border border-3">

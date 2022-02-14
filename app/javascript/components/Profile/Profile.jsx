@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export default class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             userID: props.location.state ? props.location.state.id : localStorage.getItem('userID'),
             picture: '',
             name: props.location.state ? props.location.state.name : localStorage.getItem('user'),
@@ -21,17 +21,25 @@ export default class Profile extends React.Component {
 
     logout() {
         localStorage.clear();
-        return <TotalTime time={this.state.time} user={this.state.userID}/>
+        return <TotalTime time={this.state.time} user={this.state.userID} />
     }
 
     render() {
-        if(!this.state.userID) {
+        if (!this.state.userID) {
             window.location.replace("/");
             return <></>
         }
         return (
             <div className="row vh-100">
                 <div className="card border-0">
+                    <div className="card-header bg-transparent text-center border-0 d-flex justify-content-center">
+                        <div className="col-6 mx-0">
+                            <div className="d-flex row">
+                                <img src={require(`../../../assets/logo/logo(title_only).jpg`)} alt="logo" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
                     <div className="mt-auto mb-5 col-6 offset-3 justify-content-center text-center">
                         {/*<img className="card-img-top rounded-circle" id="profilePic" src={require(`../../../assets/images/${this.state.picture}`)} alt="profilePicture"/> */}
                         <i id="profileIcon" className="bi bi-emoji-sunglasses-fill"></i>

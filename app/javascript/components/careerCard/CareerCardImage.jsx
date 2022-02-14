@@ -29,3 +29,4 @@ export class CareerCardImage extends React.Component {
         )
     }
 }
+//remove state from this component in the future --Feb 13 note
