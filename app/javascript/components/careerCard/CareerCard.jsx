@@ -6,10 +6,13 @@ import LogoutTimer from '../LogoutTimer';
 import Body from './Body';
 import { ShuffleButton } from './Shuffle';
 
-export default class CareerCard extends React.Component {
+export default class CareerCard extends React.Component { 
+//this contains all logic and passes down rendering to child components --> may need to check for logic contained in child components and remove/refactor 
+
+// also for future --> refactor to use hooks instead of classes
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { //state should not be initialized with props --> need to refactor into a mounting function
             userID: localStorage.getItem('userID') ? localStorage.getItem('userID') : '1',
             id: props.location.state ? props.location.state.id : '',
             title: props.location.state ? props.location.state.title : '',
@@ -26,7 +29,14 @@ export default class CareerCard extends React.Component {
             cardIdarray: [],
             hashtags: props.location.state ? props.location.state.hashtags : [],
             previous: '',
-            timer: ''
+            timer: '', 
+            //**future: create an object that contains style data
+            style: {
+                bgColor: "white",
+                textColor: "black",
+                boxColor: "white",
+                boxBorder: "border-white"
+            }
         };
 
         this.changeCareer = this.changeCareer.bind(this);
@@ -36,8 +46,8 @@ export default class CareerCard extends React.Component {
         this.changeIcon = this.changeIcon.bind(this);   
         this.addBookmark = this.addBookmark.bind(this);
         this.removeBookmark = this.removeBookmark.bind(this);
+        this.changeStyle = this.changeStyle.bind(this);
     }
-
 
     changeCareer() {
         /*let id = Math.floor((Math.random() * 22) + 1);
@@ -48,6 +58,7 @@ export default class CareerCard extends React.Component {
         const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
         const userDataURL = `${API_ROOT}/api/v1/users/data/${this.state.userID}`;
 
+        //use an async api to fetch data whenever the page is reloaded or the shuffle button is used
         fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -101,14 +112,14 @@ export default class CareerCard extends React.Component {
             })
             .catch(error => error.message);
 
-        window.scrollTo({
+        window.scrollTo({  //include this on other windows
             top: 0,
             left: 0,
             behavior: 'instant'
         });
     }
 
-    previousCareer() {
+    previousCareer() { //sets state to previous career *currently not in use - may be used for future versions*
         this.setState(
             {
                 id: this.state.previous.id,
@@ -127,17 +138,17 @@ export default class CareerCard extends React.Component {
         );
     }
 
-    updateState(state) {
+    updateState(state) { //updates state via shuffle button
         this.setState({ state: state });
     }
 
-    componentDidMount() {
+    componentDidMount() { //should I set state here with props.location.state?
         if (!this.state.id) {
             this.changeCareer();
         }
     }
 
-    changeIcon() {
+    changeIcon() { //alters the bookmark icon and sends a call to the database with a push to an array of bookmarked cards
         const url = `${API_ROOT}/api/v1/users/update/${this.state.userID}`;
         let careerIdString = this.state.id.toString();
         let iconChange = this.state.bookmarkArray.includes(careerIdString) ? false : true;   //if this userID is in the array, then it should change to false
@@ -188,19 +199,31 @@ export default class CareerCard extends React.Component {
         this.setState({ bookmarkArray: updatedArray });
     }
 
+    changeStyle() {
+        console.log('click')
+        this.setState({ style: { 
+            bgColor: "#1f1a24",
+            textColor: "lightgray",
+            boxColor: "#121212",
+            boxBorder: "border-dark"
+        }} )
+    }
+
     render() {
         if (!this.state.userID) {
             window.location.replace("/");
             return <></>
         }
         if (this.state.id) {
+
+            //if state has loaded, render the page
             return (
                 <>
                     <LogoutTimer props={this.props} location={"/"} user={this.state.userID} />
                     <div className="row vh-100" >
-                        <div className="card border-0">
-                            <Header />
-                            <Body state={this.state} history={this.props.history} changeIcon={this.changeIcon} />
+                        <div className="card border-0" style={{ backgroundColor: `${this.state.style.bgColor}`}}>
+                            <Header changeStyle={this.changeStyle} />
+                            <Body state={this.state} history={this.props.history} changeIcon={this.changeIcon} style={this.state.style} />
                             <ShuffleButton current={this.state} setState={this.updateState} change={this.changeCareer} />
                             <Footer />
                         </div>
@@ -208,7 +231,7 @@ export default class CareerCard extends React.Component {
                 </>
             );
         }
-
+            //should I put in a loading animation/gif?
         return (
             <>
             </>
