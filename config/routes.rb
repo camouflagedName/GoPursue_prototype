@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'admin' => 'admin#index'
   get 'admin/*path' => 'admin#index'
   get 'careerinfo' => 'admin#index'
-  get 'careercard' => 'homepage#index'
+  get 'main' => 'homepage#index'
   get 'careerCard' => 'homepage#index'
   get 'search' => 'homepage#index'
   get 'Search' => 'homepage#index'

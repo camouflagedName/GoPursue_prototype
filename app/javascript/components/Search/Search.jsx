@@ -1,10 +1,9 @@
 import React from 'react';
 import { API_ROOT } from '../../packs/apiRoot';
-import { Link } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
 import { Results } from './Results';
 import { SurpriseMeButton } from './SurpriseMeButton';
-import { timers } from 'jquery';
+
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -81,10 +80,10 @@ export default class Search extends React.Component {
                     <p className="mt-0 offset-1 text-primary">{this.state.searchError}</p>
                 </div>
                 <div className="row mt-3 offset-3 col-6">
-                    <SurpriseMeButton search={this.search} history={this.props.history} />
+                    <SurpriseMeButton search={this.search} screen={this.props.screen} />
                 </div>
                 <div className="card-body">
-                    {this.state.careerMatch.length > 0 ? <Results results={this.state.careerMatch} user={this.state.bookmarks} term={this.state.searchTerm} /> : <div className="card-body"><h4 className="mt-5 mb-5">Careers will appear here.</h4></div>}
+                    {this.state.careerMatch.length > 0 ? <Results results={this.state.careerMatch} user={this.state.bookmarks} term={this.state.searchTerm} screen={this.props.screen} style={this.props.style}/> : <div className="card-body"><h4 className="mt-5 mb-5" style={{color: `${this.props.style.textColor}`}}>Careers will appear here.</h4></div>}
                 </div>
             </>
         );

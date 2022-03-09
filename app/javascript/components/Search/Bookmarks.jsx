@@ -1,18 +1,17 @@
 import React from 'react';
 import { API_ROOT } from '../../packs/apiRoot';
-import { Link } from 'react-router-dom';
-import { CareerCardImage } from '../careerCard/CareerCardImage';
+import { CareerCardImage } from '../CareerCard/CareerCardImage';
 
 export default class Bookmarks extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            careers: [],
-            userID: localStorage.getItem('userID'),
+            bookmarkedCareers: [],
+            userID: props.userData.userID,
             allCareers: []
         };
     }
-
+//should I move this logic to the server side?
     componentDidMount() {
         const url = `${API_ROOT}/api/v1/careers/index`;
         const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
@@ -36,54 +35,40 @@ export default class Bookmarks extends React.Component {
                 throw new Error("User Database: Bad network reponse.");
             })
             .then(json => {
-                this.setState({ careers: json.bookmarks })
+                this.setState({ bookmarkedCareers: json.bookmarks })
             });
+    }
 
+    handleClick = (careerData) => {
+        this.props.screen("careercard", careerData)
     }
 
     render() {
         const { allCareers } = this.state;
-        const eachCareer = allCareers.map((career, index) => (
+        const eachCareer = allCareers.map((careerData, index) => (
             (() => {
-                for (let i = 0; i < this.state.careers.length; i++) {
-                    if (career.id.toString() === this.state.careers[i].toString()) {
-                        return <Link key={index} className='text-decoration-none text-dark'
-                            to={{
-                                pathname: "/careercard",
-                                state: {
-                                    id: career.id,
-                                    title: career.title,
-                                    name: career.name,
-                                    favorite: career.favorite,
-                                    skills: career.skills,
-                                    advice: career.advice,
-                                    education: career.education,
-                                    pay: career.pay,
-                                    environment: career.environment,
-                                    image: career.image,
-                                    bookmark: true,
-                                    hashtags: career.hashtag,
-                                    bookmarkArray: this.state.careers
-                                }
-                            }}>
-                            <div key={index} className='offset-1 mb-4'>
-                                <div className="card text-center">
-                                    <div className="row g-0">
-                                        <div className="col-4 d-flex align-items-center">
-                                            <CareerCardImage image={career.image} alt={career.title} />
-                                        </div>
-                                        <div className="col-8">
-                                            <div className='card-body'>
-                                                <p className='card-title'>{career.title}</p>
+                for (let i = 0; i < this.state.bookmarkedCareers.length; i++) {
+                    if (careerData.id.toString() === this.state.bookmarkedCareers[i].toString()) {
+                        return (
+                            <a key={index} className='text-decoration-none text-dark' onClick={() => this.handleClick(careerData)}>
+                                <div key={index} className='offset-1 mb-4'>
+                                    <div className={`card text-center ${this.props.style.boxBorder}`} style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
+                                        <div className="row g-0">
+                                            <div className="col-4 d-flex align-items-center">
+                                                <CareerCardImage image={careerData.image} alt={careerData.title} />
+                                            </div>
+                                            <div className="col-8">
+                                                <div className='card-body'>
+                                                    <p className='card-title'>{careerData.title}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Link>
+                            </a>
+                        )
                     }
                 }
-
             })()
         ));
         return (

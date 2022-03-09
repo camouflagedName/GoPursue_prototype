@@ -8,7 +8,7 @@ export class CareerCardImage extends React.Component {
             imgURL: null
         }
     }
-
+//TODO: remove state and replace with passed down prop
     componentDidMount() {
         let regex = /http/;
         this.setState({ imgURL: regex.test(this.props.image) ? this.props.image : require(`../../../assets/images/professionals/${this.props.image}`) });

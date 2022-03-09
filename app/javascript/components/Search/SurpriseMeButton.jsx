@@ -18,7 +18,7 @@ export class SurpriseMeButton extends React.Component {
             environment: '',
             image: '',
             bookmark: false,
-            bookmarkArray: [],
+
             hashtags: []
         };
 
@@ -65,30 +65,8 @@ export class SurpriseMeButton extends React.Component {
             }
             throw new Error("Bad network response.");
         })
-        .then(response => {
-            if(this.ismounted) {
-                this.setState({ bookmarkArray: response.bookmarks });
-                this.setState( { bookmark: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
-            }
-        });
-        this.props.history.push({
-            pathname: "/careercard",
-            state: { 
-                id: this.state.id,
-                title: this.state.title,
-                name: this.state.name,
-                favorite: this.state.favorite,
-                skills: this.state.skills,
-                advice: this.state.advice,
-                education: this.state.education,
-                pay: this.state.pay,
-                environment: this.state.environment,
-                image: this.state.image,
-                bookmark: this.state.bookmark,
-                hashtags: this.state.hashtags,
-                bookmarkArray: this.state.bookmarkArray
-            }
-        })
+
+        this.props.screen("careercard", this.state)
     }
     componentWillUnmount(){
         this.ismounted = false;

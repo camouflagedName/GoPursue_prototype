@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CareerCardImage } from '../careerCard/CareerCardImage';
+import { CareerCardImage } from '../CareerCard/CareerCardImage';
 
 export class Results extends React.Component {
     constructor(props) {
@@ -11,56 +11,37 @@ export class Results extends React.Component {
     }
 
     getBookmark(id) {
-        //let bookmarkState = this.props.user.find(index => index == id) === undefined ? false : true;
         let bookmarkState = this.props.user.includes(id) ? true : false
         this.setState({ bookmark: bookmarkState });
-        console.log(this.state);
+    }
+
+    handleClick = (careerData) => {
+        this.props.screen("careercard", careerData)
     }
 
 
     render() {
         const allResults = this.props.results;
-        const results = allResults.map((career, index) =>
-        {    
-            let bookmarkState = this.props.user.includes(career.id.toString()) ? true : false;
+        const results = allResults.map((careerData, index) => {
+            let bookmarkState = this.props.user.includes(careerData.id.toString()) ? true : false;
             return (
                 <div key={index} className="col-10 offset-1">
-                    <Link 
-                        key={index}
-                        className='text-decoration-none text-dark'
-                        to={{
-                            pathname: "/careercard",
-                            state: {
-                                id: career.id,
-                                title: career.title,
-                                name: career.name,
-                                favorite: career.favorite,
-                                skills: career.skills,
-                                advice: career.advice,
-                                education: career.education,
-                                pay: career.pay,
-                                environment: career.environment,
-                                image: career.image,
-                                hashtags: career.hashtag,
-                                bookmark: bookmarkState,
-                                bookmarkArray: this.props.user
-                            }
-                        }}>
+                    <a key={index} className='text-decoration-none text-dark' onClick={() => this.handleClick(careerData)}>
                         <div key={index} className='offset-1 mb-4'>
-                            <div className="card text-center">
+                            <div className={`card text-center ${this.props.style.boxBorder}`} style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
                                 <div className="row g-0">
                                     <div className="col-4 d-flex align-items-center">
-                                        <CareerCardImage image={career.image} alt={career.title}/>              
+                                        <CareerCardImage image={careerData.image} alt={careerData.title} />
                                     </div>
                                     <div className="col-8">
                                         <div className='card-body'>
-                                            <p className='card-title'>{career.title}</p>
-                                        </div>           
+                                            <p className='card-title'>{careerData.title}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
-                    </Link>
+                    </a>
                 </div>
             );
         });
@@ -73,8 +54,8 @@ export class Results extends React.Component {
         );
         return (
             <div className="mt-5">
-                <h4 className="text-center">Displaying careers that match <span className="text-primary">{this.props.term}</span>:</h4>
-                <hr/>
+                <h4 className="text-center" style={{color: `${this.props.style.textColor}`}}>Displaying careers that match <span className="text-primary">{this.props.term}</span>:</h4>
+                <hr />
                 {this.props.results ? results : noResults}
             </div>
         )

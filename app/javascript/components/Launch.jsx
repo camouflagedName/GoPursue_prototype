@@ -20,6 +20,8 @@ export default () => {
     }
 
     else {}*/
+
+    //refactor this so that they all are rendered on a single page
     return (
         <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
             <div className='jumbotron jumbotron-fluid bg-transparent'>

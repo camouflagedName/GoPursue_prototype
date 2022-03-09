@@ -4,7 +4,6 @@ import { API_ROOT } from '../../packs/apiRoot';
 import { Hashtags } from './Hashtag';
 import { CareerCardImage } from './CareerCardImage';
 
-
 export default class Body extends React.Component {
     constructor(props) {
         super(props);
@@ -25,7 +24,7 @@ export default class Body extends React.Component {
         return (
             <>
                 <div className="mt-auto text-container col-10 offset-1">
-                    <CareerCardImage image={careerCard.image} alt={careerCard.title} />
+                    <CareerCardImage image={careerCard.image} alt={careerCard.title} /> {/* in the future, may need to move state from child comp to parent */}
                     <div className='bottom-left'>
                         <div className='bg-primary bg-gradient bg-opacity-75'>
                             <h2>{careerCard.title}</h2>
@@ -35,10 +34,10 @@ export default class Body extends React.Component {
                 </div>
                 <div className="card-header border-0 bg-transparent">
                     <p className="card-text">
-                        <Hashtags search={careerCard.hashtags} route={this.props.history} />
+                        <Hashtags search={careerCard.hashtags} screen={this.props.screen}/>
                         <OverlayTrigger placement="left" delay={{ hide: 400 }} overlay={<Tooltip>{toolTip}</Tooltip>}>
                             <button onClick={this.props.changeIcon} type="button" className="bg-transparent border-0 float-end bookmarkIcon" data-bs-container="body" data-bs-toggle="popover" data-bs-content="Bookmark added!">
-                                <i id="bookmark" className={`bi ${iconName}`}></i>
+                                <i id="bookmark" className={`bi ${iconName}`} style={{ color: this.props.style.iconColor}} ></i>
                             </button>
                         </OverlayTrigger>
                     </p>

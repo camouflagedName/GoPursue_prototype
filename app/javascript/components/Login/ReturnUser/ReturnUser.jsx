@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { API_ROOT } from '../../packs/apiRoot';
+import { API_ROOT } from '../../../packs/apiRoot';
+import User from '../../UserData';
 
 export default class ReturnUser extends React.Component {
     constructor(props) {
@@ -89,9 +90,12 @@ export default class ReturnUser extends React.Component {
                                     this.setState({ isLoggedIn: 'true' });
                                     localStorage.setItem('userID', user.user.id);
                                     localStorage.setItem('user', user.user.name);
-                                    localStorage.setItem('userBookmarks', user.user.bookmark);
+                                    localStorage.setItem('userBookmarks', user.user.bookmarks);
                                     localStorage.setItem('startTime', date);
-                                    this.props.history.push({ pathname: '/careercard', state: { time: date } })
+
+
+                                    const currentUser = new User(user.user.id, user.user.name, user.user.bookmarks, this.state.time)
+                                    this.props.history.push({ pathname: '/main', state: { currentUser } });
                                     return () => { mounted = false };
                                 })
                         }
@@ -134,7 +138,7 @@ export default class ReturnUser extends React.Component {
                 <div className='jumbotron jumbotron-fluid bg-transparent'>
                     <div className='container secondary-color'>
                         <div className="d-flex row">
-                            <img src={require(`../../../assets/logo/logo(cropped).jpg`)} alt="logo" />
+                            <img src={require(`../../../../assets/logo/logo(cropped).jpg`)} alt="logo" />
                         </div>
                         <hr />
                         <div className="container">

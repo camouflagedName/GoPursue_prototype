@@ -49,3 +49,7 @@
     font-size: 5rem;
 }
 
+.footer_position, .header_position {
+    position: fixed;
+}
+

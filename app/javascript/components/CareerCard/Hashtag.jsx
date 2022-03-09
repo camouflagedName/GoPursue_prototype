@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import { API_ROOT } from '../../packs/apiRoot';
+
 
 export class Hashtags extends React.Component {
     constructor(props) {
@@ -8,8 +8,8 @@ export class Hashtags extends React.Component {
 
         this.search = this.search.bind(this);
     }
-
-    search(term) {
+//makes a call to backend for 
+    search(searchTerm) {
         const url = `${API_ROOT}/api/v1/careers/find`;
         fetch(url, {
             method: 'POST',
@@ -18,7 +18,7 @@ export class Hashtags extends React.Component {
                 "Content-Type": 'application/json'
             },
             body: JSON.stringify({
-                term: term
+                term: searchTerm
             })
         })
             .then(response => {
@@ -27,15 +27,9 @@ export class Hashtags extends React.Component {
                 }
                 throw new Error("Career Database: Bad network response.");
             })
-            .then(response => {
-                this.props.route.push({
-                    pathname: "/search",
-                    state: {
-                        career: response,
-                        term: term
-                    }
-                })
-
+            .then(careerData => {
+                //action - onClick event? --> render Search component
+                this.props.screen("search", searchTerm, careerData)
             });
     }
 

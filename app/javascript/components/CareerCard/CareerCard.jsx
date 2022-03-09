@@ -1,52 +1,44 @@
 import React, { useEffect } from 'react';
 import { API_ROOT } from '../../packs/apiRoot';
-import Footer from '../Footer';
-import Header from '../Header';
-import LogoutTimer from '../LogoutTimer';
 import Body from './Body';
 import { ShuffleButton } from './Shuffle';
+import Loading_spinner from '../../../assets/icons/Loading_spinner.svg'
 
-export default class CareerCard extends React.Component { 
-//this contains all logic and passes down rendering to child components --> may need to check for logic contained in child components and remove/refactor 
 
-// also for future --> refactor to use hooks instead of classes
+export default class CareerCard extends React.Component {
+    //this contains all logic and passes down rendering to child components --> may need to check for logic contained in child components and remove/refactor 
+
+    // also for future --> refactor to use hooks instead of classes
     constructor(props) {
         super(props);
-        this.state = { //state should not be initialized with props --> need to refactor into a mounting function
-            userID: localStorage.getItem('userID') ? localStorage.getItem('userID') : '1',
-            id: props.location.state ? props.location.state.id : '',
-            title: props.location.state ? props.location.state.title : '',
-            name: props.location.state ? props.location.state.name : '',
-            favorite: props.location.state ? props.location.state.favorite : '',
-            skills: props.location.state ? props.location.state.skills : '',
-            advice: props.location.state ? props.location.state.advice : '',
-            education: props.location.state ? props.location.state.education : '',
-            pay: props.location.state ? props.location.state.pay : '',
-            environment: props.location.state ? props.location.state.environment : '',
-            image: props.location.state ? props.location.state.image : '',
-            bookmark: props.location.state ? props.location.state.bookmark : false,
-            bookmarkArray: props.location.state ? props.location.state.bookmarkArray : [],
+        this.state = { //should state be initialized with props??
+            userID: props.userData.userID,
+            bookmarkArray: props.userData.bookmarks,
+            timer: '',
+
+            id: props.state ? props.state.id : '',
+            title: props.state ? props.state.title : '',
+            name: props.state ? props.state.name : '',
+            favorite: props.state ? props.state.favorite : '',
+            skills: props.state ? props.state.skills : '',
+            advice: props.state ? props.state.advice : '',
+            education: props.state ? props.state.education : '',
+            pay: props.state ? props.state.pay : '',
+            environment: props.state ? props.state.environment : '',
+            image: props.state ? props.state.image : '',
+            bookmark: props.state ? props.state.bookmark : false,
             cardIdarray: [],
-            hashtags: props.location.state ? props.location.state.hashtags : [],
+            hashtags: props.state ? props.state.hashtag : [],
             previous: '',
-            timer: '', 
-            //**future: create an object that contains style data
-            style: {
-                bgColor: "white",
-                textColor: "black",
-                boxColor: "white",
-                boxBorder: "border-white"
-            }
         };
 
         this.changeCareer = this.changeCareer.bind(this);
         this.previousCareer = this.previousCareer.bind(this);
         //this.logoutTimer = this.logoutTimer.bind(this);
-        this.setState = this.setState.bind(this); 
-        this.changeIcon = this.changeIcon.bind(this);   
+        this.setState = this.setState.bind(this);
+        this.changeIcon = this.changeIcon.bind(this);
         this.addBookmark = this.addBookmark.bind(this);
         this.removeBookmark = this.removeBookmark.bind(this);
-        this.changeStyle = this.changeStyle.bind(this);
     }
 
     changeCareer() {
@@ -111,12 +103,6 @@ export default class CareerCard extends React.Component {
                 this.setState({ bookmark: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
             })
             .catch(error => error.message);
-
-        window.scrollTo({  //include this on other windows
-            top: 0,
-            left: 0,
-            behavior: 'instant'
-        });
     }
 
     previousCareer() { //sets state to previous career *currently not in use - may be used for future versions*
@@ -135,23 +121,36 @@ export default class CareerCard extends React.Component {
                 hashtags: this.state.previous.hashtags,
                 previous: this.state.previous.previous
             }
-        );
+        )
     }
 
-    updateState(state) { //updates state via shuffle button
+    updateState(state) { //deprecated?
         this.setState({ state: state });
     }
 
-    componentDidMount() { //should I set state here with props.location.state?
-        if (!this.state.id) {
+    componentDidMount() {
+        if(!this.state.id) {
             this.changeCareer();
         }
+
+        let updatedBookmark = this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true
+        if(this.state.bookmark !== updatedBookmark) {
+            this.setState({ bookmark: updatedBookmark })
+        }
     }
+
+    /*componentDidUpdate() {
+        let updatedBookmark = this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true
+        if(this.state.bookmark !== updatedBookmark) {
+            this.setState({ bookmark: updatedBookmark })
+        }
+
+    }*/
 
     changeIcon() { //alters the bookmark icon and sends a call to the database with a push to an array of bookmarked cards
         const url = `${API_ROOT}/api/v1/users/update/${this.state.userID}`;
         let careerIdString = this.state.id.toString();
-        let iconChange = this.state.bookmarkArray.includes(careerIdString) ? false : true;   //if this userID is in the array, then it should change to false
+        let iconChange = this.state.bookmarkArray.includes(careerIdString) ? false : true;   //if the current career card ID is in the array, then it should change to false
 
         this.setState({ bookmark: iconChange });
         if (iconChange === true) {
@@ -181,7 +180,6 @@ export default class CareerCard extends React.Component {
     addBookmark() {
         let currentBookmarks = this.state.bookmarkArray;
         let currentCareer = this.state.id.toString();
-
         currentBookmarks.push(currentCareer);
         this.setState({ bookmarkArray: currentBookmarks });
     }
@@ -199,42 +197,21 @@ export default class CareerCard extends React.Component {
         this.setState({ bookmarkArray: updatedArray });
     }
 
-    changeStyle() {
-        console.log('click')
-        this.setState({ style: { 
-            bgColor: "#1f1a24",
-            textColor: "lightgray",
-            boxColor: "#121212",
-            boxBorder: "border-dark"
-        }} )
-    }
 
     render() {
-        if (!this.state.userID) {
-            window.location.replace("/");
-            return <></>
-        }
         if (this.state.id) {
-
-            //if state has loaded, render the page
             return (
                 <>
-                    <LogoutTimer props={this.props} location={"/"} user={this.state.userID} />
-                    <div className="row vh-100" >
-                        <div className="card border-0" style={{ backgroundColor: `${this.state.style.bgColor}`}}>
-                            <Header changeStyle={this.changeStyle} />
-                            <Body state={this.state} history={this.props.history} changeIcon={this.changeIcon} style={this.state.style} />
-                            <ShuffleButton current={this.state} setState={this.updateState} change={this.changeCareer} />
-                            <Footer />
-                        </div>
-                    </div>
+                    <Body state={this.state} changeIcon={this.changeIcon} style={this.props.style} screen={this.props.screen} />
+                    <ShuffleButton current={this.state} change={this.changeCareer} />
                 </>
-            );
+            )
         }
-            //should I put in a loading animation/gif?
+        //loading icon if data has not loaded
         return (
-            <>
-            </>
+            < div className="mt-auto col-8 offset-4" >
+                <img src={Loading_spinner} alt='loading icon' />
+            </div >
         )
     }
 }

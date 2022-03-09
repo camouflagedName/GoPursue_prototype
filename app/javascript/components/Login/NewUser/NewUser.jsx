@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_ROOT } from '../../packs/apiRoot';
+import { API_ROOT } from '../../../packs/apiRoot';
 import Name from './Name';
 import Age from './Age';
 import Password from './Password';

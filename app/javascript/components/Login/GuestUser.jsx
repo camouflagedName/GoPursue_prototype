@@ -1,11 +1,13 @@
 import React from 'react';
-import { API_ROOT } from '../packs/apiRoot';
+import { API_ROOT } from '../../packs/apiRoot';
+import User from '../UserData';
 
 export default class GuestUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectValue: ''
+            selectValue: '',
+            time: null
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNameSelect = this.handleNameSelect.bind(this);
@@ -32,17 +34,28 @@ export default class GuestUser extends React.Component {
                     return response.json();
                 }
             })
-            .then(user => {
+            .then(data => {
+                let date = new Date();
+                let month = date.getMonth() + 1;
+                let hour = date.getHours();
+                let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
+
+                this.setState({ time: date.getSeconds() })
+
+                
+
                 localStorage.setItem('userID', 1);
                 localStorage.setItem('user', 'guest1');
-                localStorage.setItem('userBookmarks', user.user.bookmark)
-                this.props.history.push({ pathname: '/careercard' });
-            })
+                localStorage.setItem('userBookmarks', data.user.bookmarks) //need to turn this into an array
+                localStorage.setItem('startTime', date);
 
+                const currentUser = new User(1, 'guest1', data.user.bookmarks, this.state.time)
+                this.props.history.push({ pathname: '/main', state: { currentUser } });
+            })
     }
 
     handleNameSelect(event) {
-
+//future function/event
     }
 
     handleEnterKey(event) {
@@ -57,7 +70,7 @@ export default class GuestUser extends React.Component {
                 <div className='jumbotron jumbotron-fluid bg-transparent'>
                     <div className='container secondary-color'>
                         <div className="d-flex row">
-                            <img src={require(`../../assets/logo/logo(cropped).jpg`)} alt="logo" />
+                            <img src={require(`../../../assets/logo/logo(cropped).jpg`)} alt="logo" />
                         </div>
                         <hr />
                         <div className="container">
