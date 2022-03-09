@@ -41,15 +41,15 @@ export default class GuestUser extends React.Component {
                 let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
 
                 this.setState({ time: date.getSeconds() })
-
+                const bookmarks = data.user.bookmarks ? data.user.bookmarks : []
                 
 
                 localStorage.setItem('userID', 1);
                 localStorage.setItem('user', 'guest1');
-                localStorage.setItem('userBookmarks', data.user.bookmarks) //need to turn this into an array
+                localStorage.setItem('userBookmarks', bookmarks) //need to turn this into an array
                 localStorage.setItem('startTime', date);
 
-                const currentUser = new User(1, 'guest1', data.user.bookmarks, this.state.time)
+                const currentUser = new User(1, 'guest1', bookmarks, this.state.time)
                 this.props.history.push({ pathname: '/main', state: { currentUser } });
             })
     }
