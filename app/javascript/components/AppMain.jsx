@@ -12,8 +12,8 @@ export default class AppMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = { //should state be initialized with props??
-            currentUser: this.props.location.state.currentUser,
-            userID: this.props.location.state.currentUser.userID,
+            currentUser: this.props.location.state ? this.props.location.state.currentUser : null,
+            userID: this.props.location.state ? this.props.location.state.currentUser.userID : null,
             timer: '',
 
             style: localStorage.getItem('darkMode') ? Style.darkModeStyle : Style.defaultStyle,
@@ -68,7 +68,7 @@ export default class AppMain extends React.Component {
                     <div className="card border-0" style={{ backgroundColor: `${this.state.style.bgColor}` }}>
                         <Header changeStyle={this.changeStyle} logo={this.state.style.logo} style={this.state.style} />
                         <CurrentScreen screenName={this.state.screen} stateProps={this.state.props} screenState={this.changeScreenState} currentUser={this.state.currentUser} style={this.state.style}/>
-                        <Footer style={this.state.style.iconColor} screen={this.changeScreenState} />
+                        <Footer style={this.state.style} screen={this.changeScreenState} />
                     </div>
                 </div>
             </>

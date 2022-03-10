@@ -26,7 +26,7 @@ export default class CareerCard extends React.Component {
             pay: props.state ? props.state.pay : '',
             environment: props.state ? props.state.environment : '',
             image: props.state ? props.state.image : '',
-            bookmark: props.state ? props.state.bookmark : false,
+            bookmarkIsSelected: props.state ? props.state.bookmark : false,
             cardIdarray: [],
             hashtags: props.state ? props.state.hashtag : [],
             previous: '',
@@ -37,8 +37,6 @@ export default class CareerCard extends React.Component {
         //this.logoutTimer = this.logoutTimer.bind(this);
         this.setState = this.setState.bind(this);
         this.changeIcon = this.changeIcon.bind(this);
-        this.addBookmark = this.addBookmark.bind(this);
-        this.removeBookmark = this.removeBookmark.bind(this);
     }
 
     changeCareer() {
@@ -100,7 +98,7 @@ export default class CareerCard extends React.Component {
             })
             .then(response => {
                 this.setState({ cardIdarray: response.viewed_cards, bookmarkArray: response.bookmarks });
-                this.setState({ bookmark: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
+                this.setState({ bookmarkIsSelected: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
             })
             .catch(error => error.message);
     }
@@ -129,36 +127,38 @@ export default class CareerCard extends React.Component {
     }
 
     componentDidMount() {
-        if(!this.state.id) {
+        if (!this.state.id) {
             this.changeCareer();
-        }
-
-        let updatedBookmark = this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true
-        if(this.state.bookmark !== updatedBookmark) {
-            this.setState({ bookmark: updatedBookmark })
         }
     }
 
-    /*componentDidUpdate() {
-        let updatedBookmark = this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true
-        if(this.state.bookmark !== updatedBookmark) {
-            this.setState({ bookmark: updatedBookmark })
-        }
-
-    }*/
 
     changeIcon() { //alters the bookmark icon and sends a call to the database with a push to an array of bookmarked cards
         const url = `${API_ROOT}/api/v1/users/update/${this.state.userID}`;
         let careerIdString = this.state.id.toString();
-        let iconChange = this.state.bookmarkArray.includes(careerIdString) ? false : true;   //if the current career card ID is in the array, then it should change to false
 
-        this.setState({ bookmark: iconChange });
-        if (iconChange === true) {
-            this.addBookmark();
+        const addBookmark = () => {
+            let currentBookmarks = this.state.bookmarkArray;
+            let currentCareer = this.state.id.toString();
+            currentBookmarks.push(currentCareer);
+            this.setState({ bookmarkArray: currentBookmarks, bookmarkIsSelected: true });
         }
-        if (iconChange === false) {
-            this.removeBookmark();
+
+        const removeBookmark = () => {
+            let currentCareer = this.state.id.toString();
+
+            for (let i = 0; i < this.state.bookmarkArray.length; i++) {
+                if (this.state.bookmarkArray[i] === this.state.id.toString()) {
+                    this.state.bookmarkArray.splice(i, 1)
+                }
+            }
+
+            let updatedArray = this.state.bookmarkArray.filter(careers => careers !== currentCareer);
+            this.setState({ bookmarkArray: updatedArray, bookmarkIsSelected: false });
         }
+
+        // this.state.bookmarkArray.includes(careerIdString) === true ? this.removeBookmark : this.addBookmark;   //if the current career card ID is in the array, then it should change to false
+        this.state.bookmarkIsSelected === true ? removeBookmark() : addBookmark()  //if the current career card ID is in the array, then it should change to false
 
         fetch(url, {
             method: 'PUT',
@@ -177,28 +177,8 @@ export default class CareerCard extends React.Component {
             .catch(error => console.log(error.message));
     }
 
-    addBookmark() {
-        let currentBookmarks = this.state.bookmarkArray;
-        let currentCareer = this.state.id.toString();
-        currentBookmarks.push(currentCareer);
-        this.setState({ bookmarkArray: currentBookmarks });
-    }
-
-    removeBookmark() {
-        let currentCareer = this.state.id.toString();
-
-        for (let i = 0; i < this.state.bookmarkArray.length; i++) {
-            if (this.state.bookmarkArray[i] === this.state.id.toString()) {
-                this.state.bookmarkArray.splice(i, 1)
-            }
-        }
-
-        let updatedArray = this.state.bookmarkArray.filter(careers => careers !== currentCareer);
-        this.setState({ bookmarkArray: updatedArray });
-    }
-
-
     render() {
+
         if (this.state.id) {
             return (
                 <>
@@ -209,9 +189,16 @@ export default class CareerCard extends React.Component {
         }
         //loading icon if data has not loaded
         return (
-            < div className="mt-auto col-8 offset-4" >
-                <img src={Loading_spinner} alt='loading icon' />
-            </div >
+            <>
+                < div className="mt-auto mb-5 col-6 offset-3" >
+                    <img src={Loading_spinner} alt='loading icon' />
+                </div >
+                <div className="card-body mt-5">
+                    <div className="col-10 mx-auto mb-4 d-grid gap-2 justify-content-center">
+                    </div>
+                </div>
+            </>
+
         )
     }
 }

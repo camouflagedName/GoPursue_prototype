@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { CareerCardImage } from '../CareerCard/CareerCardImage';
 
 export class Results extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = { bookmark: '' }
         this.getBookmark = this.getBookmark.bind(this);
     }
@@ -19,11 +17,13 @@ export class Results extends React.Component {
         this.props.screen("careercard", careerData)
     }
 
-
     render() {
+
         const allResults = this.props.results;
         const results = allResults.map((careerData, index) => {
             let bookmarkState = this.props.user.includes(careerData.id.toString()) ? true : false;
+            careerData.bookmark = bookmarkState
+
             return (
                 <div key={index} className="col-10 offset-1">
                     <a key={index} className='text-decoration-none text-dark' onClick={() => this.handleClick(careerData)}>

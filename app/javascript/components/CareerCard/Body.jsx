@@ -11,8 +11,8 @@ export default class Body extends React.Component {
 
     render() {
         let careerCard = this.props.state,
-            iconName = careerCard.bookmark === false ? "bi-bookmark" : "bi-bookmark-heart-fill",
-            toolTip = careerCard.bookmark === false ? "Bookmark removed!" : "Bookmark added!",
+            iconName = careerCard.bookmarkIsSelected === false ? "bi-bookmark" : "bi-bookmark-heart-fill",
+            toolTip = careerCard.bookmarkIsSelected === false ? "Bookmark removed!" : "Bookmark added!",
             regex = /,(?![^(]*\))/,
             count = 0;
         const skillsNeeded = this.props.state.skills.split(regex);

@@ -9,8 +9,9 @@ const defaultStyle =
     bgColor: "white",
     textColor: "black",
     boxColor: "white",
-    boxBorder: "border-white",
+    boxBorder: "border-light",
     iconColor: "currentColor",
+    footerBorder: "border-dark",
     logo: logo,
     profile: {
         icon: "bi-emoji-sunglasses-fill",
@@ -26,6 +27,7 @@ const darkModeStyle =
     boxColor: "#121212",
     boxBorder: "border-dark",
     iconColor: "blue",
+    footerBorder: "border-light",
     logo: darkModeLogo,
     profile: {
         icon: "bi-emoji-sunglasses-fill",

@@ -6,6 +6,15 @@ class Api::V1::CareersController < ApplicationController
     render json: career
   end
 
+  #find only careers that match a bookmarked array
+  def get_bookmarked_careers
+    bookmarks = params[:bookmark_array]
+    if bookmarks
+      bookmarked_careers = Career.where(id: bookmarks)
+      render json: bookmarked_careers
+    end
+  end
+
   def random_career
     @career = Career.all
     render json: @career.sample

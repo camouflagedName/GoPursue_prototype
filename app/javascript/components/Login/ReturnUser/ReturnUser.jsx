@@ -129,7 +129,7 @@ export default class ReturnUser extends React.Component {
     }
 
     componentWillUnmount() {
-        this.setState((state) => ({ isMounted: false }));
+        this.setState({ isMounted: false });
     }
 
     render() {
@@ -161,12 +161,14 @@ export default class ReturnUser extends React.Component {
                                     <label htmlFor='passwordCheckbox'>Show Password</label>
                                     <div className="container">
                                         <div className='row mt-5'>
-                                            <input type='submit' className='btn btn-lg btn-success' value="Enter" />
-                                        </div>
-                                        <div className='row mt-4'>
-                                            <Link to="/">
-                                                <button type='button' className='btn btn-lg btn-success'>Cancel</button>
-                                            </Link>
+                                            <div className='col-6'>
+                                                <Link to="/">
+                                                    <button type='button' className='btn btn-lg btn-success'>Cancel</button>
+                                                </Link>
+                                            </div>
+                                            <div className='col-6'>
+                                                <input type='submit' className='btn btn-lg btn-primary' value="Enter" />
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

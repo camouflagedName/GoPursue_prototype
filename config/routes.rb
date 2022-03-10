@@ -5,14 +5,15 @@ Rails.application.routes.draw do
   get 'admin/*path' => 'admin#index'
   get 'careerinfo' => 'admin#index'
   get 'main' => 'homepage#index'
-  get 'careerCard' => 'homepage#index'
-  get 'search' => 'homepage#index'
-  get 'Search' => 'homepage#index'
-  get 'returnUser' => 'homepage#index'
+# get 'careerCard' => 'homepage#index'
+# get 'search' => 'homepage#index'
+# get 'Search' => 'homepage#index'
+# get 'returnUser' => 'homepage#index'
   get 'newUser' => 'homepage#index'
   get 'returnuser' => 'homepage#index'
   get 'newuser' => 'homepage#index'
-  get 'profile' => 'homepage#index'
+  get 'guest' => 'homepage#index'
+# get 'profile' => 'homepage#index'
   #get '*path' => 'homepage#index'
 
   resources :sessions
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         get 'careers/admin/index', to: 'careers#index'
         get 'careers/index', to: 'careers#index'
+        post 'careers/bookmarks', to: 'careers#get_bookmarked_careers'
         post 'careers/create', to: 'careers#create'
         post 'careers/createImage', to: 'careers#create_image'
         post 'careers/findImage', to: 'careers#find_image'

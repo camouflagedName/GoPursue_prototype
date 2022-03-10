@@ -14,9 +14,9 @@ export default (
     <Router>
         <Switch>
             <Route path='/' exact component={Launch} />
-            <Route path='/search' exact component={MainSearch} />
+            {/*<Route path='/search' exact component={MainSearch} />
             <Route path='/careercard' exact component={CareerCard} />
-            <Route path='/profile' exact component={Profile} />
+            <Route path='/profile' exact component={Profile} />*/}
             <Route path='/newuser' exact component={NewUser} />
             <Route path='/returnuser' exact component={ReturnUser} />
             <Route path='/guest' exact component={GuestUser} />

@@ -1,16 +1,18 @@
 import React from 'react';
 import { API_ROOT } from '../../packs/apiRoot';
+import { Link } from 'react-router-dom';
 import User from '../UserData';
 
 export default class GuestUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userName: null,
             selectValue: '',
             time: null
         }
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleNameSelect = this.handleNameSelect.bind(this);
+        this.handleInput = this.handleInput.bind(this);
         this.handleEnterKey = this.handleEnterKey.bind(this);
     }
 
@@ -42,20 +44,20 @@ export default class GuestUser extends React.Component {
 
                 this.setState({ time: date.getSeconds() })
                 const bookmarks = data.user.bookmarks ? data.user.bookmarks : []
-                
+
 
                 localStorage.setItem('userID', 1);
-                localStorage.setItem('user', 'guest1');
+                localStorage.setItem('user', this.state.userName);
                 localStorage.setItem('userBookmarks', bookmarks) //need to turn this into an array
                 localStorage.setItem('startTime', date);
 
-                const currentUser = new User(1, 'guest1', bookmarks, this.state.time)
+                const currentUser = new User(1, this.state.userName, bookmarks, this.state.time)
                 this.props.history.push({ pathname: '/main', state: { currentUser } });
             })
     }
 
-    handleNameSelect(event) {
-//future function/event
+    handleInput(event) {
+        this.setState({ userName: event.target.value })
     }
 
     handleEnterKey(event) {
@@ -80,8 +82,15 @@ export default class GuestUser extends React.Component {
                                     <div className='input-group'>
                                         <input onChange={this.handleInput} onKeyPress={this.handleEnterKey} className='form-control' type='text' aria-label='Enter Name' placeholder='optional' />
                                     </div>
-                                    <div className='row mt-5 col-4'>
-                                        <input type='submit' className='btn btn-lg btn-success' value="Enter" />
+                                    <div className='row mt-5'>
+                                        <div className='col-6'>
+                                            <Link to="/">
+                                                <button type='button' className='btn btn-lg btn-success'>Cancel</button>
+                                            </Link>
+                                        </div>
+                                        <div className='col-6'>
+                                            <input type='submit' className='btn btn-lg btn-primary' value="Enter" />
+                                        </div>
                                     </div>
                                 </form>
                             </div>
