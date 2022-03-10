@@ -3,6 +3,7 @@ import { API_ROOT } from '../../../packs/apiRoot';
 import Name from './Name';
 import Age from './Age';
 import Password from './Password';
+import User from '../../UserData';
 
 export default class NewUser extends React.Component {  
     constructor(props) {
@@ -65,6 +66,9 @@ export default class NewUser extends React.Component {
         let month = date.getMonth() + 1;
         let hour = date.getHours();
         let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
+
+        this.setState({ time: date.getSeconds() })
+
         fetch(url, {
             method: 'POST',
             headers: {
@@ -92,15 +96,9 @@ export default class NewUser extends React.Component {
             localStorage.setItem('userID', response.id);
             localStorage.setItem('user', response.name);
             localStorage.setItem('startTime', date);
-            this.props.history.push({
-                pathname: "/careercard",
-                state: {
-                    name: response.name,
-                    userID: response.id,
-                    password: response.password,
-                    time: date
-                }
-            })
+
+            const currentUser = new User(response.id, response.name, [], this.state.time)
+            this.props.history.push({ pathname: "/main", state: { currentUser } })
         })
         .catch(error => console.log(error.message));
     }

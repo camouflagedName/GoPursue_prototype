@@ -43,8 +43,8 @@ export default class GuestUser extends React.Component {
                 let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
 
                 this.setState({ time: date.getSeconds() })
-                const bookmarks = data.user.bookmarks ? data.user.bookmarks : []
 
+                const bookmarks = data.user.bookmarks ? data.user.bookmarks : []
 
                 localStorage.setItem('userID', 1);
                 localStorage.setItem('user', this.state.userName);
