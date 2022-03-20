@@ -13,6 +13,19 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    port: 587,
+    address: 'feedback-smtp.us-east-1.amazonses.com',
+    user_name: 'no-reply',
+    password: 'C4r33rs34rch',
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
