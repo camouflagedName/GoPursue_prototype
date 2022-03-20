@@ -65,7 +65,7 @@ export default class Bookmarks extends React.Component {
             (() => {
                 for (let i = 0; i < this.state.bookmarkedCareerIDs.length; i++) {
                    // if (careerData.id.toString() === this.state.bookmarkedCareerIDs[i].toString()) {  //put this logic on the backend
-                        careerData.bookmark = true //this should occur on the Body Component
+                        careerData.bookmark = true //this should occur on the Body Component or in a more logical/replicatable way
 
                         return (
                             <a key={index} className='text-decoration-none text-dark' onClick={() => this.handleClick(careerData)}>

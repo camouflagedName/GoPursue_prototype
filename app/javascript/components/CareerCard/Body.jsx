@@ -34,23 +34,23 @@ export default class Body extends React.Component {
                 </div>
                 <div className="card-header border-0 bg-transparent">
                     <p className="card-text">
-                        <Hashtags search={careerCard.hashtags} screen={this.props.screen}/>
+                        <Hashtags search={careerCard.hashtags} screen={this.props.screen} />
                         <OverlayTrigger placement="left" delay={{ hide: 400 }} overlay={<Tooltip>{toolTip}</Tooltip>}>
                             <button onClick={this.props.changeIcon} type="button" className="bg-transparent border-0 float-end bookmarkIcon" data-bs-container="body" data-bs-toggle="popover" data-bs-content="Bookmark added!">
-                                <i id="bookmark" className={`bi ${iconName}`} style={{ color: this.props.style.iconColor}} ></i>
+                                <i id="bookmark" className={`bi ${iconName}`} style={{ color: this.props.style.iconColor }} ></i>
                             </button>
                         </OverlayTrigger>
                     </p>
                 </div>
                 <div className="card-body">
                     <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
-                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
+                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
                             <h4 className="card-title">Favorite part of my job:</h4>
                             <p className="card-text">{careerCard.favorite}</p>
                         </div>
                     </div>
                     <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
-                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
+                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
                             <h4 className="card-title">Skills Needed:</h4>
                             <ul>
                                 {skillList}
@@ -58,27 +58,27 @@ export default class Body extends React.Component {
                         </div>
                     </div>
                     <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
-                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
-                            <h4 className="card-title">My Advice:</h4>
-                            <p className="card-text">{careerCard.advice}</p>
+                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
+                            <h4 className="card-title">Work Environment:</h4>
+                            <p className="card-text">{careerCard.environment}</p>
                         </div>
                     </div>
                     <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
-                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
+                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
                             <h4 className="card-title">My Education:</h4>
                             <p className="card-text">{careerCard.education}</p>
                         </div>
                     </div>
                     <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
-                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
+                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
                             <h4 className="card-title">Average Pay:</h4>
                             <p className="card-text">{careerCard.pay}</p>
                         </div>
                     </div>
                     <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
-                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
-                            <h4 className="card-title">Work Environment:</h4>
-                            <p className="card-text">{careerCard.environment}</p>
+                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
+                            <h4 className="card-title">My Advice:</h4>
+                            <p className="card-text">{careerCard.advice}</p>
                         </div>
                     </div>
                     {/*<p className="fw-bold mb-0 mt-3">Number of people I work with:</p>

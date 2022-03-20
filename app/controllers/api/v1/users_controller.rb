@@ -8,6 +8,9 @@ class Api::V1::UsersController < ApplicationController
     render json: user 
   end
 
+  def confirmation
+  end
+
   def login
     if confirm_user #&& confirm_user.authenticate(:password)
       render json: confirm_user
@@ -27,12 +30,79 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    #@user = User.new
   end
 
   # GET /users/1/edit
   def edit
   end
+
+  def destroy
+    user&.destroy
+  end
+
+  #email verification
+  def verify_email
+    email = params[:user][:email]
+    check_email_exists = User.find_by_email(email)
+    if check_email_exists
+      render json: {
+        error: "This email has already been registered."
+      }
+    else
+      user = User.new(user_params)
+      new_token = SecureRandom.urlsafe_base64.to_s
+      #send verification email
+      #respond_to do |format|
+      if user.save
+        user.update!(confirm_token: new_token)
+        NewUserMailer.with(user: user).verification_email.deliver_now
+        render json: {
+          message: "A verification link has been sent to #{user.email}. Please check your inbox and follow the instructions. CODE: #{user.confirm_token}"
+        }
+      else
+        puts "***************Error: New User Table was not created********************"
+        render json: {
+          error: "Error with the system. Please contact the system administrator."
+        }
+      end
+    end
+  end
+
+  #what happens after email is sent and link is clicked
+  def confirm_email
+    data = params[:id]
+    user = User.find_by_confirm_token(data)
+    if user
+      puts user.email
+      user.update!(email_confirm: true)
+      render :confirmation
+      #render json: user.email
+    else
+      #render plain: "Verification has been sent. You can now return to the app and continue with the login process."
+      render "users/confirmation"
+    end
+  end
+
+  def check_confirm_email
+    email = params[:id]
+    user = User.find_by_email(email)
+    if user
+      if user.email_confirm
+        puts user.id
+        render json: true
+        #render :confirmation
+      else
+        puts "-------User has not responded!--------"
+        render json: false
+      end
+    else
+      puts "********User could not be found************"
+      render json: false
+    end
+  end
+
+
 
   # POST /users or /users.json
   def create
@@ -42,6 +112,7 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: user.errors
     end
+
   end
 
   # PATCH/PUT /users/1 or /users/1.json
@@ -94,6 +165,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -106,7 +178,11 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :age, :interests, :bookmark, :created_on, :num_logins)
+      params.require(:user).permit(:name, :password, :password_confirmation, :age, :interests, :bookmark, :created_on, :num_logins, :email, :email_confirm, :confirm_token)
+    end
+
+    def email_params
+      params.require(:user).permit(:email)
     end
 
     private
@@ -117,6 +193,11 @@ class Api::V1::UsersController < ApplicationController
     private
     def login_params
       params.require(:user).permit(:id, :num_logins, :last_login)
+    end
+
+    private
+    def confirmation_token
+      confirm_token = SecureRandom.urlsafe_base64.to_s
     end
 
 end

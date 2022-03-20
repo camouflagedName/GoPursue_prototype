@@ -37,6 +37,10 @@
     left: 16px
 }
 
+.newUser_textbox {
+    border-style: none none solid none;
+}
+
 #newUser_age {
     border-style: none none solid none;
 }

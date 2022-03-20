@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+        <!-- Fonts -->
+    <style>@import url('https://fonts.googleapis.com/css2?family=Cabin+Condensed:wght@700&Julius+Sans+One&family=Montserrat:ital,wght@0,300;0,400;1,300&display=swap');</style>   
+
+    <!-- Bootstrap and CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/style.css">
+  </head>
+
+  <body>
+    <%= image_tag "/logo/logo-01.png", class: "img-responsive" %>
+    <h5>Welcome to GoPursue!</h5>
+    <p>To continue with the login process, please use the following link: <%= link_to "Verify your email address", "/api/v1/users/confirm_email/#{@user.confirm_token}" %></p>
+    <hr />
+    <p><small>This message was automatically generated. Please do not reply to this email.</small></p>
+  </body>
+</html>
+
+<!-- api_v1_confirm_email_url(@user.confirm_token)-->

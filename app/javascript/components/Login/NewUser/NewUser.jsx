@@ -4,43 +4,91 @@ import Name from './Name';
 import Age from './Age';
 import Password from './Password';
 import User from '../../UserData';
+import Email from './Email';
+import ResponseWait from './ResponseWait';
 
-export default class NewUser extends React.Component {  
+export default class NewUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            header: 'name',
-            input: '',
+            currentPage: 'email',
+            input: 'Enter email address',
+            email: '',
             name: '',
             age: '',
             password: '',
             password_confirmation: '',
             id: '',
             link: '',
-            time: null
+            time: null,
+            verifyEmailMsg: '',
+            emailError: ''
         };
-        this.changeHeader = this.changeHeader.bind(this);
-        //this.changeHeaderBack = this.changeHeaderBack.bind(this);
+        this.verifyEmail = this.verifyEmail.bind(this);
+        this.changePage = this.changePage.bind(this);
+        //this.changePageBack = this.changePageBack.bind(this);
         this.inputChange = this.inputChange.bind(this);
+        this.setEmail = this.setEmail.bind(this);
         this.setName = this.setName.bind(this);
         this.setAge = this.setAge.bind(this);
         this.createPassword = this.createPassword.bind(this);
+        this.emailVerConfirmed = this.emailVerConfirmed.bind(this);
     }
 
-    changeHeader(){
-        switch (this.state.header) {
+    changePage(currentPage) {
+        switch (currentPage) {
+            case 'email':
+                return (<Email header={this.changePage} input={this.inputChange} value={this.state.input} verify={this.verifyEmail} error={this.state.emailError} />);
+            case 'waitForEmailRes':
+                return (<ResponseWait header={this.state.verifyEmailMsg} email={this.state.email} changePage={this.changePage} />)
             case 'name':
-                return(<Name header={this.changeHeader} input={this.inputChange} value={this.state.input} setState={this.setName} createPassword={this.createPassword} />);
+                return (<Name header={this.changePage} input={this.inputChange} value={this.state.input} setState={this.setName} createPassword={this.createPassword} />);
             case 'age':
-                return(<Age header={this.changeHeader} input={this.inputChange} value={this.state.input} setState={this.setAge} />);
+                return (<Age header={this.changePage} input={this.inputChange} value={this.state.input} setState={this.setAge} />);
             case 'interests':
                 break;
             case 'password':
-                return(<Password value={this.state.password} addUser={this.addUser.bind(this)} />);
+                return (<Password value={this.state.password} addUser={this.addUser.bind(this)} />);
         }
     }
 
-    createPassword(){
+    verifyEmail(event, email) {
+        event.preventDefault();
+        const url = `${API_ROOT}/api/v1/users/verify_email`
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    name: "temp",
+                    age: 0,
+                    password: "temp",
+                    email: email
+                }
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(res)
+            })
+            .then(json => {
+                json.error ? this.setState({ emailError: json.error })
+                    :
+                    this.setState({ verifyEmailMsg: json.message, currentPage: "waitForEmailRes", email: email })
+            })
+    }
+
+    emailVerConfirmed() { //del this func
+        this.setState({ currentPage: "name" })
+    }
+
+    createPassword() {
         let nounArray = ['aardvark', 'flamingo', 'wolverine', 'squid', 'turtle', 'unicorn', 'kumquat', 'beagle', 'platypus', 'alpaca', 'opossum', 'beehives', 'noodles', 'waffle', 'tapioca', 'pineapple', 'bacon', 'bagel', 'potato', 'pickle', 'rutabaga', 'watermelon', 'cheesecake', 'banana', 'pork', 'muffin', 'papaya', 'custard', 'spatula', 'aglet', 'shishcabob', 'jukebox', 'leotard', 'deltoid'],
             adjArray = ['sizzling', 'hiccuping', 'spelunking', 'booming', 'waddling', 'bumbling', 'grappling', 'surfing', 'coddling', 'dazzling', 'adoring', 'pickling', 'flossing', 'babbling', 'tickling', 'maniacal', 'copious', 'tart', 'bodacious', 'frilly', 'psychedelic', 'husky', 'quirky', 'funky', 'ritzy', 'explosive'];
         let nounNum = Math.floor(Math.random() * nounArray.length);
@@ -48,18 +96,22 @@ export default class NewUser extends React.Component {
         let noun = nounArray[nounNum];
         let adj = adjArray[adjNum];
         const password = adj + ' ' + noun;
-        this.setState( { password: password })
+        this.setState({ password: password })
     }
 
-    setName(newHeader, newName){
-        this.setState( {header: newHeader, input: '', name: newName});
+    setEmail(newEmail) {
+        this.setState({ currentPage: newHeader, input: '', email: newEmail });
     }
 
-    setAge(newHeader, newAge){
-        this.setState( {header: newHeader, input: '', age: newAge});
+    setName(newHeader, newName) {
+        this.setState({ currentPage: newHeader, input: '', name: newName });
     }
 
-    addUser(event){
+    setAge(newHeader, newAge) { //del this func
+        this.setState({ currentPage: newHeader, input: '', age: newAge });
+    }
+
+    addUser(event) {
         event.preventDefault();
         const url = `${API_ROOT}/api/v1/users/create`;
         let date = new Date();
@@ -75,10 +127,11 @@ export default class NewUser extends React.Component {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
                 "Content-Type": 'application/json'
             },
-            body: JSON.stringify( {
+            body: JSON.stringify({
                 user: {
                     name: this.state.name,
-                    age: this.state.age,
+                    email: this.state.email,
+                    age: 0,
                     password: this.state.password,
                     password_confirmation: this.state.password,
                     created_on: currentDate,
@@ -86,42 +139,42 @@ export default class NewUser extends React.Component {
                 }
             })
         })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error("Bad network response.");
-        })
-        .then(response => {
-            localStorage.setItem('userID', response.id);
-            localStorage.setItem('user', response.name);
-            localStorage.setItem('startTime', date);
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Bad network response.");
+            })
+            .then(response => {
+                localStorage.setItem('userID', response.id);
+                localStorage.setItem('user', response.name);
+                localStorage.setItem('startTime', date);
 
-            const currentUser = new User(response.id, response.name, [], this.state.time)
-            this.props.history.push({ pathname: "/main", state: { currentUser } })
-        })
-        .catch(error => console.log(error.message));
+                const currentUser = new User(response.id, response.name, [], this.state.time)
+                this.props.history.push({ pathname: "/main", state: { currentUser } })
+            })
+            .catch(error => console.log(error.message));
     }
 
-  /*  changeHeaderBack(){
-        switch (this.state.header) {
-            case 'My preferred name is':
-                this.setState({ input: '' });
-                break;
-            case 'My age is':
-                this.setState({ 
-                    header: 'My preferred name is', 
-                    input: '',
-                });
-                break;
-            case 'I am interested in':
-                this.setState({ header:  'My age is', input: ''});
-        }
-    }*/
+    /*  changePageBack(){
+          switch (this.state.header) {
+              case 'My preferred name is':
+                  this.setState({ input: '' });
+                  break;
+              case 'My age is':
+                  this.setState({ 
+                      header: 'My preferred name is', 
+                      input: '',
+                  });
+                  break;
+              case 'I am interested in':
+                  this.setState({ header:  'My age is', input: ''});
+          }
+      }*/
 
-    inputChange(event){
+    inputChange(event) {
         let input = event;
-        switch (this.state.header) {
+        switch (this.state.currentPage) {
             case 'name':
                 this.setState({ name: input, input: input });
                 break;
@@ -134,16 +187,19 @@ export default class NewUser extends React.Component {
         }
     }
 
-    render()  {
-        return(
+    render() {
+        return (
             <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
                 <div className='jumbotron jumbotron-fluid bg-transparent'>
                     <div className='container secondary-color'>
+                        <div className="d-flex row mb-5">
+                            <img src={require(`../../../../assets/logo/logo(cropped).jpg`)} alt="logo" />
+                        </div>
                         <div className="d-flex row">
                             <div className="col-12">
-                                {this.changeHeader(this.state.header)}
+                                {this.changePage(this.state.currentPage)}
                             </div>
-                        </div>   
+                        </div>
                     </div>
                 </div>
             </div>

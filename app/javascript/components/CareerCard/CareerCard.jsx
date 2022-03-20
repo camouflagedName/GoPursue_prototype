@@ -26,6 +26,7 @@ export default class CareerCard extends React.Component {
             pay: props.state ? props.state.pay : '',
             environment: props.state ? props.state.environment : '',
             image: props.state ? props.state.image : '',
+            moreImgs: props.state? props.state.moreImgs: [],
             bookmarkIsSelected: props.state ? props.state.bookmark : false,
             cardIdarray: [],
             hashtags: props.state ? props.state.hashtag : [],
@@ -72,6 +73,7 @@ export default class CareerCard extends React.Component {
                     pay: response.pay,
                     environment: response.environment,
                     image: response.image,
+                    moreImgs: response.addtl_img,
                     hashtags: response.hashtag,
                     previous: this.state
                 });
@@ -116,6 +118,7 @@ export default class CareerCard extends React.Component {
                 pay: this.state.previous.pay,
                 environment: this.state.previous.environment,
                 image: this.state.previous.image,
+                moreImgs: this.state.previous.image,
                 hashtags: this.state.previous.hashtags,
                 previous: this.state.previous.previous
             }
@@ -178,7 +181,7 @@ export default class CareerCard extends React.Component {
     }
 
     render() {
-
+            
         if (this.state.id) {
             return (
                 <>

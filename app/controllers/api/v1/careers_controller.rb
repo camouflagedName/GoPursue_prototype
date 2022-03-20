@@ -100,7 +100,7 @@ class Api::V1::CareersController < ApplicationController
   end 
 
   def new_career_data_param
-    params.require(:career).permit(:id, :name, :favorite, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image)
+    params.require(:career).permit(:id, :name, :favorite, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image, {addtl_img: []})
   end 
 
   def career_picture_params
