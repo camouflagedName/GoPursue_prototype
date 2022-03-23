@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 2021_10_16_214357) do
     t.text "environment"
     t.text "hashtag", default: [], array: true
     t.text "image"
-    t.string "addtl_img", default: [], array: true
     t.boolean "bookmark"
     t.string "cluster"
     t.datetime "created_at", precision: 6, null: false
@@ -80,9 +79,6 @@ ActiveRecord::Schema.define(version: 2021_10_16_214357) do
     t.string "last_login"
     t.string "viewed_cards", default: [], array: true
     t.string "created_on"
-    t.string "confirm_token"
-    t.boolean "email_confirm", default: false
-    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

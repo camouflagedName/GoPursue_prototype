@@ -18,10 +18,6 @@ module UncoverEdu
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.action_mailer.default_url_options = { host: 'gopursuecareer.com'}
-
-    #config.asset_host = ""
-
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'

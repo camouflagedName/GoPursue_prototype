@@ -12,9 +12,6 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :last_login
       t.string :viewed_cards, array: true, default: []
       t.string :created_on
-      t.string :confirm_token
-      t.boolean :email_confirm, default: false
-      t.string :email
 
       t.timestamps
     end
