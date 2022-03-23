@@ -22,7 +22,7 @@ export default class NewUser extends React.Component {
             link: '',
             time: null,
             verifyEmailMsg: '',
-            emailError: ''
+            emailError: '',
         };
         this.verifyEmail = this.verifyEmail.bind(this);
         this.changePage = this.changePage.bind(this);
@@ -40,7 +40,7 @@ export default class NewUser extends React.Component {
             case 'email':
                 return (<Email header={this.changePage} input={this.inputChange} value={this.state.input} verify={this.verifyEmail} error={this.state.emailError} />);
             case 'waitForEmailRes':
-                return (<ResponseWait header={this.state.verifyEmailMsg} email={this.state.email} changePage={this.changePage} />)
+                return (<ResponseWait header={this.state.verifyEmailMsg} email={this.state.email} changePage={this.emailVerConfirmed} />)
             case 'name':
                 return (<Name header={this.changePage} input={this.inputChange} value={this.state.input} setState={this.setName} createPassword={this.createPassword} />);
             case 'age':
@@ -54,7 +54,8 @@ export default class NewUser extends React.Component {
 
     verifyEmail(event, email) {
         event.preventDefault();
-        const url = `${API_ROOT}/api/v1/users/verify_email`
+        this.setState({ verifyEmailMsg: "Your email is being verified.", currentPage: "waitForEmailRes", email: email })
+        /*const url = `${API_ROOT}/api/v1/users/verify_email`
 
         fetch(url, {
             method: 'POST',
@@ -81,11 +82,11 @@ export default class NewUser extends React.Component {
                 json.error ? this.setState({ emailError: json.error })
                     :
                     this.setState({ verifyEmailMsg: json.message, currentPage: "waitForEmailRes", email: email })
-            })
+            })*/
     }
 
-    emailVerConfirmed() { //del this func
-        this.setState({ currentPage: "name" })
+    emailVerConfirmed() { 
+        this.setState({ currentPage: "name", input:'' })
     }
 
     createPassword() {

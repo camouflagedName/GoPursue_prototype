@@ -3,7 +3,7 @@ class Api::V1::SessionsController < ApplicationController
 
   def new
   end
-
+#actions for the login and logout process
   def create
     user = User.find_by(name: params[:name])
     if user.try(:authenticate, params[:password])

@@ -5,7 +5,8 @@ export default class Email extends React.Component {
     constructor(props) {
         super(props);
         this.state = {textBoxValue: this.props.value, isChecked: false, errorMsg: this.props.error}
-
+        
+        this.recaptchaRef = React.createRef()
         this.handleInput = this.handleInput.bind(this);
         this.verifyEmail = this.verifyEmail.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
@@ -34,7 +35,7 @@ export default class Email extends React.Component {
     verifyEmail(event) {
         event.preventDefault();
 
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.textBoxValue)){
+        if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.textBoxValue)){
             if(this.state.isChecked){
                 this.props.verify(event, this.state.textBoxValue)
             }
@@ -45,8 +46,6 @@ export default class Email extends React.Component {
         else {
             this.setState({ errorMsg: 'Please provide a valid email address.'})
         }
-
-
     }
 
     handleAgeCheck() {
@@ -55,7 +54,6 @@ export default class Email extends React.Component {
         if(isChecked){
             this.setState({ errorMsg: this.props.error })
         }
-        
     }
 
     render()  {

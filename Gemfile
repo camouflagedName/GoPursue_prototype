@@ -25,6 +25,9 @@ gem 'react-rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+#Use AWS SES services
+gem 'aws-sdk-ses'
+
 gem 'rack-cors', :require => 'rack/cors'
 
 # Reduces boot times through caching; required in config/boot.rb

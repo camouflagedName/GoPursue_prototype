@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token 
+  skip_before_action :verify_authenticity_token #work around needed due to conflict between React fetch token and Rails
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
@@ -7,8 +7,11 @@ class Api::V1::UsersController < ApplicationController
     user = User.all.order(created_at: :asc)
     render json: user 
   end
-
+ 
   def confirmation
+  end
+
+  def confirmation_failure
   end
 
   def login
@@ -80,7 +83,7 @@ class Api::V1::UsersController < ApplicationController
       #render json: user.email
     else
       #render plain: "Verification has been sent. You can now return to the app and continue with the login process."
-      render "users/confirmation"
+      render "users/confirmation_failure"
     end
   end
 

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'newuser' => 'homepage#index'
   get 'guest' => 'homepage#index'
 # get 'profile' => 'homepage#index'
-  #get '*path' => 'homepage#index'
+# get '*path' => 'homepage#index'
 
   resources :sessions
     namespace :api do
@@ -36,10 +36,11 @@ Rails.application.routes.draw do
           put 'users/data/:id', to: 'users#user_data_update'
           put 'users/time/:id', to: 'users#user_time_update'
           get :confirm_email
-          get 'users/check_confirm_email/:id', to: 'users#check_confirm_email'
+
+          get 'users/check_confirm_email/:id', to: 'users#check_confirm_email', constraints: {id: /.*/}
           get 'users/confirm_email/:id', to: 'users#confirm_email'
           get 'users/confirmation', to: 'users#confirmation'
-
+          get 'users/confirmation_failure', to: 'users#confirmation_failure'
         end
       end
     resources :careers
