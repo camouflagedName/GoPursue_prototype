@@ -11,10 +11,7 @@ export default function Success(props) {
                     <img src={logo} alt="logo" />
                 </div>
             </div>
-            <p>Your email is now registered with GoPursue. You will now be automatically redirected to the app.</p>
-            <hr />
-            <p><small>Click this link if the redirect does not work.</small></p>
-
+            <h5>Your email is now registered with GoPursue. You can return to the app to continue the login process.</h5>
         </>
     )
 }

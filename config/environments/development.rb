@@ -47,7 +47,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   # Print deprecation notices to the Rails logger.
