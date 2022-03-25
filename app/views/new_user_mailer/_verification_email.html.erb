@@ -13,11 +13,10 @@
   <body>
     <%= image_tag "/logo/logo-01.png", class: "img-responsive" %>
     <h3>Welcome to GoPursue!</h3>
-    <p>To continue with the login process, please use the following link: <%= link_to "Verify your email address", "#{root_url}api/v1/users/confirm_email/#{@user.confirm_token}" %></p> 
+    <p>To continue with the login process, please use the following link: <%= link_to "Verify your email address", "http://test-go-pursue.herokuapp.com/api/v1/users/confirm_email/#{@user.confirm_token}" %></p> 
     <hr />
     <p><small>This message was automatically generated. Please do not reply to this email.</small></p>
   </body>
 </html>
 
-<!-- api_v1_confirm_email_url(@user.confirm_token)-->
-<!--#{root_url}-->
+<!-- "#{root_url}api/v1/users/confirm_email/#{@user.confirm_token}"-->
