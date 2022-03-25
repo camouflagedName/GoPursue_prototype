@@ -61,7 +61,7 @@ class Api::V1::UsersController < ApplicationController
         user.update!(confirm_token: new_token)
         NewUserMailer.with(user: user).verification_email.deliver_now
         render json: {
-          message: "A verification link has been sent to #{user.email}. Please check your inbox and follow the instructions. CODE: #{user.confirm_token}"
+          message: "A verification link has been sent to #{user.email}. Please check your inbox and follow the instructions."
         }
       else
         puts "***************Error: New User Table was not created********************"
@@ -79,7 +79,7 @@ class Api::V1::UsersController < ApplicationController
     if user
       puts user.email
       user.update!(email_confirm: true)
-      render :confirmation
+      render "users/confirmation"
       #render json: user.email
     else
       #render plain: "Verification has been sent. You can now return to the app and continue with the login process."
@@ -109,13 +109,14 @@ class Api::V1::UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    user = User.create!(user_params)
+    email = params[:user][:email]
+    user = User.find_by_email(email)
     if user
+      user.update!(user_params)
       render json: user
     else
       render json: user.errors
     end
-
   end
 
   # PATCH/PUT /users/1 or /users/1.json
