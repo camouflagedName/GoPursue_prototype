@@ -54,8 +54,8 @@ export default class NewUser extends React.Component {
 
     verifyEmail(event, email) {
         event.preventDefault();
-        this.setState({ verifyEmailMsg: "Your email is being verified.", currentPage: "waitForEmailRes", email: email })
-        /*const url = `${API_ROOT}/api/v1/users/verify_email`
+        //this.setState({ verifyEmailMsg: "Your email is being verified.", currentPage: "waitForEmailRes", email: email })
+        const url = `${API_ROOT}/api/v1/users/verify_email`
 
         fetch(url, {
             method: 'POST',
@@ -82,7 +82,7 @@ export default class NewUser extends React.Component {
                 json.error ? this.setState({ emailError: json.error })
                     :
                     this.setState({ verifyEmailMsg: json.message, currentPage: "waitForEmailRes", email: email })
-            })*/
+            })
     }
 
     emailVerConfirmed() { 
