@@ -2,11 +2,13 @@
 
 This is the source code for the GoPursue web app prototype. The app is stable but lacks a lot of features that would be expected of something far beyond an MVP. The app has been deployed through Heroku and can be accessed via https://www.gopursuecareer.com/.
 
-GoPursue is a career exploration app aimed at students at a high shcool level. The app provides "career cards" with data related to a particular professional and their current career. 
 
 TL;DR - GoPursue is a career exploration app equivalent to a dating app such as Bumble or Tinder.
 
-The app was built using the Rails framework and PostgreSQ. The backend was written in Ruby. The frontend was written in React.js/Bootstrap
+
+GoPursue is a career exploration app aimed at students at a high shcool level. The app provides "career cards" with data related to a particular professional and their current career. 
+
+The app was built using the Rails framework and PostgreSQL. The backend was written in Ruby. The frontend was written in React.js/Bootstrap
 
 The app includes a client facing portal with a **search** and **bookmark** feature, as well as a career card "randomizer". At this time, users can log in as a new user, using a pre-seeded login username/password combo, or as a guest. There are no customizable features yet, though future deployments will include customization options, including "dark mode".
 
