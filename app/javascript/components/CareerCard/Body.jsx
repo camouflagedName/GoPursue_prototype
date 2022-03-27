@@ -45,6 +45,12 @@ export default class Body extends React.Component {
                 <div className="card-body">
                     <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
                         <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
+                            <h4 className="card-title">Job Description:</h4>
+                            <p className="card-text">{careerCard.description}</p>
+                        </div>
+                    </div>
+                    <div className={`card mb-3 shadow rounded-3 border border-3 ${this.props.style.boxBorder}`}>
+                        <div className="card-body" style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
                             <h4 className="card-title">Favorite part of my job:</h4>
                             <p className="card-text">{careerCard.favorite}</p>
                         </div>

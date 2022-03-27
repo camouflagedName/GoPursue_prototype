@@ -10,6 +10,7 @@ export class SurpriseMeButton extends React.Component {
             id: '',
             title: '',
             name: '',
+            description: '',
             favorite: '',
             skills: '',
             advice: '',
@@ -23,7 +24,6 @@ export class SurpriseMeButton extends React.Component {
         };
 
         this.changeCareer = this.changeCareer.bind(this);
-
     }
 
     changeCareer() {
@@ -46,6 +46,7 @@ export class SurpriseMeButton extends React.Component {
                     id: response.id,
                     title: response.title,
                     name: response.name,
+                    description: response.description,
                     favorite: response.favorite,
                     skills: response.skills,
                     advice: response.advice,

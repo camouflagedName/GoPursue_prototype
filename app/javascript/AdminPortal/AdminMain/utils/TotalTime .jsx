@@ -1,4 +1,4 @@
-import { API_ROOT } from '../packs/apiRoot';
+import { API_ROOT } from '../../../packs/apiRoot';
 
 export default function TotalTime(props) {
     if(props.user) {

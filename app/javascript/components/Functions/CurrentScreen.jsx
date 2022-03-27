@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import MainSearch from '../Search/MainSearch';
 import Profile from '../Profile/Profile';
 import CareerCard from '../CareerCard/CareerCard';

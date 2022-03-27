@@ -1,11 +1,6 @@
 import React from 'react';
+import { API_ROOT } from '../../../packs/apiRoot';
 import { Link } from 'react-router-dom';
-import { Sidebar } from './Sidebar';
-import { NavBar } from './NavBar';
-import { API_ROOT } from '../../packs/apiRoot';
-import { checkPropTypes } from 'prop-types';
-import { CareersTable } from './CareersTable';
-import { DirectUpload } from '@rails/activestorage';
 
 export class AddProfessional extends React.Component {
   constructor(props){

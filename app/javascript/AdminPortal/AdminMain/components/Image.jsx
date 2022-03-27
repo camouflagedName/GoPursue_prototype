@@ -11,8 +11,9 @@ export class Image extends React.Component {
 
     componentDidMount() {
         let regex = /http/;       
-        this.setState({ imgURL: regex.test(this.props.image) ? this.props.image : require(`../../../assets/images/professionals/${this.props.image}`) });
+        this.setState({ imgURL: regex.test(this.props.image) ? this.props.image : require(`../../../../assets/images/professionals/${this.props.image}`) });
     }
+
     render() {
 
         return (

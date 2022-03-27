@@ -1,6 +1,5 @@
 import React from 'react';
-import { API_ROOT } from '../../packs/apiRoot';
-import { DirectUpload } from '@rails/activestorage';
+import { API_ROOT } from '../../../packs/apiRoot';
 import { Image } from './Image';
 
 
@@ -55,6 +54,7 @@ export class CareersTable extends React.Component {
   }
 
   check(event) {
+    event.preventDefault();
     let url = `${API_ROOT}/api/v1/careers/update/${event.currentTarget.value}`
 
     fetch(url, {
@@ -87,16 +87,19 @@ export class CareersTable extends React.Component {
   }
 
   delete(event) {
-    let url = `${API_ROOT}/api/v1/careers/destroy/${event.currentTarget.value}`
+    event.preventDefault();
+    if(confirm(`You are about to delete career with ID# ${event.currentTarget.value}. This action is permanent. Please confirm.`) === true) {
+      let url = `${API_ROOT}/api/v1/careers/destroy/${event.currentTarget.value}`
 
-    fetch(url, {
-      method: 'DELETE',
-      headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-        "Content-Type": 'application/json'
-    }})
-    .then( () => {this.props.onClick(); })
-    .catch(error => console.log(error.message));
+      fetch(url, {
+        method: 'DELETE',
+        headers: {
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+          "Content-Type": 'application/json'
+      }})
+      .then( () => {this.props.onClick(); })
+      .catch(error => console.log(error.message));
+    }
   }
 
   render() {
@@ -134,7 +137,7 @@ export class CareersTable extends React.Component {
               {professional.id}
               <div className="d-flex justify-content-evenly">
                 <button value={index} className="btn btn-link" onClick={this.props.event}><i className="bi bi-pencil"></i></button>
-                <button value={index} className="btn btn-link" onClick={this.delete} value={professional.id}><i className="bi bi-trash"></i></button>
+                <button value={professional.id} className="btn btn-link" onClick={this.delete}><i className="bi bi-trash"></i></button>
               </div>
             </td>
             <td className="align-middle" data-id={`${index}.2`}><Image image={professional.image} /></td>

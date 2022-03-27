@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_10_16_214357) do
   create_table "careers", force: :cascade do |t|
     t.text "title"
     t.text "name"
+    t.text "description"
     t.text "favorite"
     t.text "skills"
     t.text "advice"
