@@ -53,7 +53,6 @@ class Api::V1::CareersController < ApplicationController
     end
   end
 
-
   def update
     if career
       career.update!(career_data_param)
@@ -96,11 +95,11 @@ class Api::V1::CareersController < ApplicationController
 
   private
   def career_data_param
-    params.require(:career).permit(:id, :name, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image)
+    params.require(:career).permit(:id, :name, :description, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image)
   end 
 
   def new_career_data_param
-    params.require(:career).permit(:id, :name, :favorite, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image, {addtl_img: []})
+    params.require(:career).permit(:id, :name, :description, :favorite, :title, :skills, :advice, :education, :pay, :environment, {hashtag: []}, :image, {addtl_img: []})
   end 
 
   def career_picture_params

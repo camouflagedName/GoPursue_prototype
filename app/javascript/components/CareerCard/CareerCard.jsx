@@ -19,6 +19,7 @@ export default class CareerCard extends React.Component {
             id: props.state ? props.state.id : '',
             title: props.state ? props.state.title : '',
             name: props.state ? props.state.name : '',
+            description: props.state ? props.state.description : '',
             favorite: props.state ? props.state.favorite : '',
             skills: props.state ? props.state.skills : '',
             advice: props.state ? props.state.advice : '',
@@ -26,7 +27,7 @@ export default class CareerCard extends React.Component {
             pay: props.state ? props.state.pay : '',
             environment: props.state ? props.state.environment : '',
             image: props.state ? props.state.image : '',
-            moreImgs: props.state? props.state.moreImgs: [],
+            moreImgs: props.state ? props.state.moreImgs : [],
             bookmarkIsSelected: props.state ? props.state.bookmark : false,
             cardIdarray: [],
             hashtags: props.state ? props.state.hashtag : [],
@@ -66,6 +67,7 @@ export default class CareerCard extends React.Component {
                     id: response.id,
                     title: response.title,
                     name: response.name,
+                    description: response.description,
                     favorite: response.favorite,
                     skills: response.skills,
                     advice: response.advice,
@@ -111,6 +113,7 @@ export default class CareerCard extends React.Component {
                 id: this.state.previous.id,
                 title: this.state.previous.title,
                 name: this.state.previous.name,
+                description: this.state.previous.description,
                 favorite: this.state.previous.favorite,
                 skills: this.state.previous.skills,
                 advice: this.state.previous.advice,
@@ -134,7 +137,6 @@ export default class CareerCard extends React.Component {
             this.changeCareer();
         }
     }
-
 
     changeIcon() { //alters the bookmark icon and sends a call to the database with a push to an array of bookmarked cards
         const url = `${API_ROOT}/api/v1/users/update/${this.state.userID}`;
@@ -181,7 +183,6 @@ export default class CareerCard extends React.Component {
     }
 
     render() {
-            
         if (this.state.id) {
             return (
                 <>
@@ -201,7 +202,6 @@ export default class CareerCard extends React.Component {
                     </div>
                 </div>
             </>
-
         )
     }
 }

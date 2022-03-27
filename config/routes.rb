@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :users
       namespace :api do
         namespace :v1 do
+          post 'users/create_guest', to: 'users#create_guest'
           post 'users/verify_email', to: 'users#verify_email'
           post 'users/create'
           put 'users/update/:id', to: 'users#update'

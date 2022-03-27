@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from 'react';
 import React from 'react';
-import { API_ROOT } from '../packs/apiRoot';
-import TotalTime from './TotalTime';
+import { API_ROOT } from '../../../packs/apiRoot';
+import TotalTime from './TotalTime ';
 
 export default function LogoutTimer(props) {
     let time;
@@ -34,7 +34,7 @@ export default function LogoutTimer(props) {
 
     function logout(prevTime, location, user) {
         //totalTime(prevTime, user);
-        totalTime(prevTime.location.state.time, user)
+        <TotalTime time={prevTime.location.state.time} user={user}/>
         clearTimeout(time);
         document.removeEventListener('load', reset);
         document.removeEventListener('scroll', reset);

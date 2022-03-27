@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../../assets/stylesheets/app.scss';
-import Success from "../mailers/Success"
+import Success from "../Mailer/views/Success"
 
 
 document.addEventListener('DOMContentLoaded', () => {

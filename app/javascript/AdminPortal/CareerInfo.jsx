@@ -1,5 +1,6 @@
+//this may be a separate app in the future --> a Google Form-like webapp that career professionals fill in 
+
 import React from 'react';
-import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 
 export class CareerInfo extends React.Component {
