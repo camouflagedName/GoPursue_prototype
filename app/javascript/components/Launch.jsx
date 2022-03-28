@@ -40,12 +40,12 @@ export default () => {
                             <Link to="/newuser" >
                                 <button type='button' className='btn btn-lg btn-success'>New User</button>
                             </Link>
-                        </div> 
-                        {/*<div className='row mt-4'>
+                        </div>
+                        <div className='row mt-4'>
                             <Link to="/guest">
                                 <button type='button' className='btn btn-lg btn-success'>Guest</button>
                             </Link>
-    </div>*/}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,4 @@
-// Run this example by adding <%= javascript_pack_tag 'hello_react' %> to the head of your layout file,
-// like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
-// of the page.
+// This connect directly to the related view file in app/views which Rails connects to the controller
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -8,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../../assets/stylesheets/app.scss';
-import Website from '../adminWebsite/Website';
+import Website from '../AdminPortal/Website';
 
 
 document.addEventListener('DOMContentLoaded', () => {

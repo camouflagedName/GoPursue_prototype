@@ -56,7 +56,6 @@ class Api::V1::UsersController < ApplicationController
       user = User.new(user_params)
       new_token = SecureRandom.urlsafe_base64.to_s
       #send verification email
-      #respond_to do |format|
       if user.save
         user.update!(confirm_token: new_token)
         NewUserMailer.with(user: user).verification_email.deliver_now
@@ -118,6 +117,16 @@ class Api::V1::UsersController < ApplicationController
       render json: user.errors
     end
   end
+
+    # POST /users or /users.json
+    def create_guest
+      user = User.create!(user_params)
+      if user
+        render json: user
+      else
+        render json: user.errors
+      end
+    end
 
   # PATCH/PUT /users/1 or /users/1.json
   def update

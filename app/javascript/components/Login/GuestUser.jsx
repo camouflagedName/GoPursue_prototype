@@ -1,15 +1,16 @@
-import React from 'react';
-import { API_ROOT } from '../../packs/apiRoot';
-import { Link } from 'react-router-dom';
-import User from '../UserData';
+import React from 'react'
+import { API_ROOT } from '../../packs/apiRoot'
+import { Link } from 'react-router-dom'
+import User from '../UserData'
 
 export default class GuestUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: null,
+            userName: '',
             selectValue: '',
-            time: null
+            time: null,
+            errorMessage: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -18,42 +19,55 @@ export default class GuestUser extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const url = `${API_ROOT}/api/v1/sessions/login`;
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                name: 'guest1',
-                password: 'welcome'
+        if (this.state.userName === '') {
+            this.setState({ errorMessage: 'Enter a username before continuing.' })
+        }
+
+        else {
+            this.setState({ errorMessage: '' })
+            let date = new Date();
+            let month = date.getMonth() + 1;
+            let hour = date.getHours();
+            let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
+
+            this.setState({ time: date.getSeconds() })
+
+            const url = `${API_ROOT}/api/v1/users/create_guest`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    user: {
+                        name: this.state.userName,
+                        age: 0,
+                        password: 'welcome',
+                        password_confirmation: 'welcome',
+                        created_on: currentDate,
+                        num_logins: 1
+                    }
+                })
             })
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                let date = new Date();
-                let month = date.getMonth() + 1;
-                let hour = date.getHours();
-                let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error("Bad network response.");
+                })
+                .then(res => {
+                    const currentUser = new User(res.id, res.name, [], this.state.time)
 
-                this.setState({ time: date.getSeconds() })
-
-                const bookmarks = data.user.bookmarks ? data.user.bookmarks : []
-
-                localStorage.setItem('userID', 1);
-                localStorage.setItem('user', this.state.userName);
-                localStorage.setItem('userBookmarks', bookmarks) //need to turn this into an array
-                localStorage.setItem('startTime', date);
-
-                const currentUser = new User(1, this.state.userName, bookmarks, this.state.time)
-                this.props.history.push({ pathname: '/main', state: { currentUser } });
-            })
+                    localStorage.setItem('userID', res.id)
+                    localStorage.setItem('user', res.name)
+                    localStorage.setItem('startTime', date)
+                    this.props.history.push({ pathname: '/main', state: { currentUser } })
+                })
+                .catch(error => console.log(error.message))
+        }
     }
 
     handleInput(event) {
@@ -80,8 +94,9 @@ export default class GuestUser extends React.Component {
                                 <form onSubmit={this.handleSubmit}>
                                     <label htmlFor="adminName" className="form-label">Enter your name</label>
                                     <div className='input-group'>
-                                        <input onChange={this.handleInput} onKeyPress={this.handleEnterKey} className='form-control' type='text' aria-label='Enter Name' placeholder='optional' />
+                                        <input onChange={this.handleInput} onKeyPress={this.handleEnterKey} className='form-control' type='text' aria-label='Enter Name' />
                                     </div>
+                                    <p>{this.state.errorMessage}</p>
                                     <div className='row mt-5'>
                                         <div className='col-6'>
                                             <Link to="/">
