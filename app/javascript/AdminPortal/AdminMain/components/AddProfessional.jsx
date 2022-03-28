@@ -3,7 +3,7 @@ import { API_ROOT } from '../../../packs/apiRoot';
 import { Link } from 'react-router-dom';
 
 export class AddProfessional extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -11,7 +11,8 @@ export class AddProfessional extends React.Component {
       professionals: [],
       id: '',
       name: '',
-      title: '', 
+      title: '',
+      description,
       skills: '',
       advice: '',
       education: '',
@@ -19,9 +20,9 @@ export class AddProfessional extends React.Component {
       environment: '',
       hashtag: '',
       currentPic: null
-     }
-     this.addNew = this.addNew.bind(this);
-     this.edit = this.edit.bind(this);
+    }
+    this.addNew = this.addNew.bind(this);
+    this.edit = this.edit.bind(this);
   }
 
 
@@ -30,15 +31,15 @@ export class AddProfessional extends React.Component {
     let url = `${API_ROOT}/api/v1/careers/create`;
 
     fetch(url, {
-        method: 'POST',
-        headers: {
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-          "Content-Type": 'application/json'
+      method: 'POST',
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+        "Content-Type": 'application/json'
       },
       body: JSON.stringify({
-        career:{        
+        career: {
           name: this.state.name,
-          title: this.state.title, 
+          title: this.state.title,
           favorite: "cheese",
           skills: this.state.skills,
           advice: this.state.advice,
@@ -48,12 +49,13 @@ export class AddProfessional extends React.Component {
           hashtag: this.state.hashtag.split(", "),
           image: this.state.currentPic
         }
-      })})
+      })
+    })
       .catch(error => console.log(error.message));
   }
 
   edit(event) {
-    switch(event.currentTarget.dataset.id) {
+    switch (event.currentTarget.dataset.id) {
       case '3':
         this.setState({ name: event.target.value });
         break;
@@ -98,16 +100,15 @@ export class AddProfessional extends React.Component {
       },
       body: pictureData
     })
-    .then((response) => {
-      if (response.ok) {       
+      .then((response) => {
+        if (response.ok) {
           return response.json();
-      }
-      throw new Error("Bad network response.");
-    })
-    .then(data => this.setState({ currentPic: data.url }))
-    .catch(error => console.log(error.message));
+        }
+        throw new Error("Bad network response.");
+      })
+      .then(data => this.setState({ currentPic: data.url }))
+      .catch(error => console.log(error.message));
   }
-
 
   render() {
     return (
@@ -115,14 +116,14 @@ export class AddProfessional extends React.Component {
         <div className="row mb-3">
           <h2>Add New Career Card</h2>
         </div>
-        <hr/>
+        <hr />
         <div className="row g-3">
           <div className="col-3">
             <div className="d-flex justify-content-center">
-              { this.state.currentPic == null ?
-              <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-              </svg> : <img className="img-thumbnail" src={this.state.currentPic} /> }
+              {this.state.currentPic == null ?
+                <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg> : <img className="img-thumbnail" src={this.state.currentPic} />}
             </div>
             <div className="d-flex justify-content-center">
               <label className="btn btn-primary" type="file">Add Picture<input type="file" hidden onChange={this.pictureUpload}></input></label>
@@ -132,23 +133,23 @@ export class AddProfessional extends React.Component {
             <form className="row" onSubmit={this.addNew}>
               <div className="col-8 mb-3">
                 <label htmlFor="name" className="form-label">Name</label>
-                <input className="form-control" id="name" data-id="3" onChange={this.edit} type="text"/>
+                <input className="form-control" id="name" data-id="3" onChange={this.edit} type="text" />
               </div>
               <div className="col-8 mb-3">
                 <label htmlFor="title" className="form-label">Title</label>
-                <input className="form-control" id="title" data-id="4" onChange={this.edit} type="text"/>
+                <input className="form-control" id="title" data-id="4" onChange={this.edit} type="text" />
               </div>
               <div className="col-8 mb-3">
                 <label htmlFor="skills" className="form-label">Skills</label>
-                <input className="form-control" id="skills" data-id="5" onChange={this.edit} type="text"/>
+                <input className="form-control" id="skills" data-id="5" onChange={this.edit} type="text" />
               </div>
               <div className="col-8 mb-3">
                 <label htmlFor="advice" className="form-label">Advice</label>
-                <input className="form-control" id="advice" data-id="6" onChange={this.edit} type="text"/>
+                <input className="form-control" id="advice" data-id="6" onChange={this.edit} type="text" />
               </div>
               <div className="col-8 mb-3">
                 <label htmlFor="education" className="form-label">Education</label>
-                <input className="form-control" id="education" data-id="7" onChange={this.edit} type="text"/>
+                <input className="form-control" id="education" data-id="7" onChange={this.edit} type="text" />
               </div>
               <div className="col-8 mb-3">
                 <label htmlFor="pay" className="form-label">Pay</label>
@@ -164,26 +165,23 @@ export class AddProfessional extends React.Component {
               </div>
               <div className="col-8 mb-3">
                 <label htmlFor="environment" className="form-label">Environment</label>
-                <input className="form-control" id="environment" data-id="9" onChange={this.edit} type="text"/>
+                <input className="form-control" id="environment" data-id="9" onChange={this.edit} type="text" />
               </div>
               <div className="col-8 mb-3">
                 <label htmlFor="hashtags" className="form-label">Hashtags</label>
-                <input className="form-control" id="hashtags" data-id="10" onChange={this.edit} type="text"/>
+                <input className="form-control" id="hashtags" data-id="10" onChange={this.edit} type="text" />
               </div>
-              
+
               <div className="d-flex col-8 justify-content-evenly mb-1">
                 <Link to="/admin/professionals">
                   <button className="btn btn-danger me-3"><i className="bi bi-x"></i>Cancel</button>
-                </Link> 
+                </Link>
                 <button className="btn btn-primary" type="submit"><i className="bi bi-check"></i>Submit</button>
-              </div> 
-            </form>          
+              </div>
+            </form>
           </div>
         </div>
-      </div>         
-
-
-
+      </div>
     )
   }
 }

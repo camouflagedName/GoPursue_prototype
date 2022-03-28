@@ -4,12 +4,13 @@ import { Image } from './Image';
 
 
 export class CareersTable extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
       name: this.props.data.name,
-      title: this.props.data.title, 
+      title: this.props.data.title,
+      description: this.props.data.description,
       skills: this.props.data.skills,
       advice: this.props.data.advice,
       education: this.props.data.education,
@@ -25,7 +26,7 @@ export class CareersTable extends React.Component {
   }
 
   edit(event) {
-    switch(event.currentTarget.dataset.id) {
+    switch (event.currentTarget.dataset.id) {
       case '3':
         this.setState({ name: event.target.value });
         break;
@@ -33,21 +34,24 @@ export class CareersTable extends React.Component {
         this.setState({ title: event.target.value });
         break;
       case '5':
-        this.setState({ skills: event.target.value });
+        this.setState({ title: event.target.value });
         break;
       case '6':
-        this.setState({ advice: event.target.value });
+        this.setState({ skills: event.target.value });
         break;
       case '7':
-        this.setState({ education: event.target.value });
+        this.setState({ advice: event.target.value });
         break;
       case '8':
-        this.setState({ pay: event.target.value });
+        this.setState({ education: event.target.value });
         break;
       case '9':
-        this.setState({ environment: event.target.value });
+        this.setState({ pay: event.target.value });
         break;
       case '10':
+        this.setState({ environment: event.target.value });
+        break;
+      case '11':
         this.setState({ hashtags: event.target.value });
         break;
     }
@@ -62,33 +66,35 @@ export class CareersTable extends React.Component {
       headers: {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
         "Content-Type": 'application/json'
-    },
-    body: JSON.stringify({
-      career:{        
-        id: event.target.value,
-        name: this.state.name,
-        title: this.state.title, 
-        skills: this.state.skills,
-        advice: this.state.advice,
-        education: this.state.education,
-        pay: this.state.pay,
-        environment: this.state.environment,
-        hashtags: this.state.hashtags
-      }
-    })})
-    .then(response => {
-      if(response.ok) {
-        return response.json();
-      }
-      throw new Error("Bad network response.");
+      },
+      body: JSON.stringify({
+        career: {
+          id: event.target.value,
+          name: this.state.name,
+          title: this.state.title,
+          description: this.state.description,
+          skills: this.state.skills,
+          advice: this.state.advice,
+          education: this.state.education,
+          pay: this.state.pay,
+          environment: this.state.environment,
+          hashtags: this.state.hashtags
+        }
+      })
     })
-    .then( () => {this.props.onClick(); })
-    .catch(error => console.log(error.message));
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Bad network response.");
+      })
+      .then(() => { this.props.onClick(); })
+      .catch(error => console.log(error.message));
   }
 
   delete(event) {
     event.preventDefault();
-    if(confirm(`You are about to delete career with ID# ${event.currentTarget.value}. This action is permanent. Please confirm.`) === true) {
+    if (confirm(`You are about to delete career with ID# ${event.currentTarget.value}. This action is permanent. Please confirm.`) === true) {
       let url = `${API_ROOT}/api/v1/careers/destroy/${event.currentTarget.value}`
 
       fetch(url, {
@@ -96,18 +102,19 @@ export class CareersTable extends React.Component {
         headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
           "Content-Type": 'application/json'
-      }})
-      .then( () => {this.props.onClick(); })
-      .catch(error => console.log(error.message));
+        }
+      })
+        .then(() => { this.props.onClick(); })
+        .catch(error => console.log(error.message));
     }
   }
 
   render() {
-    return(
+    return (
       this.props.data.map((professional, index) => {
         //need logic to determine if an image is in assets/images/professionals or not
         //this.setState({ imgURL: `../../../assets/images/professionals/${professional.image}` ? require(`../../../assets/images/professionals/${professional.image}`) : professional.image });
-        if(this.props.match === index.toString()){
+        if (this.props.match === index.toString()) {
           return (
             <tr className="text-center" id={index} key={index}>
               <td className="text-start">
@@ -120,14 +127,15 @@ export class CareersTable extends React.Component {
                 </div>
               </td>
               <td className="align-middle"><Image image={professional.image} /></td>
-              <td className="align-middle"><input data-id="3" onChange={this.edit} type="text" placeholder={professional.name}/>{professional.name}</td>
-              <td className="align-middle"><input data-id="4" onChange={this.edit} type="text" placeholder={professional.title}/>{professional.title}</td>
-              <td className="align-middle"><input data-id="5" onChange={this.edit} type="text" placeholder={professional.skills}/>{professional.skills}</td>
-              <td className="align-middle"><input data-id="6" onChange={this.edit} type="text" placeholder={professional.advice}/>{professional.advice}</td>
-              <td className="align-middle"><input data-id="7" onChange={this.edit} type="text" placeholder={professional.education}/>{professional.education}</td>
-              <td className="align-middle"><input data-id="8" onChange={this.edit} type="text" placeholder={professional.pay}/>{professional.pay}</td>
-              <td className="align-middle"><input data-id="9" onChange={this.edit} type="text" placeholder={professional.environment}/>{professional.environment}</td>
-              <td className="align-middle"><input data-id="10" onChange={this.edit} type="text" placeholder={professional.hashtag.join(", ")}/>{professional.hashtag.join(", ")}</td>
+              <td className="align-middle"><input data-id="3" onChange={this.edit} type="text" placeholder={professional.name} />{professional.name}</td>
+              <td className="align-middle"><input data-id="4" onChange={this.edit} type="text" placeholder={professional.title} />{professional.title}</td>
+              <td className="align-middle"><input data-id="5" onChange={this.edit} type="text" placeholder={professional.title} />{professional.description}</td>
+              <td className="align-middle"><input data-id="6" onChange={this.edit} type="text" placeholder={professional.skills} />{professional.skills}</td>
+              <td className="align-middle"><input data-id="7" onChange={this.edit} type="text" placeholder={professional.advice} />{professional.advice}</td>
+              <td className="align-middle"><input data-id="8" onChange={this.edit} type="text" placeholder={professional.education} />{professional.education}</td>
+              <td className="align-middle"><input data-id="9" onChange={this.edit} type="text" placeholder={professional.pay} />{professional.pay}</td>
+              <td className="align-middle"><input data-id="10" onChange={this.edit} type="text" placeholder={professional.environment} />{professional.environment}</td>
+              <td className="align-middle"><input data-id="11" onChange={this.edit} type="text" placeholder={professional.hashtag.join(", ")} />{professional.hashtag.join(", ")}</td>
             </tr>
           );
         }
@@ -143,12 +151,13 @@ export class CareersTable extends React.Component {
             <td className="align-middle" data-id={`${index}.2`}><Image image={professional.image} /></td>
             <td className="align-middle" data-id={`${index}.3`}>{professional.name}</td>
             <td className="align-middle" data-id={`${index}.4`}>{professional.title}</td>
-            <td className="align-middle" data-id={`${index}.5`}>{professional.skills}</td>
-            <td className="align-middle" data-id={`${index}.6`}>{professional.advice}</td>
-            <td className="align-middle" data-id={`${index}.7`}>{professional.education}</td>
-            <td className="align-middle" data-id={`${index}.8`}>{professional.pay}</td>
-            <td className="align-middle" data-id={`${index}.9`}>{professional.environment}</td>
-            <td className="align-middle" data-id={`${index}.10`}>{professional.hashtag.join(", ")}</td>
+            <td className="align-middle" data-id={`${index}.5`}>{professional.description}</td>
+            <td className="align-middle" data-id={`${index}.6`}>{professional.skills}</td>
+            <td className="align-middle" data-id={`${index}.7`}>{professional.advice}</td>
+            <td className="align-middle" data-id={`${index}.8`}>{professional.education}</td>
+            <td className="align-middle" data-id={`${index}.9`}>{professional.pay}</td>
+            <td className="align-middle" data-id={`${index}.10`}>{professional.environment}</td>
+            <td className="align-middle" data-id={`${index}.11`}>{professional.hashtag.join(", ")}</td>
           </tr>
         );
       })

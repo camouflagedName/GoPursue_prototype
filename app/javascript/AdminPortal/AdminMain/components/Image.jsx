@@ -10,6 +10,7 @@ export class Image extends React.Component {
     }
 
     componentDidMount() {
+        //if uploaded through the admin portal, the picture path will have an http protocal attached
         let regex = /http/;       
         this.setState({ imgURL: regex.test(this.props.image) ? this.props.image : require(`../../../../assets/images/professionals/${this.props.image}`) });
     }
