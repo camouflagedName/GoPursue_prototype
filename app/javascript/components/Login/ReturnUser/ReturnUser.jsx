@@ -64,7 +64,7 @@ export default class ReturnUser extends React.Component {
                             let month = date.getMonth() + 1;
                             let hour = date.getHours();
                             let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
-
+                            let startTime = Date.now()
                             this.setState({ time: date.getSeconds() })
 
 
@@ -91,10 +91,10 @@ export default class ReturnUser extends React.Component {
                                     localStorage.setItem('userID', user.user.id);
                                     localStorage.setItem('user', user.user.name);
                                     localStorage.setItem('userBookmarks', user.user.bookmarks);
-                                    localStorage.setItem('startTime', date);
+                                    localStorage.setItem('startTime', startTime);
 
 
-                                    const currentUser = new User(user.user.id, user.user.name, user.user.bookmarks, this.state.time)
+                                    const currentUser = new User(user.user.id, user.user.name, user.user.bookmarks, startTime)
                                     this.props.history.push({ pathname: '/main', state: { currentUser } });
                                     return () => { mounted = false };
                                 })

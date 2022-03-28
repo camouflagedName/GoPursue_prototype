@@ -33,7 +33,6 @@ export default class AppMain extends React.Component {
         this.setState({ screen: screen, props: props })
     }
 
-
     changeStyle = () => {
         localStorage.getItem('darkMode') ?
             (
@@ -46,6 +45,16 @@ export default class AppMain extends React.Component {
                 this.setState({ style: Style.darkModeStyle }),
                 localStorage.setItem('darkMode', true)
             )
+    }
+
+    unload = e => {
+        e.preventDefault()
+        console.log(e)
+        //localStorage.clear()
+    }
+
+    componentDidMount() {
+        //window.addEventListener("beforeunload", this.unload )
     }
 
     componentDidUpdate() {
@@ -61,13 +70,14 @@ export default class AppMain extends React.Component {
             window.location.replace("/");
             return <></>
         }
+        
         return (
             <>
-                <LogoutTimer props={this.props} location={"/"} user={this.state.userID} />
+                <LogoutTimer startTime={this.state.currentUser.appStartTime} location={"/"} user={this.state.userID} />
                 <div className="row vh-100" >
                     <div className="card border-0" style={{ backgroundColor: `${this.state.style.bgColor}` }}>
                         <Header changeStyle={this.changeStyle} logo={this.state.style.logo} style={this.state.style} />
-                        <CurrentScreen screenName={this.state.screen} stateProps={this.state.props} screenState={this.changeScreenState} currentUser={this.state.currentUser} style={this.state.style}/>
+                        <CurrentScreen screenName={this.state.screen} stateProps={this.state.props} screenState={this.changeScreenState} currentUser={this.state.currentUser} style={this.state.style} />
                         <Footer style={this.state.style} screen={this.changeScreenState} />
                     </div>
                 </div>
