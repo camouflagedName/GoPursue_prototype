@@ -1,20 +1,20 @@
 import { Fragment, useEffect } from 'react';
 import React from 'react';
 import { API_ROOT } from '../packs/apiRoot';
-import TotalTime from './TotalTime';
+
 
 export default function LogoutTimer(props) {
     let time;
     let reset = () => {
         clearTimeout(time);
-        time = setTimeout(() => {logout(props.props, props.location, props.user)}, 1000*60*20); //20 minutes
+        time = setTimeout(() => {logout(props.startTime, props.location, props.user)}, 1000*60*20); //20 minutes
     }
 
-    function totalTime(prevTime, user){
+    function totalTime(startTime, user){
         if(user) {
             const url = `${API_ROOT}/api/v1/users/time/${user}`
-            let date = new Date();
-            let avgTime = (date - prevTime.location.state.time)/60000;
+            let endTime = Date.now()
+            let avgTime = (endTime - startTime)/60000;
     
             fetch(url, {
                 method: 'PUT',
@@ -32,9 +32,9 @@ export default function LogoutTimer(props) {
         }
     }
 
-    function logout(prevTime, location, user) {
+    function logout(startTime, location, user) {
         //totalTime(prevTime, user);
-        totalTime(prevTime.location.state.time, user)
+        totalTime(startTime, user)
         clearTimeout(time);
         document.removeEventListener('load', reset);
         document.removeEventListener('scroll', reset);

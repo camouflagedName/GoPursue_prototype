@@ -118,7 +118,7 @@ export default class NewUser extends React.Component {
         let month = date.getMonth() + 1;
         let hour = date.getHours();
         let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
-        
+        let startTime = Date.now()
         this.setState({ time: date.getSeconds() })
 
         const url = `${API_ROOT}/api/v1/users/create`;
@@ -148,11 +148,11 @@ export default class NewUser extends React.Component {
                 throw new Error("Bad network response.");
             })
             .then(response => {
-                const currentUser = new User(response.id, response.name, [], this.state.time)
+                const currentUser = new User(response.id, response.name, [], startTime)
 
                 localStorage.setItem('userID', response.id);
                 localStorage.setItem('user', response.name);
-                localStorage.setItem('startTime', date);
+                localStorage.setItem('startTime', startTime);
                 this.props.history.push({ pathname: "/main", state: { currentUser } })
             })
             .catch(error => console.log(error.message));
