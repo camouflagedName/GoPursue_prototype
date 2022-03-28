@@ -85,6 +85,7 @@ export class ShowAllProf extends React.Component {
               <th scope="col">Image</th>
               <th scope="col">Name</th>
               <th scope="col">Title</th>
+              <th scope="col">Description</th>
               <th scope="col">Skills</th>
               <th scope="col">Advice</th>
               <th scope="col">Education</th>

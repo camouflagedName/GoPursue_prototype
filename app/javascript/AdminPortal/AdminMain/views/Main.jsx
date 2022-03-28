@@ -8,7 +8,7 @@ import { AddProfessional } from '../components/AddProfessional';
 import { ErrorPage } from './ErrorPage';
 import LogoutTimer from '../utils/LogoutTimer';
 
-//turn this imports section into a router
+//turn this imports section into a router and then import the router?
 
 
 export class Main extends React.Component {
@@ -16,7 +16,7 @@ export class Main extends React.Component {
     super(props);
 
     this.state = {
-      adminName: localStorage.getItem("admin"),
+      adminName: localStorage.getItem("admin"), //don't use localStorage!!
       page: "Home"
     }
     this.changePage = this.changePage.bind(this)
@@ -46,7 +46,7 @@ export class Main extends React.Component {
     if (this.state.adminName) {
       return (
         <div className="container-fluid vh-100">
-          <LogoutTimer props={this.props} location={"/admin"} user={null} />
+          <LogoutTimer location={"/admin"} />
           <div className="row vh-100">
             <Sidebar changePage={this.updatePageState} />
             <div className="container d-flex col-10 g-1 flex-column">
