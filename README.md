@@ -1,10 +1,9 @@
 # README
 
-This is the source code for the GoPursue web app prototype. The app is stable but lacks a lot of features that would be expected of something far beyond an MVP. The app has been deployed through Heroku and can be accessed via https://www.gopursuecareer.com/.
+This is the source code for the GoPursue web app prototype. The app is stable and is currently beyond an MVP state as the list of features continue to grow or are in development. The app has been deployed through Heroku and can be accessed via https://www.gopursuecareer.com/.
 
 
 TL;DR - GoPursue is a career exploration app equivalent to a dating app such as Bumble or Tinder.
-
 
 GoPursue is a career exploration app aimed at students at a high shcool level. The app provides "career cards" with data related to a particular professional and their current career. 
 
