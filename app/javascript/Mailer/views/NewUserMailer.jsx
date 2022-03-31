@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from ".././../assets/logo/logo(cropped).jpg"
+import logo from "../../../assets/logo/logo(cropped).jpg"
 
 
 export default function NewUserMailer(props) {
