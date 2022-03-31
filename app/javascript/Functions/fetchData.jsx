@@ -9,8 +9,11 @@ const fetchData = (event, history, type, userData) => {
     let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
     let startTime = Date.now()
 
-    if (type === 'newUser') {
-        const url = `${API_ROOT}/api/v1/users/create_guest`
+    if (type === 'guest' || type === 'newUser') {
+        const url = type === 'guest' 
+        ? `${API_ROOT}/api/v1/users/create_guest`
+        : `${API_ROOT}/api/v1/users/create`
+
         fetch(url, {
             method: 'POST',
             headers: {
@@ -21,6 +24,7 @@ const fetchData = (event, history, type, userData) => {
                 user: {
                     name: userData.user,
                     age: 0,
+                    email: userData.email,
                     password: userData.password,
                     password_confirmation: userData.password,
                     created_on: currentDate,
