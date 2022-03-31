@@ -4,11 +4,11 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import '../../assets/stylesheets/app.scss';
-import NewUserMailer from "../mailers/NewUserMailer"
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import '../../assets/stylesheets/app.scss'
+import NewUserMailer from "../Mailer/views/NewUserMailer"
 
 
 document.addEventListener('DOMContentLoaded', () => {
