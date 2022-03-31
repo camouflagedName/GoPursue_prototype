@@ -1,4 +1,3 @@
-
 const logo = "icon_title-removebg.png"
 
 const darkModeLogo = 'icon_title-removebg(dark).png'
@@ -34,7 +33,6 @@ const darkModeStyle =
         color: "lightgray",
     },
 }
-
 
 const Style = {
     logo,

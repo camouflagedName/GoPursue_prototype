@@ -5,10 +5,8 @@ const totalTime = (startTime, user) => {
         const url = `${API_ROOT}/api/v1/users/time/${user}`
         let endTime = Date.now()
         let elapsedTime = (endTime - startTime)/60000
-        console.log(`startTime: ${startTime}`)
-        console.log(`endTime: ${endTime}`)
-        console.log(`avgTime: ${elapsedTime}`)
-        alert('pause')
+
+
         fetch(url, {
             method: 'PUT',
             headers:{
