@@ -12,7 +12,7 @@ export class AddProfessional extends React.Component {
       id: '',
       name: '',
       title: '',
-      description,
+      description: '',
       skills: '',
       advice: '',
       education: '',
@@ -24,7 +24,6 @@ export class AddProfessional extends React.Component {
     this.addNew = this.addNew.bind(this);
     this.edit = this.edit.bind(this);
   }
-
 
   addNew(event) {
     event.preventDefault();
@@ -171,7 +170,6 @@ export class AddProfessional extends React.Component {
                 <label htmlFor="hashtags" className="form-label">Hashtags</label>
                 <input className="form-control" id="hashtags" data-id="10" onChange={this.edit} type="text" />
               </div>
-
               <div className="d-flex col-8 justify-content-evenly mb-1">
                 <Link to="/admin/professionals">
                   <button className="btn btn-danger me-3"><i className="bi bi-x"></i>Cancel</button>
