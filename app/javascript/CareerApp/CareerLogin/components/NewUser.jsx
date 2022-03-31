@@ -42,13 +42,13 @@ export default class NewUser extends React.Component {
             case 'waitForEmailRes':
                 return (<ResponseWait header={this.state.verifyEmailMsg} email={this.state.email} changePage={this.emailVerConfirmed} />)
             case 'name':
-                return (<Name header={this.changePage} input={this.inputChange} value={this.state.input} setState={this.setName} createPassword={this.createPassword} />);
+                return (<Name header={this.changePage} input={this.inputChange} value={this.state.input} setState={this.setName} createPassword={this.createPassword} setPage={this.props.setPage} />);
             case 'age':
-                return (<Age header={this.changePage} input={this.inputChange} value={this.state.input} setState={this.setAge} />);
+                return (<Age header={this.changePage} input={this.inputChange} value={this.state.input} setState={this.setPage} />);
             case 'interests':
                 break;
             case 'password':
-                return (<Password value={this.state.password} addUser={this.addUser.bind(this)} />);
+                return (<Password loginData={this.state} addUser={this.addUser.bind(this)} setPage={this.props.setPage}/>);
         }
     }
 
@@ -73,15 +73,13 @@ export default class NewUser extends React.Component {
             })
         })
             .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
+                if (res.ok) { return res.json() }
                 throw new Error(res)
             })
             .then(json => {
-                json.error ? this.setState({ emailError: json.error })
-                    :
-                    this.setState({ verifyEmailMsg: json.message, currentPage: "waitForEmailRes", email: email })
+                json.error
+                    ? this.setState({ emailError: json.error })
+                    : this.setState({ verifyEmailMsg: json.message, currentPage: "waitForEmailRes", email: email })
             })
     }
 
@@ -89,39 +87,41 @@ export default class NewUser extends React.Component {
         this.setState({ currentPage: "name", input: '' })
     }
 
+    //import this function
     createPassword() {
         let nounArray = ['aardvark', 'flamingo', 'wolverine', 'squid', 'turtle', 'unicorn', 'kumquat', 'beagle', 'platypus', 'alpaca', 'opossum', 'beehives', 'noodles', 'waffle', 'tapioca', 'pineapple', 'bacon', 'bagel', 'potato', 'pickle', 'rutabaga', 'watermelon', 'cheesecake', 'banana', 'pork', 'muffin', 'papaya', 'custard', 'spatula', 'aglet', 'shishcabob', 'jukebox', 'leotard', 'deltoid'],
             adjArray = ['sizzling', 'hiccuping', 'spelunking', 'booming', 'waddling', 'bumbling', 'grappling', 'surfing', 'coddling', 'dazzling', 'adoring', 'pickling', 'flossing', 'babbling', 'tickling', 'maniacal', 'copious', 'tart', 'bodacious', 'frilly', 'psychedelic', 'husky', 'quirky', 'funky', 'ritzy', 'explosive'];
-        let nounNum = Math.floor(Math.random() * nounArray.length);
-        let adjNum = Math.floor(Math.random() * adjArray.length);
-        let noun = nounArray[nounNum];
-        let adj = adjArray[adjNum];
-        const password = adj + ' ' + noun;
+        let nounNum = Math.floor(Math.random() * nounArray.length)
+        let adjNum = Math.floor(Math.random() * adjArray.length)
+        let noun = nounArray[nounNum]
+        let adj = adjArray[adjNum]
+        const password = adj + ' ' + noun
         this.setState({ password: password })
     }
 
     setEmail(newEmail) {
-        this.setState({ currentPage: newHeader, input: '', email: newEmail });
+        this.setState({ currentPage: newHeader, input: '', email: newEmail })
     }
 
     setName(newHeader, newName) {
-        this.setState({ currentPage: newHeader, input: '', name: newName });
+        this.createPassword();
+        this.setState({ currentPage: newHeader, input: '', name: newName })
     }
 
-    setAge(newHeader, newAge) { //del this func
-        this.setState({ currentPage: newHeader, input: '', age: newAge });
+    setAge(newHeader, newAge) { //del this func?
+        this.setState({ currentPage: newHeader, input: '', age: newAge })
     }
 
     addUser(event) {
-        event.preventDefault();
-        let date = new Date();
-        let month = date.getMonth() + 1;
-        let hour = date.getHours();
+        event.preventDefault()
+        let date = new Date()
+        let month = date.getMonth() + 1
+        let hour = date.getHours()
         let currentDate = `${month.toString()}/${date.getDate().toString()}/${date.getFullYear().toString()} at ${hour.toString()}:${date.getMinutes().toString()}:${date.getSeconds().toString()}`
         let startTime = Date.now()
         this.setState({ time: date.getSeconds() })
 
-        const url = `${API_ROOT}/api/v1/users/create`;
+        const url = `${API_ROOT}/api/v1/users/create`
 
         fetch(url, {
             method: 'POST',
@@ -145,20 +145,22 @@ export default class NewUser extends React.Component {
                 if (response.ok) {
                     return response.json();
                 }
-                throw new Error("Bad network response.");
+                throw new Error("Bad network response.")
             })
             .then(response => {
                 const currentUser = new User(response.id, response.name, [], startTime)
 
-                localStorage.setItem('userID', response.id);
-                localStorage.setItem('user', response.name);
-                localStorage.setItem('startTime', startTime);
+                localStorage.setItem('userID', response.id)
+                localStorage.setItem('user', response.name)
+                localStorage.setItem('startTime', startTime)
                 this.props.history.push({ pathname: "/main", state: { currentUser } })
             })
-            .catch(error => console.log(error.message));
+            .catch(error => console.log(error.message))
     }
 
-    /*  changePageBack(){
+    /*  
+    //function to switch to the previous page
+        changePageBack(){
           switch (this.state.header) {
               case 'My preferred name is':
                   this.setState({ input: '' });
@@ -172,20 +174,22 @@ export default class NewUser extends React.Component {
               case 'I am interested in':
                   this.setState({ header:  'My age is', input: ''});
           }
-      }*/
+      }
+      
+      */
 
     inputChange(event) {
         let input = event;
         switch (this.state.currentPage) {
             case 'name':
-                this.setState({ name: input, input: input });
-                break;
+                this.setState({ name: input, input: input })
+                break
             case 'age':
-                this.setState({ age: input, input: input });
-                break;
+                this.setState({ age: input, input: input })
+                break
             case 'interests':
-                this.setState({ age: input, input: input });
-                break;
+                this.setState({ age: input, input: input })
+                break
         }
     }
 
@@ -193,7 +197,7 @@ export default class NewUser extends React.Component {
         return (
             <div className="d-flex row">
                 <div className="col-12">
-                    {this.changePage(this.state.currentPage)}
+                    { this.changePage(this.state.currentPage) }
                 </div>
             </div>
         );

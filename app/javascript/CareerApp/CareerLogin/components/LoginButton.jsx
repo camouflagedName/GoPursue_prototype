@@ -17,48 +17,7 @@ const Login = (props) => {
 
         else {
             props.error(false)
-            fetchData(event, history, props.type, { user: props.user, password: props.password })
-
-
-
-
-
-            //POST user data
-            /*
-                
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-                        "Content-Type": 'application/json'
-                    },
-                    body: JSON.stringify({
-                        user: {
-                            name: props.user,
-                            age: 0,
-                            password: 'welcome',
-                            password_confirmation: 'welcome',
-                            created_on: currentDate,
-                            num_logins: 1
-                        }
-                    })
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                        throw new Error("Bad network response.");
-                    })
-                    .then(res => {
-                        const currentUser = new User(res.id, res.name, [], startTime)
-                        localStorage.setItem('userID', res.id)
-                        localStorage.setItem('user', res.name)
-                        localStorage.setItem('startTime', startTime)
-                        alert(currentUser.initialUserName)
-                        history.push({ pathname: '/main', state: { currentUser } })
-                    })
-                    .catch(error => console.log(error.message))
-            */
+            fetchData(event, history, props.type, { user: props.user, password: props.password, email: props.email })
         }
     }
 
