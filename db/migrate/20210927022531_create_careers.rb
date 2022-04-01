@@ -3,6 +3,7 @@ class CreateCareers < ActiveRecord::Migration[6.1]
     create_table :careers do |t|
       t.text :title
       t.text :name
+      t.text :description
       t.text :favorite
       t.text :skills
       t.text :advice
