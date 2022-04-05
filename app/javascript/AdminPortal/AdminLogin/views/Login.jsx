@@ -26,7 +26,7 @@ export default class AdminLogin extends React.Component {
                 <div className='jumbotron jumbotron-fluid bg-transparent'>
                     <div className='container secondary-color'>
                         <div className="d-flex row">
-                                <img className='col-8 offset-2 mb-5' src={Logo} alt="logo" />
+                            <img className='col-8 offset-2 mb-5' src={Logo} alt="logo" />
                             <h1 className='text-success text-center'>Admin Portal</h1>
                         </div>
                         <hr />
