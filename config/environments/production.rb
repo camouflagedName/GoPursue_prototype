@@ -20,8 +20,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     port: 587,
     address: 'feedback-smtp.us-east-1.amazonses.com',
-    user_name: 'no-reply',
-    password: 'C4r33rs34rch',
+    user_name: ENV['USERNAME'],
+    password: ENV['PASSWORD'],
     authentication: :plain,
     enable_starttls_auto: true
   }
