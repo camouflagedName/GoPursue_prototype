@@ -10,7 +10,8 @@ export default class CareerCard extends React.Component {
     // also for future --> refactor to use hooks instead of classes
     constructor(props) {
         super(props);
-        this.state = { //should state be initialized with props??
+        this.state = { //should state` be initialized with props in concstructor??
+            userData: props.userData,
             userID: props.userData.userID,
             bookmarkArray: props.userData.bookmarks,
             timer: '',
@@ -40,14 +41,16 @@ export default class CareerCard extends React.Component {
         this.changeIcon = this.changeIcon.bind(this);
     }
 
+    userData = this.props.userData
+
     changeCareer() {
         /*let id = Math.floor((Math.random() * 22) + 1);
         if(id === this.state.id) {
             this.changeCareer();
         } */
         const url = `${API_ROOT}/api/v1/careers/random_career`;
-        const userURL = `${API_ROOT}/api/v1/users/show/${this.state.userID}`;
-        const userDataURL = `${API_ROOT}/api/v1/users/data/${this.state.userID}`;
+        const userURL = `${API_ROOT}/api/v1/users/show/${this.userData.userID}`;
+        const userDataURL = `${API_ROOT}/api/v1/users/data/${this.userData.userID}`;
 
         //use an async api to fetch data whenever the page is reloaded or the shuffle button is used
         fetch(url)
@@ -107,7 +110,7 @@ export default class CareerCard extends React.Component {
     }
 
     //sets state to previous career *currently not in use - may be used for future versions*
-    previousCareer() { 
+    previousCareer() {
         this.setState(
             {
                 id: this.state.previous.id,
@@ -139,52 +142,60 @@ export default class CareerCard extends React.Component {
     }
 
     //alter the bookmark icon and send a call to the database with a push to an array of bookmarked cards
-    changeIcon() { 
-        const url = `${API_ROOT}/api/v1/users/update/${this.state.userID}`;
+    changeIcon() {
+
         let careerIdString = this.state.id.toString();
 
         const addBookmark = () => {
-            let currentBookmarks = this.state.bookmarkArray;
+            let currentBookmarks = this.userData.bookmarks;
             let currentCareer = this.state.id.toString();
             currentBookmarks.push(currentCareer);
             this.setState({ bookmarkArray: currentBookmarks, bookmarkIsSelected: true });
+            this.props.updateUser(currentBookmarks)
+            sendBookmarkData(currentBookmarks)
         }
 
         const removeBookmark = () => {
             let currentCareer = this.state.id.toString();
 
+            //parse through bookmarkArray and remove
             for (let i = 0; i < this.state.bookmarkArray.length; i++) {
                 if (this.state.bookmarkArray[i] === this.state.id.toString()) {
-                    this.state.bookmarkArray.splice(i, 1)
+                    //this.state.bookmarkArray.splice(i, 1) //does this actually work???
                 }
             }
 
-            let updatedArray = this.state.bookmarkArray.filter(careers => careers !== currentCareer);
+            let updatedArray = this.userData.bookmarks.filter(careers => careers !== currentCareer);
             this.setState({ bookmarkArray: updatedArray, bookmarkIsSelected: false });
+            this.props.updateUser(updatedArray)
+            sendBookmarkData(updatedArray)
         }
 
-        // this.state.bookmarkArray.includes(careerIdString) === true ? this.removeBookmark : this.addBookmark;   //if the current career card ID is in the array, then it should change to false
-        this.state.bookmarkIsSelected === true ? removeBookmark() : addBookmark()  //if the current career card ID is in the array, then it should change to false
-
         //update user data
-        fetch(url, {
-            method: 'PUT',
-            headers: {
-                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({ user: { bookmarks: this.state.bookmarkArray } })
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Bad network response.");
+        const sendBookmarkData = (bookmarkArray) => {
+            const url = `${API_ROOT}/api/v1/users/update/${this.userData.userID}`
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({ user: { bookmarks: bookmarkArray } })
             })
-            .catch(error => console.log(error.message));
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error("Bad network response.");
+                })
+                .catch(error => console.log(error.message));
+        }
+        // this.state.bookmarkArray.includes(careerIdString) === true ? this.removeBookmark : this.addBookmark;   //if the current career card ID is in the array, then it should change to false
+        this.state.bookmarkIsSelected === true ? removeBookmark() : addBookmark()  //if the current career card ID is in the array, then it should change to false on click
     }
 
     render() {
+        console.log(`user state: ${this.state.userID} | user props: ${this.props.userData.userID} | bookmarks array state: ${this.state.bookmarkArray} | bookmarks array props: ${this.props.userData.bookmarks}`)
         if (this.state.id) {
             return (
                 <>
@@ -193,7 +204,7 @@ export default class CareerCard extends React.Component {
                 </>
             )
         }
-        
+
         //load icon if data has not loaded
         return (
             <>

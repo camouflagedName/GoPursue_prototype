@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { API_ROOT } from '../../../packs/apiRoot';
 import User from '../../UserData';
 import Login from './LoginButton';
@@ -167,10 +166,10 @@ export default class ReturnUser extends React.Component {
                     <input type="checkbox" id='passwordCheckbox' className="me-1" onChange={this.showPassword} />
                     <label htmlFor='passwordCheckbox'>Show Password</label>
                     <div className="container">
-{
-    //this can be turned into a component
-}
-                        
+                        {
+                            //this can be turned into a component
+                        }
+
                         <div className='row mt-5'>
                             <div className='col-6'>
                                 <a>
