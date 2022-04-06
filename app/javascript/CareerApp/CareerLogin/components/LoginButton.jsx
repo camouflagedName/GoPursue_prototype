@@ -1,7 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { API_ROOT } from "../../../packs/apiRoot";
-import User from "../../UserData";
 import fetchData from "../../../Functions/fetchData";
 
 
