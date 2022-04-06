@@ -62,6 +62,7 @@ export default class Email extends React.Component {
     }
 
     render() {
+        console.log(`props: ${this.props.error} | state: ${this.state.errorMsg}`)
         return (
             <>
                 <h1 className='display-4 mb-4'>Sign up for an account:</h1>
@@ -99,7 +100,7 @@ export default class Email extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <p className="my-3">{this.state.errorMsg}</p>
+                    <p className="my-3 text-danger">{this.state.errorMsg ? this.state.errorMsg : this.props.error}</p>
                 </form>
             </>
 
