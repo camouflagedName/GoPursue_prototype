@@ -129,7 +129,7 @@ export class CareersTable extends React.Component {
               <td className="align-middle"><Image image={professional.image} /></td>
               <td className="align-middle"><input data-id="3" onChange={this.edit} type="text" placeholder={professional.name} />{professional.name}</td>
               <td className="align-middle"><input data-id="4" onChange={this.edit} type="text" placeholder={professional.title} />{professional.title}</td>
-              <td className="align-middle"><input data-id="5" onChange={this.edit} type="text" placeholder={professional.title} />{professional.description}</td>
+              <td className="align-middle"><input data-id="5" onChange={this.edit} type="text" placeholder={professional.description} />{professional.description}</td>
               <td className="align-middle"><input data-id="6" onChange={this.edit} type="text" placeholder={professional.skills} />{professional.skills}</td>
               <td className="align-middle"><input data-id="7" onChange={this.edit} type="text" placeholder={professional.advice} />{professional.advice}</td>
               <td className="align-middle"><input data-id="8" onChange={this.edit} type="text" placeholder={professional.education} />{professional.education}</td>

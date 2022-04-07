@@ -39,17 +39,11 @@ export default class AppMain extends React.Component {
         this.setState({ screen: screen, props: props })
     }
 
+    //switch between dark mode and default
     changeStyle = () => {
-        localStorage.getItem('darkMode') ?
-            (
-                this.setState({ style: Style.defaultStyle }),
-                localStorage.removeItem('darkMode')
-            )
-            :
-            (
-                this.setState({ style: Style.darkModeStyle }),
-                localStorage.setItem('darkMode', true)
-            )
+        localStorage.getItem('darkMode')
+            ? (this.setState({ style: Style.defaultStyle }), localStorage.removeItem('darkMode'))
+            : (this.setState({ style: Style.darkModeStyle }), localStorage.setItem('darkMode', true))
     }
 
     unload = e => {
@@ -80,8 +74,8 @@ export default class AppMain extends React.Component {
             window.location.replace("/");
             return <></>
         }
-        console.log("current user: ", this.currentUser) 
-        
+        console.log("current user: ", this.currentUser)
+
         //change CurrentScreen to ternary operator
         return (
             <>
@@ -91,7 +85,7 @@ export default class AppMain extends React.Component {
                         <Header changeStyle={this.changeStyle} logo={this.state.style.logo} style={this.state.style} />
                         {
                             this.state.screen === "search" ? <MainSearch screen={this.changeScreenState} term={this.state.props[0]} career={this.state.props[1]} userData={this.currentUser} style={this.state.style} />
-                                : this.state.screen === "careercard" ? <CareerCard screen={this.changeScreenState} careerData={this.state.props[0]} userData={this.currentUser} style={this.state.style} updateUser={this.updateUser}/>
+                                : this.state.screen === "careercard" ? <CareerCard screen={this.changeScreenState} careerData={this.state.props[0]} userData={this.currentUser} style={this.state.style} updateUser={this.updateUser} />
                                     : this.state.screen === "profile" ? <Profile screen={this.changeScreenState} userData={this.currentUser} style={this.state.style} />
                                         : <></>
                         }
