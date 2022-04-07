@@ -34,6 +34,7 @@ class Api::V1::CareersController < ApplicationController
 
   end
 
+  ### actions for getting images from CareerPicture model
   def create_image
     @career_picture = CareerPicture.create(career_picture_params)
     render json: { url: url_for(@career_picture.featured_image) }
