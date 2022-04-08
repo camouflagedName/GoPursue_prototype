@@ -27,6 +27,8 @@ gem 'react-rails'
 
 #Use AWS SES services
 gem 'aws-sdk-ses'
+#Use AWS S3 services
+gem 'aws-sdk-s3'
 
 gem 'rack-cors', :require => 'rack/cors'
 

@@ -6,4 +6,4 @@ class User {
         this.appStartTime = appStartTime;
     }
 } 
-export default User;
+export default User

@@ -1,7 +1,4 @@
 import React from 'react'
-import { API_ROOT } from '../../../packs/apiRoot'
-import { useHistory } from 'react-router-dom'
-import User from '../../UserData'
 import Login from './LoginButton'
 
 export default class GuestUser extends React.Component {

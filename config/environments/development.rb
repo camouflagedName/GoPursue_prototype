@@ -31,7 +31,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
@@ -41,8 +41,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     port: 587,
     address: 'feedback-smtp.us-east-1.amazonses.com',
-    user_name: 'no-reply',
-    password: 'C4r33rs34rch',
+    user_name: ENV['MAILER_USERNAME'],
+    password: ENV['MAILER_PASSWORD'],
     authentication: :plain,
     enable_starttls_auto: true
   }
