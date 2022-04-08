@@ -3,7 +3,7 @@
 // of the page.
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -12,8 +12,8 @@ import NewUserMailer from "../Mailer/views/NewUserMailer"
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <NewUserMailer />,
-    document.body.appendChild(document.createElement('div')),
-  );
+  const container = document.body.appendChild(document.createElement('div'))
+  const root = createRoot(container)
+
+  root.render(<NewUserMailer />)
 });
