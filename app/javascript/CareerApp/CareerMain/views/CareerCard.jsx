@@ -103,8 +103,8 @@ export default class CareerCard extends React.Component {
                 throw new Error("Bad network response.");
             })
             .then(response => {
-                this.setState({ cardIdarray: response.viewed_cards, bookmarkArray: response.bookmarks });
-                this.setState({ bookmarkIsSelected: this.state.bookmarkArray.find(index => index == this.state.id) === undefined ? false : true });
+                let isCurrentMarked = response.bookmarks.find(index => index == this.state.id) === undefined ? false : true
+                this.setState({ cardIdarray: response.viewed_cards, bookmarkArray: response.bookmarks, bookmarkIsSelected: isCurrentMarked });
             })
             .catch(error => error.message);
     }
@@ -143,7 +143,6 @@ export default class CareerCard extends React.Component {
 
     //alter the bookmark icon and send a call to the database with a push to an array of bookmarked cards
     changeIcon() {
-
         let careerIdString = this.state.id.toString();
 
         const addBookmark = () => {
