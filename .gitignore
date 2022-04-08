@@ -38,4 +38,8 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+<<<<<<< HEAD
 /config/app_env_var.rb
+=======
+/config/app_env_var.rb
+>>>>>>> a83753e9c9b4b09cc10b220ac8cf71be9becef49

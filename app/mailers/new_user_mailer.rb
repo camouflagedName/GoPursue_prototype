@@ -21,7 +21,7 @@ class NewUserMailer < ApplicationMailer
         encoding = "UTF-8"
 
         # configure SES session
-        ses = Aws::SES::Client.new(region: region, access_key_id: ENV['key_id'], secret_access_key: ENV['secret_key'])
+        ses = Aws::SES::Client.new(region: region, access_key_id: ENV['MAILER_KEY_ID'], secret_access_key: ENV['MAILER_SECRET_KEY'])
 
         begin
             ses.send_email({
