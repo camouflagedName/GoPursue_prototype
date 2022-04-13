@@ -19,9 +19,10 @@ export default class Search extends React.Component {
     }
 
     search(term) {
-        if (this.props.search != '') {
+
+        /*if (this.props.search != '') {
             term = this.props.search;
-        }
+        }*/
 
         if (term != "") {
             this.setState({ searchTerm: term });
@@ -75,12 +76,16 @@ export default class Search extends React.Component {
     render() {
         return (
             <>
-                <div className="row mt-5">
-                    <SearchBar search={this.search} />
-                    <p className="mt-0 offset-1 text-primary">{this.state.searchError}</p>
-                </div>
-                <div className="row mt-3 offset-3 col-6">
+                <div className="row mt-5 mb-3 offset-3 col-6">
                     <SurpriseMeButton search={this.search} screen={this.props.screen} />
+                </div>
+                <div>
+                    <h3 className="text-center">- OR -</h3>
+                </div>
+
+                <div className="row mb-0">
+                    <SearchBar search={this.search} />
+                    <p className="mt-0 text-primary">{this.state.searchError}</p>
                 </div>
                 <div className="card-body">
                     {

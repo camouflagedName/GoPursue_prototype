@@ -7,6 +7,7 @@ import { ShowAllProf } from '../components/ShowAllProf';
 import { AddProfessional } from '../components/AddProfessional';
 import { ErrorPage } from './ErrorPage';
 import LogoutTimer from '../utils/LogoutTimer';
+import { API_ROOT } from '../../../packs/apiRoot';
 
 //turn this imports section into a router and then import the router?
 
@@ -17,9 +18,9 @@ export class Main extends React.Component {
 
     this.state = {
       adminName: localStorage.getItem("admin"), //don't use localStorage!!
-      page: "Home"
+      page: "Home",
+      users: []
     }
-    this.changePage = this.changePage.bind(this)
     this.updatePageState = this.updatePageState.bind(this)
   }
 
@@ -27,19 +28,18 @@ export class Main extends React.Component {
     this.setState({ page: pageName })
   }
 
-  changePage() {
-    switch (this.state.page) {
-      case 'Home':
-        return <Dashboard />
-      case 'Users':
-        return <Users />
-      case 'Show All':
-        return <ShowAllProf />
-      case 'Add New':
-        return <AddProfessional />
-      case 'TBD':
-        return <Dashboard />
-    }
+  componentDidMount() {
+    const url = `${API_ROOT}/api/v1/users/index`
+
+    fetch(url)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Bad network response.");
+      })
+      .then(json => { this.setState({ users: json }) })
+      .catch(error => console.log(error.message));
   }
 
   render() {
@@ -52,7 +52,13 @@ export class Main extends React.Component {
             <div className="container d-flex col-10 g-1 flex-column">
               <NavBar text="users and careers" />
               <br />
-              {this.changePage()}
+              {
+                this.state.page === 'Home' ? <Dashboard users={this.state.users} />
+                  : this.state.page === "Users" ? <Users users={this.state.users} />
+                    : this.state.page === "Show All" ? <ShowAllProf />
+                      : this.state.page === "Add New" ? <AddProfessional />
+                        : <Dashboard />
+              }
             </div>
           </div>
         </div>
@@ -60,7 +66,6 @@ export class Main extends React.Component {
     }
     else {
       return (<ErrorPage />);
-
     }
   }
 }
