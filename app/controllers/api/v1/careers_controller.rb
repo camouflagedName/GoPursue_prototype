@@ -6,6 +6,18 @@ class Api::V1::CareersController < ApplicationController
     render json: career
   end
 
+  def get_random_hashtag
+    career = Career.all
+    #all_hashtags = Career.all(:select => "hashtag")
+    random_career = career.sample.to_json
+    random_career_json = JSON.parse(random_career)
+    hashtag = random_career_json["hashtag"].sample.to_str
+    #random_career_hashtag_data = random_career_string["hashtag"].sample
+    #render json: random_career_hashtag_data
+    puts hashtag
+    render plain: hashtag
+  end
+
   #find only careers that match a bookmarked array
   def get_bookmarked_careers
     bookmarks = params[:bookmark_array]

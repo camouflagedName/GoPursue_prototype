@@ -71,13 +71,28 @@ export class SurpriseMeButton extends React.Component {
         this.props.screen("careercard", this.state)
     }
 
+    getRandomHashtag = () => {
+        const url = `${API_ROOT}/api/v1/careers/get_random_hashtag`
+
+        fetch(url)
+        .then(res => {
+            if (res.ok) {  
+                return res.text();     
+            }
+            throw new Error("Bad network response.");
+        })
+        .then(response => {
+            this.props.search(response)
+        })
+    }
+
     componentWillUnmount(){
         this.ismounted = false;
     }
 
     render() {
         return (
-            <button onClick={this.changeCareer} className="btn btn-primary btn-lg me-1">
+            <button onClick={this.getRandomHashtag} className="btn btn-primary btn-lg me-1">
                 Surprise Me!
             </button>
         )

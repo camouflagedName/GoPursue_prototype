@@ -9,25 +9,31 @@ export class Dashboard extends React.Component {
     }
   }
 
+  guestUsers = this.props.users.filter(user => user.email_confirm === false)
+  registeredUsers = this.props.users.filter(user => user.email_confirm === true && user.id > 10)
+  //newUsers = this.props.users.filter(user => user.)
+
   render() {
+    console.log(this.props.users)
       return (
-        <div className="text-center">
-          <h2>Welcome {this.state.adminName}</h2>
+        <div>
+          <h2 className="text-center">Welcome {this.state.adminName}</h2>
           <hr />
           <div className="d-flex justify-content-around">
             <div className="col-3">
               <div className="card">
-                <h5 className="card-header">Users</h5>
+                <h5 className="card-header text-center">Users</h5>
                 <div className="card-body">
-                  <p className="card-text">Total:</p>
-                  <p className="card-text">New:</p>
-                  <p className="card-text">Inactive:</p>
+                  <p className="card-text d-flex justify-content-between"><b>Total: </b>{this.props.users.length - 10}</p>
+                  <p className="card-text d-flex justify-content-between"><b>New: </b></p>
+                  <p className="card-text d-flex justify-content-between"><b>Registered: </b>{this.registeredUsers.length}</p>
+                  <p className="card-text d-flex justify-content-between"><b>Guest: </b>{this.guestUsers.length} </p>
                 </div>
               </div>
             </div>
             <div className="col-3">
               <div className="card">
-                <h5 className="card-header">Professionals</h5>
+                <h5 className="card-header text-center">Professionals</h5>
                 <div className="card-body">
                   <p className="card-text">Total:</p>
                   <p className="card-text">New:</p>

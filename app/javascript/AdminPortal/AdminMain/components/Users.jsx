@@ -9,23 +9,11 @@ export class Users extends React.Component {
     this.state = { users: [] }
   }
 
-  componentDidMount() {
-    const url = `${API_ROOT}/api/v1/users/index`;
-
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Bad network response.");
-      })
-      .then(json => { this.setState({ users: json }) })
-      .catch(error => console.log(error.message));
-  }
+  users = this.props.users
 
   render() {
     let date = new Date();
-    let users = this.state.users.map(user => (
+    let users = this.users.map(user => (
       <tr key={user.id}>
         <td>{user.id}</td>
         <td>{user.name}</td>

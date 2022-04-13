@@ -21,6 +21,7 @@ export default class GuestUser extends React.Component {
         this.setState({ userName: event.target.value })
     }
 
+    //this is non-functioning due to handleSubmit having been deprecated
     handleEnterKey(event) {
         if (event.keyCode == 13) {
             this.handleSubmit(event);
