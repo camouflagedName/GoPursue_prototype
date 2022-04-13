@@ -59,6 +59,7 @@ Rails.application.routes.draw do
           put 'careers/admin/update/:id', to: 'careers#update'
           post 'careers/find', to: 'careers#find'
           get 'careers/random_career', to: 'careers#random_career'
+          get 'careers/get_random_hashtag', to: 'careers#get_random_hashtag'
         end
       end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
