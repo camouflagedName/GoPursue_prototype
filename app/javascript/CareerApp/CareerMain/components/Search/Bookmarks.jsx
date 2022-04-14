@@ -1,5 +1,6 @@
 import React from 'react';
 import { API_ROOT } from '../../../../packs/apiRoot';
+import CardImage from '../CareerCard/CardImage';
 import { CareerCardImage } from '../CareerCard/CareerCardImage';
 
 export default class Bookmarks extends React.Component {
@@ -68,7 +69,7 @@ export default class Bookmarks extends React.Component {
                                 <div className={`card text-center ${this.props.style.boxBorder}`} style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}` }}>
                                     <div className="row g-0">
                                         <div className="col-4 d-flex align-items-center">
-                                            <CareerCardImage image={careerData.image} alt={careerData.title} />
+                                            <CardImage image={careerCard.image} alt={careerCard.title} type="professionals" />
                                         </div>
                                         <div className="col-8">
                                             <div className='card-body'>
