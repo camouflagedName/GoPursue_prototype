@@ -1,6 +1,6 @@
 import React from 'react';
 import { API_ROOT } from '../../../packs/apiRoot';
-import { Image } from './Image';
+import Image from './Image';
 
 
 export class CareersTable extends React.Component {
@@ -126,7 +126,7 @@ export class CareersTable extends React.Component {
                   <button className="btn btn-link" onClick={this.check} value={professional.id}><i className="bi bi-check"></i></button>
                 </div>
               </td>
-              <td className="align-middle"><Image image={professional.image} /></td>
+              <td className="align-middle"><Image image={professional.image} alt={professional.title} /></td>
               <td className="align-middle"><input data-id="3" onChange={this.edit} type="text" placeholder={professional.name} />{professional.name}</td>
               <td className="align-middle"><input data-id="4" onChange={this.edit} type="text" placeholder={professional.title} />{professional.title}</td>
               <td className="align-middle"><input data-id="5" onChange={this.edit} type="text" placeholder={professional.description} />{professional.description}</td>
@@ -148,7 +148,7 @@ export class CareersTable extends React.Component {
                 <button value={professional.id} className="btn btn-link" onClick={this.delete}><i className="bi bi-trash"></i></button>
               </div>
             </td>
-            <td className="align-middle" data-id={`${index}.2`}><Image image={professional.image} /></td>
+            <td className="align-middle" data-id={`${index}.2`}><Image image={professional.image} alt={professional.title} /></td>
             <td className="align-middle" data-id={`${index}.3`}>{professional.name}</td>
             <td className="align-middle" data-id={`${index}.4`}>{professional.title}</td>
             <td className="align-middle" data-id={`${index}.5`}>{professional.description}</td>
