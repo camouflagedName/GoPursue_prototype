@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Hashtags } from './Hashtag';
 import { CareerCardImage } from './CareerCardImage'
 import CareerCardContainer from './CareerCardContainer';
-import EnvImage from './EnvImage'
+import CardImage from './CardImage'
 
 export default class Body extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class Body extends React.Component {
         return (
             <>
                 <div className="mt-auto text-container col-10 offset-1">
-                    <CareerCardImage image={careerCard.image} alt={careerCard.title} /> {/* in the future, may need to move state from child comp to parent */}
+                    <CardImage image={careerCard.image} alt={careerCard.title} type="professionals" /> {/* in the future, may need to move state from child comp to parent */}
                     <div className='bottom-left'>
                         <div className='bg-primary bg-gradient bg-opacity-75'>
                             <h2>{careerCard.title}</h2>
@@ -47,7 +47,7 @@ export default class Body extends React.Component {
                     <CareerCardContainer title={"Job Description:"} text={careerCard.description} style={this.props.style} />
                     {
                         careerCard.envImgs[0]
-                            ? <EnvImage image={careerCard.envImgs[0]} alt={careerCard.title} />
+                            ? <CardImage image={careerCard.envImgs[0]} alt={careerCard.title} type="environments"/>
                             : <></>
                     }
                     <CareerCardContainer title={"Favorite part of my job:"} text={careerCard.favorite} style={this.props.style} />
@@ -62,14 +62,14 @@ export default class Body extends React.Component {
                     <CareerCardContainer title={"Work Environment"} text={careerCard.environment} style={this.props.style} />
                     {
                         careerCard.envImgs[1]
-                            ? <EnvImage image={careerCard.envImgs[1]} alt={careerCard.title} />
+                            ? <CardImage image={careerCard.envImgs[1]} alt={careerCard.title} type="environments" />
                             : <></>
                     }
                     <CareerCardContainer title={"My Education:"} text={careerCard.education} style={this.props.style} />
                     <CareerCardContainer title={"Average Pay:"} text={careerCard.pay} style={this.props.style} />
                     {
                         careerCard.envImgs[2]
-                            ? <EnvImage image={careerCard.envImgs[2]} alt={careerCard.title} />
+                            ? <CardImage image={careerCard.envImgs[2]} alt={careerCard.title} type="environments" />
                             : <></>
                     }
                     <CareerCardContainer title={"My Advice:"} text={careerCard.advice} style={this.props.style} />
