@@ -1,5 +1,5 @@
 import React from 'react';
-import { CareerCardImage } from '../CareerCard/CareerCardImage';
+import CardImage from '../CareerCard/CardImage';
 
 export class Results extends React.Component {
     constructor(props) {
@@ -30,7 +30,7 @@ export class Results extends React.Component {
                             <div className={`card text-center ${this.props.style.boxBorder}`} style={{ backgroundColor: `${this.props.style.boxColor}`, color: `${this.props.style.textColor}`}}>
                                 <div className="row g-0">
                                     <div className="col-4 d-flex align-items-center">
-                                        <CareerCardImage image={careerData.image} alt={careerData.title} />
+                                        <CardImage image={careerCard.image} alt={careerCard.title} type="professionals" />
                                     </div>
                                     <div className="col-8">
                                         <div className='card-body'>
