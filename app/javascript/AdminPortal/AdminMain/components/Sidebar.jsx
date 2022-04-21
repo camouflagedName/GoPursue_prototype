@@ -10,6 +10,7 @@ export function Sidebar(props) {
 
     const handleSelectSmall = (event) => {
         //this is imprecise and needs a better/more accurate target
+        console.log("sidebar: ", event.target.id)
         props.changePage(event.target.id)
     }
 

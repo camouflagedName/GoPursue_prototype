@@ -1,6 +1,4 @@
 import React from 'react';
-import { API_ROOT } from '../../../packs/apiRoot';
-
 
 export class Users extends React.Component {
   constructor(props) {

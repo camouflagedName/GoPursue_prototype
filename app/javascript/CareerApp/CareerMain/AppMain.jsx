@@ -74,7 +74,6 @@ export default class AppMain extends React.Component {
             window.location.replace("/");
             return <></>
         }
-        console.log("current user: ", this.currentUser)
 
         //change CurrentScreen to ternary operator
         return (
