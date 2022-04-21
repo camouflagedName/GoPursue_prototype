@@ -147,12 +147,15 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  #need to change this action name?
+  #action updates user data with cards that have been viewed and sends user data to client side
   def user_data_update
     @user = User.find(params[:id])
     @current = params.require(:viewed_cards)[0]
     if set_user
-      if @user.viewed_cards.include? @current
+      if @user.viewed_cards.include?@current #
         puts "current: #{@current} |  array: #{@user.viewed_cards}"
+        render json: set_user
       else
         viewed = @user.viewed_cards.push(params.require(:viewed_cards)[0])
         set_user.update!(viewed_cards: viewed)

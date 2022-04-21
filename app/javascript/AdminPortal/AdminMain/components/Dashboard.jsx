@@ -14,7 +14,6 @@ export class Dashboard extends React.Component {
   //newUsers = this.props.users.filter(user => user.)
 
   render() {
-    console.log(this.props.users)
       return (
         <div>
           <h2 className="text-center">Welcome {this.state.adminName}</h2>

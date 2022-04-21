@@ -57,7 +57,7 @@ export class Main extends React.Component {
                   : this.state.page === "Users" ? <Users users={this.state.users} />
                     : this.state.page === "Show All" ? <ShowAllProf />
                       : this.state.page === "Add New" ? <AddProfessional />
-                        : <Dashboard />
+                        : <div>This page is under construction...</div>
               }
             </div>
           </div>
