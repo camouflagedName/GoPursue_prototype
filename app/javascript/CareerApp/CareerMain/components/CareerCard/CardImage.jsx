@@ -1,7 +1,7 @@
 import React from 'react' //needed?
 
-const EnvImage = (props) => {
-    let imgURL = `https://gopursue-images.s3.amazonaws.com/${props.image}`
+const CardImage = (props) => {
+    let imgURL = `https://gopursue-images.s3.amazonaws.com/${props.type}/${props.image}`
     
     return (
         <div className="mb-3">
@@ -10,4 +10,4 @@ const EnvImage = (props) => {
     );
 }
 
-export default EnvImage
+export default CardImage

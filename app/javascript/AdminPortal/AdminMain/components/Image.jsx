@@ -1,5 +1,17 @@
 import React from "react";
 
+const Image = (props) => {
+    let imgURL = `https://gopursue-images.s3.amazonaws.com/professionals/${props.image}`
+    
+    return (
+        <div className="mb-3">
+            <img className="img-thumbnail" src={imgURL} alt={`Picture of ${props.alt}`} />
+        </div>
+    );
+}
+
+export default Image
+/*
 export class Image extends React.Component {
     constructor(props) {
         super(props);
@@ -23,4 +35,4 @@ export class Image extends React.Component {
             </>
         )
     }
-}
+}*/
