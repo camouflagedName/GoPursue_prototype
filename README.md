@@ -1,6 +1,6 @@
 # README
 
-This is a protoytpe of a career exploration app. The app is stable and is currently beyond an MVP state as the list of features continue to grow or are in development. 
+This is a protoytpe of a career exploration app built for Uncover Education. The app is currently stable with no major bugs or issues present.
 
 ### TL;DR
 A career exploration app equivalent to a dating app such as Bumble or Tinder.
@@ -20,3 +20,6 @@ The client facing app generates an automated verification email with a random ba
 
 ### Additional Features
 The app also includes an admin portal for accessing and modifying data in the database. Currently, users with access can fully edit the text and delete careers from the database. The portal also allows for the addition of new careers/professionals, though this feature is not fully stable, nor are all of the componenets fully functional. The database also supplies usage statistics, including data of user access, as well as lenght of time of visit and career cards visited.
+
+### Deployment
+The app can be deploy through any cloud platform service. The app was successfully deployed through Heroku.
