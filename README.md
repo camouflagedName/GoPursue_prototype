@@ -2,8 +2,11 @@
 
 This is a protoytpe of a career exploration app. The app is stable and is currently beyond an MVP state as the list of features continue to grow or are in development. 
 
-TL;DR - GoPursue is a career exploration app equivalent to a dating app such as Bumble or Tinder.
+### TL;DR
+A career exploration app equivalent to a dating app such as Bumble or Tinder.
 
+
+### Full Version
 GoPursue is a career exploration app aimed at students at a high shcool level. The app provides "career cards" with data related to a particular professional and their current career. 
 
 The app was built using the Rails framework and PostgreSQL. The backend was written in Ruby. The frontend was written in React.js/Bootstrap
