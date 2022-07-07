@@ -32,5 +32,5 @@ Users can:
 - add new careers/professionals, though this feature is not fully stable, nor are all of the componenets fully functional. 
 - view usage statistics, including data of user access, as well as lenght of time of visit and career cards visited.
 
-### Deployment
+## Deployment
 The app can be deployed through any cloud platform service. The app is currently deployed through Heroku.
