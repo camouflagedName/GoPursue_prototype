@@ -12,7 +12,7 @@ GoPursue is a career exploration app aimed at students at a high shcool level. T
 ## Stack
 The app was built using the Rails framework and PostgreSQL. The backend was written in Ruby. The frontend was written in React.js/Bootstrap
 
-##Features
+## Features
 
 ### Main App
 The app includes:
