@@ -1,4 +1,5 @@
 import React from 'react';
-import Index from '../CareerApp/routes/Index';
+//import Index from '../CareerApp/routes/Index';
+import RoutesIndex from './RoutesIndex'
 
-export default () => <>{Index}</>
+export default () => <>{RoutesIndex}</>

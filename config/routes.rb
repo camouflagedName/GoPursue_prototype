@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'homepage#index'
 
+  get 'login' => 'homepage#index'
   get 'admin' => 'admin#index'
   get 'admin/*path' => 'admin#index'
   get 'careerinfo' => 'admin#index'

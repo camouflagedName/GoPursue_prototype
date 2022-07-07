@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Launch from '../components/Launch';
+import LaunchLogin from '../components/LaunchLogin';
 import ReturnUser from '../components/ReturnUser';
 import NewUser from '../components/NewUser';
 import GuestUser from '../components/GuestUser';
@@ -18,7 +18,7 @@ const LaunchContainer = () => {
                     <hr />
                     <div className="container">
                         {
-                            page === "1" ? <Launch setPage={setPage} />
+                            page === "1" ? <LaunchLogin setPage={setPage} />
                                 : page === "2" ? <ReturnUser setPage={setPage} />
                                     : page === "3" ? <NewUser setPage={setPage} />
                                         : page === "4" ? <GuestUser setPage={setPage} />

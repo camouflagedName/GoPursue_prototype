@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 
-const Launch = (props) => {
+const LaunchLogin = (props) => {
     const [page, setPage] = useState()
 
     const handleClick = (e) => {
@@ -14,13 +14,13 @@ const Launch = (props) => {
                 <button id="2" type='button' className='btn btn-lg btn-success rounded-pill' onClick={handleClick}>Returning User</button>
             </div>
             <div className='row mb-4 col-8 offset-2'>
-                <button id="3"  type='button' className='btn btn-lg btn-success rounded-pill' onClick={handleClick} >New User</button>
+                <button type='button' className='btn btn-lg btn-success rounded-pill' onClick={handleClick} disabled>New User</button>
             </div>
-            <div className='row col-8 offset-2'>
-                <button id="4" type='button' className='btn btn-lg btn-success rounded-pill' onClick={handleClick} >Guest</button>
+            <div className='row mb-4 col-8 offset-2'>
+                <button id="4" type='button' className='btn btn-lg btn-success rounded-pill' onClick={handleClick}>Guest</button>
             </div>
         </>
     )
 }
 
-export default Launch
+export default LaunchLogin

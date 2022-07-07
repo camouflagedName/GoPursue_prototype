@@ -145,7 +145,7 @@ export class CareersTable extends React.Component {
               {professional.id}
               <div className="d-flex justify-content-evenly">
                 <button value={index} className="btn btn-link" onClick={this.props.event}><i className="bi bi-pencil"></i></button>
-                <button value={professional.id} className="btn btn-link" onClick={this.delete}><i className="bi bi-trash"></i></button>
+                <button disabled value={professional.id} className="btn btn-link"><i className="bi bi-trash"></i></button>
               </div>
             </td>
             <td className="align-middle" data-id={`${index}.2`}><Image image={professional.image} alt={professional.title} /></td>
@@ -162,6 +162,5 @@ export class CareersTable extends React.Component {
         );
       })
     )
-
   }
 }
