@@ -2,24 +2,35 @@
 
 This is a protoytpe of a career exploration app built for Uncover Education. The app is currently stable with no major bugs or issues present.
 
-### TL;DR
+## TL;DR
 A career exploration app equivalent to a dating app such as Bumble or Tinder.
 
 
-### Full Version
+## Full Version
 GoPursue is a career exploration app aimed at students at a high shcool level. The app provides "career cards" with data related to a particular professional and their current career. 
 
-### Stack
+## Stack
 The app was built using the Rails framework and PostgreSQL. The backend was written in Ruby. The frontend was written in React.js/Bootstrap
 
-### Features
-The app includes a client facing portal with a **search** and **bookmark** feature, as well as a career card "randomizer". At this time, users can log in as a new user, using a pre-seeded login username/password combo, or as a guest. The app has a darkmode option and will include additional customaization features to allow for more accessbility in the future (including a "text size" feature).
+##Features
+
+### Main App
+The app includes:
+- a client facing portal with a **search** and **bookmark** feature
+- a career card "randomizer". 
+- login: At this time, users can only login as a guest or returning user. A register new user feature that auto-generates a mailer to confirm e-mail address has been coded but turned for now
+- darkmode
 
 The client facing app generates an automated verification email with a random base64 string token generated through Ruby's SecureRandom library.
 
 
-### Additional Features
-The app also includes an admin portal for accessing and modifying data in the database. Currently, users with access can fully edit the text and delete careers from the database. The portal also allows for the addition of new careers/professionals, though this feature is not fully stable, nor are all of the componenets fully functional. The database also supplies usage statistics, including data of user access, as well as lenght of time of visit and career cards visited.
+### Admin Portal
+The app also includes an admin portal for accessing and modifying data in the database. 
+
+Users can:
+- fully edit and delete careers from the database. 
+- add new careers/professionals, though this feature is not fully stable, nor are all of the componenets fully functional. 
+- view usage statistics, including data of user access, as well as lenght of time of visit and career cards visited.
 
 ### Deployment
-The app can be deploy through any cloud platform service. The app was successfully deployed through Heroku.
+The app can be deployed through any cloud platform service. The app is currently deployed through Heroku.
