@@ -18,9 +18,9 @@ export class Dashboard extends React.Component {
         <div>
           <h2 className="text-center">Welcome {this.state.adminName}</h2>
           <hr />
-          <div className="d-flex justify-content-around">
-            <div className="col-3">
-              <div className="card">
+          <div className="d-flex justify-content-around row-cols-2">
+            <div className="col">
+              <div className="card m-3">
                 <h5 className="card-header text-center">Users</h5>
                 <div className="card-body">
                   <p className="card-text d-flex justify-content-between"><b>Total: </b>{this.props.users.length - 10}</p>
@@ -30,13 +30,14 @@ export class Dashboard extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="col-3">
-              <div className="card">
+            <div className="col">
+              <div className="card m-3">
                 <h5 className="card-header text-center">Professionals</h5>
                 <div className="card-body">
                   <p className="card-text">Total:</p>
                   <p className="card-text">New:</p>
-                  <p className="card-text">?</p>
+                  <p className="card-text">Most Viewed</p>
+                  <p className="card-text">Most Bookmarked</p>
                 </div>
               </div>
             </div>

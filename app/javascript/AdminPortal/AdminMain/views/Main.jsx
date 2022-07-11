@@ -2,7 +2,7 @@ import React from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { NavBar } from '../components/NavBar';
 import { Dashboard } from '../components/Dashboard';
-import { Users } from '../components/Users';
+import Users from '../components/Users';
 import { ShowAllProf } from '../components/ShowAllProf';
 import { AddProfessional } from '../components/AddProfessional';
 import { ErrorPage } from './ErrorPage';
@@ -57,7 +57,7 @@ export class Main extends React.Component {
                   : this.state.page === "Users" ? <Users users={this.state.users} />
                     : this.state.page === "Show All" ? <ShowAllProf />
                       : this.state.page === "Add New" ? <AddProfessional />
-                        : <div>This page is under construction...</div>
+                        : <div>This page is not quite ready...</div>
               }
             </div>
           </div>

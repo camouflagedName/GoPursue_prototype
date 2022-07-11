@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../AdminPortal/AdminLogin/views/Login';
 import { Main } from '../AdminPortal/AdminMain/views/Main';
@@ -13,4 +13,4 @@ export default (
             <Route path='/admin/error' component={ErrorPage} />
         </Switch>
     </Router>
-);*/
+);
