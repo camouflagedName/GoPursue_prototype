@@ -4,11 +4,6 @@ import Logo from '../../../../assets/logo/logo(cropped).jpg'
 export function Sidebar(props) {
 
     const handleSelect = (event) => {
-        if(event.target.innerHTML !== "Professionals")
-        props.changePage(event.target.innerHTML)
-    }
-
-    const handleSelectSmall = (event) => {
         props.changePage(event.currentTarget.id)
     }
 
@@ -24,22 +19,22 @@ export function Sidebar(props) {
                 </button>
                 </div>*/}
             <div className="justify-content-end">
-                <ul className="nav nav-pills flex-column mb-auto d-none d-md-block" onClick={handleSelect}>
+                <ul className="nav nav-pills flex-column mb-auto d-none d-md-block">
                     <li className="nav-item">
-                        <a className="nav-link link-dark">Home</a>
+                        <a id="Home" className="nav-link link-dark" onClick={handleSelect}>Home</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link link-dark">Users</a>
+                        <a id="Users" className="nav-link link-dark" onClick={handleSelect}>Users</a>
                     </li>
                     <li className="nav-item">
                         <button className="btn" type="button" data-bs-toggle="collapse" data-bs-target="#content" aria-controls="content" aria-expanded="false">
                             <span>Professionals</span>
                         </button>
                         <div className="collapse" id="content">
-                            <a className="text-muted text-decoration-none">Show All</a>
+                            <a id="Show All" className="text-muted text-decoration-none" onClick={handleSelect}>Show All</a>
                         </div>
                         <div className="collapse" id="content">
-                            <a className="text-muted text-decoration-none">Add New</a>
+                            <a id="Add New" className="text-muted text-decoration-none" onClick={handleSelect}>Add New</a>
                         </div>
                     </li>
                     <li className="nav-item">
@@ -50,7 +45,7 @@ export function Sidebar(props) {
             <div className="justify-content-end">
                 <ul className="nav nav-pills nav-flush flex-column mb-auto me-auto mb-lg-0 d-block d-md-none">
                     <li className="nav-item">
-                        <a id="Home" className="nav-link active py-3 border-bottom" onClick={handleSelectSmall} aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                        <a id="Home" className="nav-link active py-3 border-bottom" onClick={handleSelect} aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
                                 <path fillRule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
@@ -58,7 +53,7 @@ export function Sidebar(props) {
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a id="Users" className="nav-link link-dark py-3 border-bottom" onClick={handleSelectSmall} title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                        <a id="Users" className="nav-link link-dark py-3 border-bottom" onClick={handleSelect} title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
                             <svg  xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-people-fill" viewBox="0 0 16 16">
                                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                 <path fillRule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
@@ -75,14 +70,14 @@ export function Sidebar(props) {
                             </span>
                         </button>
                         <div className="collapse" id="content">
-                            <a id="Show All" className="text-muted text-decoration-none" onClick={handleSelectSmall}>Show All</a>
+                            <a id="Show All" className="text-muted text-decoration-none" onClick={handleSelect}>Show All</a>
                         </div>
                         <div className="collapse" id="content">
-                            <a id="Add New" className="text-muted text-decoration-none" onClick={handleSelectSmall}>Add New</a>
+                            <a id="Add New" className="text-muted text-decoration-none" onClick={handleSelect}>Add New</a>
                         </div>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link link-dark py-3 border-bottom" onClick={handleSelectSmall} title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                        <a className="nav-link link-dark py-3 border-bottom" onClick={handleSelect} title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-question-lg" viewBox="0 0 16 16">
                                 <path d="M3 4.075a.423.423 0 0 0 .43.44H4.9c.247 0 .442-.2.475-.445.159-1.17.962-2.022 2.393-2.022 1.222 0 2.342.611 2.342 2.082 0 1.132-.668 1.652-1.72 2.444-1.2.872-2.15 1.89-2.082 3.542l.005.386c.003.244.202.44.446.44h1.445c.247 0 .446-.2.446-.446v-.188c0-1.278.487-1.652 1.8-2.647 1.086-.826 2.217-1.743 2.217-3.667C12.667 1.301 10.393 0 7.903 0 5.645 0 3.17 1.053 3.001 4.075zm2.776 10.273c0 .95.758 1.652 1.8 1.652 1.085 0 1.832-.702 1.832-1.652 0-.985-.747-1.675-1.833-1.675-1.04 0-1.799.69-1.799 1.675z" />
                             </svg>

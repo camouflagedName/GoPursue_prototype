@@ -3,7 +3,6 @@ import { UsersMobile } from './UsersMobile'
 import { UsersDesktop } from './UsersDesktop';
 
 const Users = (props) => {
-  console.log(window.innerWidth)
   if(window.innerWidth < 576) {
     return <UsersMobile users={props.users} />
   }

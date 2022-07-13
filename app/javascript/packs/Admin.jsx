@@ -8,7 +8,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../../assets/stylesheets/app.scss';
 import Website from '../AdminPortal/Website';
 
-
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.body.appendChild(document.createElement('div'))
   const root = createRoot(container)
