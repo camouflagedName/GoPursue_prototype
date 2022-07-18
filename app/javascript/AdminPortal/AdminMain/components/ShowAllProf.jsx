@@ -131,16 +131,21 @@ const OrigView = (props) => {
 const SpreadsheetView = props => {
 
   let updatedProfMap = props.professionals.map((entry) => {
-    return [{ rowTitle: "ID", [`table${entry.id}`]: entry.id }, { rowTitle: "Title", [`table${entry.id}`]: entry.title }, { rowTitle: "Name", [`table${entry.id}`]: entry.name }, { rowTitle: "Description", [`table${entry.id}`]: entry.description }, { rowTitle: "Favorite", [`table${entry.id}`]: entry.favorite }, { rowTitle: "Skills", [`table${entry.id}`]: entry.skills }, { rowTitle: "Advice", [`table${entry.id}`]: entry.advice }, { rowTitle: "Education", [`table${entry.id}`]: entry.education }, { rowTitle: "Pay", [`table${entry.id}`]: entry.pay }, { rowTitle: "Environemnt", [`table${entry.id}`]: entry.environment }, { rowTitle: "Hashtag", [`table${entry.id}`]: entry.hashtag }, { rowTitle: "Image", [`table${entry.id}`]: entry.image }]
+    return [{tableData: entry.id }, { tableData: entry.title }, { tableData: entry.name }, { tableData: entry.description }, { tableData:  entry.favorite }, { tableData:  entry.skills }, { tableData: entry.advice }, { tableData: entry.education }, { tableData:  entry.pay }, { tableData:  entry.environment }, { tableData: entry.hashtag }, { tableData:  entry.image }]
   })
 
   let spreadsheet = updatedProfMap.map((data, index) => {
+
+    console.log(data)
+    console.log(index)
 
     return (
       <div key={index} className='my-3 offset-1'>
         <HotTable
           data={data}
           bindRowsWithHeaders={true}
+          colHeaders={[`#${data[0].tableData}_${data[2].tableData}`]}
+          rowHeaders={['ID', 'Title', 'Name', 'Description', 'Favorite', 'Skills', 'Advice', 'Education', 'Pay', 'Environment', 'Hashtag', 'Image URL' ]}
           licenseKey='non-commercial-and-evaluation'
           afterChange={(updates, source) => {
             if (source !== "load") {
