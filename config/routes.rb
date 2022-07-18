@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   root 'homepage#index'
 
   get 'login' => 'homepage#index'
-  get 'admin' => 'admin#index'
-  get 'admin/*path' => 'admin#index'
-  get 'careerinfo' => 'admin#index'
+  get 'admin' => 'homepage#index'
+  get 'admin/*path' => 'homepage#index'
+  get 'careerinfo' => 'homepage#index'
   get 'main' => 'homepage#index'
 # get 'careerCard' => 'homepage#index'
 # get 'search' => 'homepage#index'

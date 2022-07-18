@@ -80,27 +80,29 @@ export default class CareerCard extends React.Component {
                 });
             })
             .then(() => {
-                fetch(userDataURL, {
-                    method: 'PUT',
-                    headers: {
-                        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-                        "Content-Type": 'application/json'
-                    },
-                    body: JSON.stringify({ viewed_cards: [this.state.careerCardID.toString()] })
-                })
-                .then(response => {
-                    if (response.ok && response.json) {
-                        return response.json();
-                    }
-                    throw new Error("Bad network response.");
-                })
-                .then(json => {
-                    let isCurrentMarked = json.bookmarks.find(index => index == this.state.careerCardID) === undefined ? false : true
-                    //console.log(`bookmark fetch - isCurrentMarked: ${isCurrentMarked}`)
-                    //this.setState({ viewedCardsArr: json.viewed_cards, bookmarkArray: json.bookmarks, bookmarkIsSelected: isCurrentMarked });
-                    this.setState({ viewedCardsArr: json.viewed_cards, bookmarkIsSelected: isCurrentMarked })
-            })
-                .catch(error => console.log(error.message));
+                if (this.state.careerCardID.toString() !== '') {
+                    fetch(userDataURL, {
+                        method: 'PUT',
+                        headers: {
+                            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                            "Content-Type": 'application/json'
+                        },
+                        body: JSON.stringify({ viewed_cards: [this.state.careerCardID.toString()] })
+                    })
+                        .then(response => {
+                            if (response.ok && response.json) {
+                                return response.json();
+                            }
+                            throw new Error("Bad network response.");
+                        })
+                        .then(json => {
+                            let isCurrentMarked = json.bookmarks.find(index => index == this.state.careerCardID) === undefined ? false : true
+                            //console.log(`bookmark fetch - isCurrentMarked: ${isCurrentMarked}`)
+                            //this.setState({ viewedCardsArr: json.viewed_cards, bookmarkArray: json.bookmarks, bookmarkIsSelected: isCurrentMarked });
+                            this.setState({ viewedCardsArr: json.viewed_cards, bookmarkIsSelected: isCurrentMarked })
+                        })
+                        .catch(error => console.log(error.message));
+                }
             })
             .catch(error => console.log(error.message));
     }
@@ -151,7 +153,7 @@ export default class CareerCard extends React.Component {
         const addBookmark = () => {
             let currentBookmarks = this.userData.bookmarks;
             let currentCareer = careerIdString
-            
+
             currentBookmarks.push(currentCareer);
             this.setState({ bookmarkArray: currentBookmarks, bookmarkIsSelected: true });
             this.props.updateUser(currentBookmarks)
@@ -191,8 +193,6 @@ export default class CareerCard extends React.Component {
     }
 
     render() {
-        console.log(this.state)
-        console.log(this.props.careerData || 'props does not exist yet')
         if (this.state.careerCardID)        // this.state.bookmarkArray.includes(careercareerCardIDString) === true ? this.removeBookmark : this.addBookmark;   //if the current career card ID is in the array, then it should change to false
         {
             return (

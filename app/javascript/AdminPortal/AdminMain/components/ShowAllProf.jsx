@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import { API_ROOT } from '../../../packs/apiRoot';
 import { CareersTable } from './CareersTable';
 import { AddProfessional } from './AddProfessional';
 import Handsontable from 'handsontable'
-import { HotColumn, HotTable } from '@handsontable/react';
-import { registerAllModules } from 'handsontable/registry'
+import { HotColumn, HotTable, BaseEditorComponent } from '@handsontable/react';
+import { ColumnSorting } from 'handsontable/plugins';
+import { registerAllModules, registerAllPlugins } from 'handsontable/registry'
 import "handsontable/dist/handsontable.min.css"
 
 registerAllModules()
+registerAllPlugins()
 
 export class ShowAllProf extends React.Component {
   constructor(props) {
@@ -18,7 +20,8 @@ export class ShowAllProf extends React.Component {
       id: '',
       editable: false,
       addProfessional: false,
-      spreadsheetView: false
+      spreadsheetView: false,
+      view: "table"
     }
 
     this.makeEditable = this.makeEditable.bind(this);
@@ -58,8 +61,9 @@ export class ShowAllProf extends React.Component {
     this.defaultState();
   }
 
-  displayChange() {
-    this.setState({ spreadsheetView: !this.state.spreadsheetView })
+  //remove
+  displayChange(view) {
+    this.setState({ view: view })
   }
 
   removeProfessional() {
@@ -80,9 +84,16 @@ export class ShowAllProf extends React.Component {
     return (
       <>
         <div className="row d-flex justify-content-start mb-1 ms-1">
-          <button className="btn col-1" onClick={this.displayChange} ><i className="bi bi-table"></i>Spreadsheet</button>
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <button className="btn" onClick={() => this.setState({ view: "table" })}><i className="bi bi-card-text me-2"></i>Table</button>
+            </li>
+            <li className="nav-item">
+              <button className="btn" onClick={() => this.setState({ view: "spreadsheet" })}><i className="bi bi-table me-2"></i>Spreadsheet</button>
+            </li>
+          </ul>
         </div>
-        {this.state.spreadsheetView === false ?
+        {this.state.view === "table" ?
           <OrigView professionals={this.state.professionals} event={this.makeEditable} match={this.state.id} default={this.defaultState} click={this.updateTable} />
           : <SpreadsheetView professionals={this.state.professionals} />}
       </>
@@ -117,26 +128,135 @@ const OrigView = (props) => {
   )
 }
 
+const SpreadsheetView = props => {
+
+  let updatedProfMap = props.professionals.map((entry) => {
+    return [{ rowTitle: "ID", [`table${entry.id}`]: entry.id }, { rowTitle: "Title", [`table${entry.id}`]: entry.title }, { rowTitle: "Name", [`table${entry.id}`]: entry.name }, { rowTitle: "Description", [`table${entry.id}`]: entry.description }, { rowTitle: "Favorite", [`table${entry.id}`]: entry.favorite }, { rowTitle: "Skills", [`table${entry.id}`]: entry.skills }, { rowTitle: "Advice", [`table${entry.id}`]: entry.advice }, { rowTitle: "Education", [`table${entry.id}`]: entry.education }, { rowTitle: "Pay", [`table${entry.id}`]: entry.pay }, { rowTitle: "Environemnt", [`table${entry.id}`]: entry.environment }, { rowTitle: "Hashtag", [`table${entry.id}`]: entry.hashtag }, { rowTitle: "Image", [`table${entry.id}`]: entry.image }]
+  })
+
+  let spreadsheet = updatedProfMap.map((data, index) => {
+
+    return (
+      <div key={index} className='my-3 offset-1'>
+        <HotTable
+          data={data}
+          bindRowsWithHeaders={true}
+          licenseKey='non-commercial-and-evaluation'
+          afterChange={(updates, source) => {
+            if (source !== "load") {
+              console.log(source)
+            }
+          }}>
+
+        </HotTable>
+      </div>
+    )
+  })
+
+  return (
+    <>
+      {spreadsheet}
+    </>
+  )
+
+}
+/*
 const SpreadsheetView = (props) => {
-  console.log(props.professionals)
+
+  const [changedRow, setChangedRow] = useState([])
+
+  //put the updates in a state array --> update with afterChange
+  //on save, foreach through the array
+  //add each cell from row number from array to body of api call
+
   const profData = {
     data: props.professionals
   }
+
+  const settings = {
+    autoRowSize: true,
+    autoColumnSize: true
+  }
+
   return (
     <div>
-      <HotTable data={props.professionals} height='auto' width='auto' licenseKey='non-commercial-and-evaluation'>
-        <HotColumn title="ID" data="id" />
-        <HotColumn title="Image" data="image" />
-        <HotColumn title="Name" data="name" />
-        <HotColumn title="Title" data="title" />
-        <HotColumn title="Description" data="description" />
-        <HotColumn title="Skills" data="skills" />
-        <HotColumn title="Advice" data="advice" />
-        <HotColumn title="Education" data="education" />
-        <HotColumn title="Pay" data="pay" />
-        <HotColumn title="Environment" data="environment" />
-        <HotColumn title="Hashtags" data="hashtag" />
+      <HotTable
+        data={props.professionals}
+        settings={settings}
+        licenseKey='non-commercial-and-evaluation'
+        afterChange={(updates, source) => {
+          if (source !== "load") {
+            console.log(updates)
+          }
+        }}>
+
+        <HotColumn
+          title="ID"
+          data="id"
+        />
+        <HotColumn title="Image" data="image">
+
+        </HotColumn>
+        <HotColumn title="Name" data="name">
+
+        </HotColumn>
+        <HotColumn title="Title" data="title">
+
+        </HotColumn>
+        <HotColumn title="Description" data="description">
+
+        </HotColumn>
+        <HotColumn title="Skills" data="skills">
+
+        </HotColumn>
+        <HotColumn title="Advice" data="advice">
+
+        </HotColumn>
+        <HotColumn title="Education" data="education">
+
+        </HotColumn>
+        <HotColumn title="Pay" data="pay">
+
+        </HotColumn>
+        <HotColumn title="Environment" data="environment">
+
+        </HotColumn>
+        <HotColumn title="Hashtags" data="hashtag">
+
+        </HotColumn>
       </HotTable>
     </div>
   )
+}
+
+const SendData = (props) => {
+
+  const handleClick = () => {
+
+    console.log("Row: ", props.row)
+    console.log("Col: ", props.col)
+    console.log("Value: ", props.value)
+    console.log("col name: ", props.prop)
+    console.log("properties: ", props.cellProperties)
+  }
+  
+    return (
+      <button className="btn" onClick={handleClick}>{props.value}</button>
+    
+    )
+  }
+*/
+
+
+const Test = (props) => {
+
+  const handleClick = () => {
+
+    console.log(props.test)
+  }
+
+  return (
+    <button className="btn" onClick={handleClick}>Test</button>
+  )
+
 }
