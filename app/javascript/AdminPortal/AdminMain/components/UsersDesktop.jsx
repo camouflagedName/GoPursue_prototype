@@ -4,7 +4,10 @@ export class UsersDesktop extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { users: [] }
+    this.state =
+    {
+      users: [],
+    }
   }
 
   users = this.props.users
@@ -24,23 +27,26 @@ export class UsersDesktop extends React.Component {
         <td>{user.last_login ? user.last_login : user.created_on}</td>
       </tr>
     ))
+
     return (
-      <table className="table table-striped table-hover table-bordered">
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Created On</th>
-            <th>Viewed</th>
-            <th>Favorites</th>
-            <th>No. of Logins</th>
-            <th>Avg Time</th>
-            <th>Last Login</th>
-          </tr>
-          {users}
-        </tbody>
-      </table>
+      <div className='m-3 mt-2'>
+        <table className="table table-striped table-hover table-bordered">
+          <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Created On</th>
+              <th>Viewed</th>
+              <th>Favorites</th>
+              <th>No. of Logins</th>
+              <th>Avg Time</th>
+              <th>Last Login</th>
+            </tr>
+            {users}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

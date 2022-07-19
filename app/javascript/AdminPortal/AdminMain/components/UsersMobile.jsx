@@ -52,7 +52,7 @@ export class UsersMobile extends React.Component {
     ))
 
     return (
-      <div className="my-3 offset-2 col-8">
+      <div className="m-3 mt-2 col">
         {users}
       </div>
     );

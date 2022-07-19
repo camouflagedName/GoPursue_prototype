@@ -55,8 +55,8 @@ export class Main extends React.Component {
               {
                 this.state.page === 'Home' ? <Dashboard users={this.state.users} />
                   : this.state.page === "Users" ? <Users users={this.state.users} />
-                    : this.state.page === "Show All" ? <ShowAllProf />
-                      : this.state.page === "Add New" ? <AddProfessional />
+                    : this.state.page === "ShowAll" ? <ShowAllProf />
+                      : this.state.page === "AddNew" ? <AddProfessional />
                         : <div>This page is not quite ready...</div>
               }
             </div>

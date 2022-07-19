@@ -18,7 +18,7 @@ export class Dashboard extends React.Component {
         <div>
           <h2 className="text-center">Welcome {this.state.adminName}</h2>
           <hr />
-          <div className="d-flex justify-content-around row-cols-2">
+          <div className="d-flex justify-content-around row">
             <div className="col">
               <div className="card m-3">
                 <h5 className="card-header text-center">Users</h5>
