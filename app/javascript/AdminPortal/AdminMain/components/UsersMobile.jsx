@@ -14,7 +14,9 @@ export class UsersMobile extends React.Component {
     let users = this.users.map(user => (
       <table className="table table-striped table-hover table-bordered" key={user.id}>
         <tbody>
-          <th>{user.id}</th>
+          <tr>
+            <th colSpan="2">{user.id}</th>
+          </tr>
           <tr>
             <td>Name</td>
             <td>{user.name}</td>

@@ -18,15 +18,14 @@ export function Sidebar(props) {
             props.changePage(id.replace("-sm", ''))
         }
     }
-
+    
+    //initialize state
     useEffect(() => {
         window.addEventListener('resize', () => {
             if (window.innerWidth < 768) {
-
                 setWindowSize('sm')
             }
             else if (window.innerWidth >= 768) {
-
                 setWindowSize('lg')
             }
         })
@@ -47,20 +46,16 @@ export function Sidebar(props) {
 
     }, [])
 
+    //update active on window resize
     useEffect(() => {
 
         const active = document.querySelector(".active")
         active.classList.remove("active")
 
         if (windowSize === 'sm') {
-            console.log("small")
-            //console.log("small")
             let resizeActiveID = `${active.id}-sm`
-            console.log(resizeActiveID)
             let resizeActive = document.querySelector(`#${resizeActiveID}`)
-            console.log(resizeActive)
             resizeActive.className += " active"
-            console.log(resizeActive.className)
         }
         else {
             let resizeActiveID = active.id.replace("-sm", '')

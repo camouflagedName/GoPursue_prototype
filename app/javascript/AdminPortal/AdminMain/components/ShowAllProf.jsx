@@ -2,6 +2,7 @@ import React, { createRef, useEffect, useState } from 'react';
 import { API_ROOT } from '../../../packs/apiRoot';
 import { CareersTable } from './CareersTable';
 import { AddProfessional } from './AddProfessional';
+import ShowAllProfMobile from './ShowAllProfMobile';
 import Handsontable from 'handsontable'
 import { HotColumn, HotTable, BaseEditorComponent } from '@handsontable/react';
 import { ColumnSorting } from 'handsontable/plugins';
@@ -91,11 +92,18 @@ export class ShowAllProf extends React.Component {
             <li className="nav-item">
               <button className="btn" onClick={() => this.setState({ view: "spreadsheet" })}><i className="bi bi-table me-2"></i>Spreadsheet</button>
             </li>
+            <li className="nav-item">
+              <button className="btn" onClick={() => this.setState({ view: "stack" })}><i className="bi bi-view-stacked me-2"></i>Stack</button>
+            </li>
           </ul>
         </div>
-        {this.state.view === "table" ?
-          <OrigView professionals={this.state.professionals} event={this.makeEditable} match={this.state.id} default={this.defaultState} click={this.updateTable} />
-          : <SpreadsheetView professionals={this.state.professionals} />}
+        {
+          this.state.view === "table" ?
+            <OrigView professionals={this.state.professionals} event={this.makeEditable} match={this.state.id} default={this.defaultState} click={this.updateTable} />
+            : this.state.view === "spreadsheet" ?
+              <SpreadsheetView professionals={this.state.professionals} />
+              : <ShowAllProfMobile data={this.state.professionals} />
+        }
       </>
     )
   }
@@ -131,13 +139,10 @@ const OrigView = (props) => {
 const SpreadsheetView = props => {
 
   let updatedProfMap = props.professionals.map((entry) => {
-    return [{tableData: entry.id }, { tableData: entry.title }, { tableData: entry.name }, { tableData: entry.description }, { tableData:  entry.favorite }, { tableData:  entry.skills }, { tableData: entry.advice }, { tableData: entry.education }, { tableData:  entry.pay }, { tableData:  entry.environment }, { tableData: entry.hashtag }, { tableData:  entry.image }]
+    return [{ tableData: entry.id }, { tableData: entry.title }, { tableData: entry.name }, { tableData: entry.description }, { tableData: entry.favorite }, { tableData: entry.skills }, { tableData: entry.advice }, { tableData: entry.education }, { tableData: entry.pay }, { tableData: entry.environment }, { tableData: entry.hashtag }, { tableData: entry.image }]
   })
 
   let spreadsheet = updatedProfMap.map((data, index) => {
-
-    console.log(data)
-    console.log(index)
 
     return (
       <div key={index} className='my-3 offset-1'>
@@ -145,7 +150,7 @@ const SpreadsheetView = props => {
           data={data}
           bindRowsWithHeaders={true}
           colHeaders={[`#${data[0].tableData}_${data[2].tableData}`]}
-          rowHeaders={['ID', 'Title', 'Name', 'Description', 'Favorite', 'Skills', 'Advice', 'Education', 'Pay', 'Environment', 'Hashtag', 'Image URL' ]}
+          rowHeaders={['ID', 'Title', 'Name', 'Description', 'Favorite', 'Skills', 'Advice', 'Education', 'Pay', 'Environment', 'Hashtag', 'Image URL']}
           licenseKey='non-commercial-and-evaluation'
           afterChange={(updates, source) => {
             if (source !== "load") {
